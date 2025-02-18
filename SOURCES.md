@@ -8,4 +8,4 @@ For now, list any specific resources alongside the applicable code. All  _generi
 - Bootstrap Examples: https://getbootstrap.com/docs/5.3/examples/
 
 ## Generative AI
-- ChatGPT: https://chatgpt.com/
+NOTE: Generative AI is generally prohibited in this class and may be prohibited on this assignment; contact the TA or Professor Hott before using any generative AI.
