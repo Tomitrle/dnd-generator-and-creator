@@ -6,6 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <!-- TODO: Dynamically allocate the title, description, and keywords -->
+  <!-- I checked my old project, and we used {% block title %} and {% endblock %} on each template, since
+       that allows you to override the title -- I do think, however, that these blocks and also the
+       extend block used with base.html itself are Django, so we should probably confirm whether we
+       are allowed to use Django before we proceed. -->
   <title>TITLE</title>
   <meta name="author" content="Brennen Muller">
   <meta name="description" content="...">
