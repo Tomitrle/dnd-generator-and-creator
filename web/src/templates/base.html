@@ -5,15 +5,11 @@
   <!-- Arguably unnecessary, but included for completeness  -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <!-- TODO: Dynamically allocate the title, description, and keywords -->
-  <!-- I checked my old project, and we used {% block title %} and {% endblock %} on each template, since
-       that allows you to override the title -- I do think, however, that these blocks and also the
-       extend block used with base.html itself are Django, so we should probably confirm whether we
-       are allowed to use Django before we proceed. -->
-  <title>TITLE</title>
+  <!-- I  -->
+  <title><?php echo $title; ?></title>
   <meta name="author" content="Brennen Muller">
-  <meta name="description" content="...">
-  <meta name="keywords" content="riddle, riddles">
+  <meta name="description" content="<?php echo $description; ?>">
+  <meta name="keywords" content="?php echo $keywords; ?>">
 
   <!-- TODO: Favicons -->
   <!-- ... -->

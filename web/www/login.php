@@ -2,9 +2,9 @@
 
 <!DOCTYPE html>
 <html lang="en">
-{% extends 'templates/base.html' %}
+<?php $title = 'Login'; $description = ''; $keywords = ''; include '/opt/src/templates/base.html';?>
 <body>
-    {% extends 'templates/navbar.html' %}
+    <?php include '/opt/src/templates/navbar.html';?>
 
     <h1>D&D Encounter Generator and Monster Creator</h1>
     <h3>Login to create and save custom monsters!</h3>
@@ -21,6 +21,6 @@
         <button type="submit" class="btn btn-primary">Login</button>
     </form>
 
-    {% extends 'templates/footer.html' %}
+    <?php include '/opt/src/templates/footer.html';?>
 </body>
 </html>
