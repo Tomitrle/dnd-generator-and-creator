@@ -48,9 +48,9 @@
 
   <header class="container text-center">
     <h1>Monster Editor</h1>
+
+    <hr>
   </header>
-  
-  <hr>
 
   <!-- Source: https://getbootstrap.com/docs/5.3/forms/overview/ -->
   <!-- Source: https://getbootstrap.com/docs/5.0/forms/validation/ -->
