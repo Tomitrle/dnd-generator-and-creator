@@ -129,7 +129,7 @@
       <!-- TODO: Swap "readonly" attribute between HP and Hit Dice based on the value of the Custom HP checkbox with Javascript -->
       <div class="col-sm-6 mb-2">
         <label for="hitDice" class="form-label">Hit Dice</label>
-        <input type="number" min="0" class="form-control" id="hitDice" placeholder="0" aria-describedby="healthHelpLabel" aria-required="true" required>
+        <input type="number" min="0" class="form-control" id="hitDice" aria-describedby="healthHelpLabel" aria-required="true" required>
         <div class="form-check mt-1">
           <input class="form-check-input" type="checkbox" id="customHP">
           <label class="form-check-label" for="customHP">
@@ -309,7 +309,7 @@
       <section class="col-sm-6">
         <h3>Languages</h3>
 
-        <div class="row mb-1">
+        <div class="row mb-2">
           <div class="col-sm-6 d-flex justify-content-start align-items-center">
             <label for="" class="form-label" style="margin-bottom:0;">Telepathy</label>
           </div>
@@ -431,8 +431,7 @@
         
           <!-- <label for="size" class="form-label">Custom Challenge Rating</label> -->
           <select id="size" class="form-select w-50 mx-auto" aria-required="true" required>
-            <option selected disabled hidden value="">Select an option...</option>
-            <option>Challenge 1: 200XP </option>
+            <option selected>Challenge 1: 200XP </option>
           </select>
         </div>
       </div>
