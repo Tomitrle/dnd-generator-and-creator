@@ -6,7 +6,11 @@
 
 <body>
   <style>
-    h2, h3, h4, h5, h6 {
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       text-align: center;
     }
 
@@ -16,7 +20,7 @@
 
     h3 {
       font-size: large;
-    }    
+    }
 
     input[readonly] {
       background-color: var(--bs-secondary-bg);
@@ -25,6 +29,10 @@
 
     input[readonly]:focus {
       background-color: var(--bs-secondary-bg);
+    }
+
+    textarea {
+      resize: none;
     }
   </style>
 
@@ -49,7 +57,7 @@
     <section class="row">
       <div class="col-sm-6 mb-2">
         <label for="name" class="form-label">Name</label>
-        <input type="text" class="form-control" id="name" aria-describedby="HelpLabel">
+        <input type="text" class="form-control" id="name">
       </div>
 
       <!-- https://stackoverflow.com/questions/3518002/how-can-i-set-the-default-value-for-an-html-select-element -->
@@ -185,7 +193,7 @@
     <hr>
 
     <h2>Attributes</h2>
-    <section class="row g-3 g-sm-5">
+    <section class="row gx-sm-5 gy-sm-3">
       <section class="col-sm-6 col-lg-4">
         <h3>Skill Proficiencies</h3>
 
@@ -300,6 +308,197 @@
         </div>
       </section>
     </section>
+
+    <hr>
+
+    <h2>Senses and Languages</h2>
+    <section class="row gx-sm-5 gy-sm-3">
+      <section class="col-sm-6">
+        <h3>Senses</h3>
+
+        <div class="text-center mb-1">
+          <input class="form-check-input" type="checkbox" id="">
+          <label class="form-check-label" for="">Blind</label>
+        </div>
+
+        <div class="d-flex flex-column">
+          <?php include '/opt/src/templates/monster-editor/sense.html'; ?>
+          <?php include '/opt/src/templates/monster-editor/sense.html'; ?>
+          <?php include '/opt/src/templates/monster-editor/sense.html'; ?>
+        </div>
+
+        <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
+        <div class="col-12 form-text text-center">
+          <strong>Not yet implemented</strong>
+        </div>
+
+        <div class="col-12 my-2 text-center">
+          <button type="button" class="btn btn-success">New</button>
+        </div>
+      </section>
+
+      <section class="col-sm-6">
+        <h3>Languages</h3>
+
+        <div class="row mb-1">
+          <div class="col-sm-3 d-flex justify-content-sm-center align-items-center">
+            <label for="" class="form-label" style="margin-bottom:0;">Telepathy</label>
+          </div>
+          <div class="col-sm-9">
+            <input type="number" class="form-control" id="" placeholder="0 ft" value="0">
+          </div>
+        </div>
+
+        <div class="d-flex flex-column">
+          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
+        </div>
+
+        <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
+        <div class="col-12 form-text text-center">
+          <strong>Not yet implemented</strong>
+        </div>
+
+        <div class="col-12 my-2 text-center">
+          <button type="button" class="btn btn-success">New</button>
+        </div>
+      </section>
+    </section>
+
+    <hr>
+
+    <h2>Abilities</h2>
+    <section>
+      <div class="row gx-sm-5 gy-sm-3">
+        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
+      </div>
+
+      <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
+      <div class="form-text text-center">
+        <strong>Not yet implemented</strong>
+      </div>
+
+      <div class="my-2 text-center">
+        <button type="button" class="btn btn-success">New</button>
+      </div>
+    </section>
+
+    <hr>
+
+    <h2>Actions</h2>
+    <section>
+      <div class="row gx-sm-5 gy-sm-3">
+        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
+      </div>
+
+      <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
+      <div class="form-text text-center">
+        <strong>Not yet implemented</strong>
+      </div>
+
+      <div class="my-2 text-center">
+        <button type="button" class="btn btn-success">New</button>
+      </div>
+    </section>
+
+    <hr>
+
+    <h2>Bonus Actions</h2>
+    <section>
+      <div class="row gx-sm-5 gy-sm-3">
+        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
+      </div>
+
+      <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
+      <div class="form-text text-center">
+        <strong>Not yet implemented</strong>
+      </div>
+
+      <div class="my-2 text-center">
+        <button type="button" class="btn btn-success">New</button>
+      </div>
+    </section>
+
+    <hr>
+
+    <h2>Reactions</h2>
+    <section>
+      <div class="row gx-sm-5 gy-sm-3">
+        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
+      </div>
+
+      <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
+      <div class="form-text text-center">
+        <strong>Not yet implemented</strong>
+      </div>
+
+      <div class="my-2 text-center">
+        <button type="button" class="btn btn-success">New</button>
+      </div>
+    </section>
+
+    <hr>
+
+    <h2>Legendary Features</h2>
+    <section>
+      <div class="text-center mb-1">
+        <input class="form-check-input" type="checkbox" id="" style="border-width:1px; border-color:darkgray;">
+        <label class="form-check-label" for=""><strong>Legendary Monster</strong></label>
+      </div>
+
+      <div class="row gx-sm-5 gy-sm-3">
+        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
+      </div>
+
+      <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
+      <div class="form-text text-center">
+        <strong>Not yet implemented</strong>
+      </div>
+
+      <div class="my-2 text-center">
+        <button type="button" class="btn btn-success">New</button>
+      </div>
+    </section>
+
+    <hr>
+
+    <h2>Challenge Rating</h2>
+    <section class="row gy-2">
+      <div class="col-sm-6 text-center">
+        <div class="card py-3 d-flex content-align-center justify-content-center" style="min-height: 120px;">
+          <div class="w-75 mx-auto mb-1">
+            <input type="radio" class="btn-check" name="options-outlined" id="estimatedChallengeRadio" autocomplete="off" checked>
+            <label class="btn btn-outline-success" for="estimatedChallengeRadio">Estimated Challenge Rating</label>
+          </div>          
+        
+          <p class="mb-0" style="font-size:x-large;">Challenge 1: 200XP
+          </p>
+        </div>
+      </div>
+
+      <div class="col-sm-6 text-center">
+        <div class="card py-3 d-flex content-align-center justify-content-center" style="min-height: 120px;">
+          <div class="w-75 mx-auto mb-1">
+            <input type="radio" class="btn-check" name="options-outlined" id="customChallengeRadio" autocomplete="off">
+            <label class="btn btn-outline-success" for="customChallengeRadio">Custom Challenge Rating</label>
+          </div>
+        
+          <!-- <label for="size" class="form-label">Custom Challenge Rating</label> -->
+          <select id="size" class="form-select w-50 mx-auto">
+            <option selected disabled hidden>Select an option...</option>
+            <option>Challenge 1: 200XP </option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+
   </form>
 
 
