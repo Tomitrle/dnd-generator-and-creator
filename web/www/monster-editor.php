@@ -46,7 +46,7 @@
   <?php include '/opt/src/templates/navbar.html'; ?>
 
   <!-- Source: https://www.w3schools.com/jsref/met_his_back.asp -->
-  <button type="button" aria-label="Previous" class="btn mt-5 ms-2" onclick="history.back()" style="font-size:xx-large; position:fixed; left:0; top:0;">&#129120;</button>
+  <button type="button" aria-label="Previous" class="btn btn-back" onclick="history.back()">&#129120;</button>
 
   <header class="container text-center">
     <h1>Monster Editor</h1>
@@ -295,8 +295,8 @@
         <h3>Senses</h3>
 
         <div class="text-center mb-1">
-          <input class="form-check-input" type="checkbox" id="">
-          <label class="form-check-label" for="">Blind</label>
+          <input class="form-check-input" type="checkbox" id="blind">
+          <label class="form-check-label" for="blinc">Blind</label>
         </div>
 
         <div class="d-flex flex-column">
@@ -315,10 +315,10 @@
 
         <div class="row mb-2">
           <div class="col-sm-6 d-flex justify-content-start align-items-center">
-            <label for="" class="form-label" style="margin-bottom:0;">Telepathy</label>
+            <label for="telepathy" class="form-label" style="margin-bottom:0;">Telepathy</label>
           </div>
           <div class="col-sm-6">
-            <input type="number" min="0" step="5" class="form-control" id="" placeholder="0 ft">
+            <input type="number" min="0" step="5" class="form-control" id="telepathy" placeholder="0 ft">
           </div>
         </div>
 
@@ -394,8 +394,8 @@
     <section>
       <h2>Legendary Features</h2>
       <div class="text-center mb-1">
-        <input class="form-check-input" type="checkbox" id="" style="border-width:1px; border-color:darkgray;">
-        <label class="form-check-label" for=""><strong>Legendary Monster</strong></label>
+        <input class="form-check-input" type="checkbox" id="legendaryCheckbox" style="border-width:1px; border-color:darkgray;">
+        <label class="form-check-label" for="legendaryCheckbox"><strong>Legendary Monster</strong></label>
       </div>
 
       <div class="row gx-sm-5 gy-sm-3">
@@ -431,8 +431,8 @@
             <label class="btn btn-outline-success" for="customChallengeRadio">Custom Challenge Rating</label>
           </div>
         
-          <!-- <label for="size" class="form-label">Custom Challenge Rating</label> -->
-          <select id="size" class="form-select w-50 mx-auto" aria-required="true" required>
+          <!-- <label for="CRselect" class="form-label">Custom Challenge Rating</label> -->
+          <select id="CRSelect" class="form-select w-50 mx-auto">
             <option selected>Challenge 0: 10XP </option>
             <option>Challenge 1: 200XP </option>
           </select>
