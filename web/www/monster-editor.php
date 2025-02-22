@@ -173,21 +173,21 @@
       <div class="row mb-1 d-none d-sm-flex">
         <div class="align-items-center justify-content-center text-center 
         d-none col-5 offset-3 
-        d-sm-flex col-sm-6 offset-sm-2">
+        d-sm-flex col-sm-5 offset-sm-2">
           <label class="form-label">Score</label>
         </div>
 
         <div class="d-flex align-items-center justify-content-center text-center
         col-4
-        col-sm-2">
+        col-sm-1">
           <label class="form-label">Modifier</label>
         </div>
 
-        <div class="align-items-center justify-content-center text-center
+        <!-- <div class="align-items-center justify-content-center text-center
         d-none col-auto offset-3 mb-2
         d-sm-flex col-sm-2 offset-sm-0 mb-sm-0">
           <label class="form-label">Saving Throw</label>
-        </div>
+        </div> -->
       </div>
 
       <?php include '/opt/src/templates/monster-editor/ability-score.html'; ?>
@@ -432,7 +432,7 @@
           </div>
         
           <!-- <label for="CRselect" class="form-label">Custom Challenge Rating</label> -->
-          <select id="CRSelect" class="form-select w-50 mx-auto">
+          <select id="CRSelect" class="form-select w-50 mx-auto" aria-label="Custom challenge rating">
             <option selected>Challenge 0: 10XP </option>
             <option>Challenge 1: 200XP </option>
           </select>
