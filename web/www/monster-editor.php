@@ -45,11 +45,11 @@
 
   <?php include '/opt/src/templates/navbar.html'; ?>
 
-  <!-- TODO: Include a "return to previous page" button -->
+  <!-- Source: https://www.w3schools.com/jsref/met_his_back.asp -->
+  <button type="button" aria-label="Previous" class="btn mt-5 ms-2" onclick="history.back()" style="font-size:xx-large; position:fixed; left:0; top:0;">&#129120;</button>
 
   <header class="container text-center">
     <h1>Monster Editor</h1>
-
     <hr>
   </header>
 
