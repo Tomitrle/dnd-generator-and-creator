@@ -11,6 +11,7 @@
 <?php include '/opt/src/templates/base.html'; ?>
 
 <body>
+  <!-- TODO: Move <style> to <head> or separate file... -->
   <style>
     h2,
     h3,
@@ -55,8 +56,9 @@
   <!-- Source: https://getbootstrap.com/docs/5.3/forms/overview/ -->
   <!-- Source: https://getbootstrap.com/docs/5.0/forms/validation/ -->
   <form class="container needs-validation" novalidate>
-    <h2>General Information</h2>
     <section class="row">
+      <h2>General Information</h2>
+      
       <div class="col-sm-6 mb-2">
         <label for="name" class="form-label">Name</label>
         <input type="text" pattern=".*\S+.*" class="form-control" id="name" aria-required="true" required>
@@ -95,11 +97,11 @@
         </select>
       </div>
     </section>
-
     <hr>
-
-    <h2>Armor Class and Hitpoints</h2>
+  
     <section class="row">
+      <h2>Armor Class and Hitpoints</h2>
+
       <div class="col-sm-6 mb-2">
         <label for="armor" class="form-label">Armor</label>
         <select id="armor" class="form-select" aria-required="true" required>
@@ -117,9 +119,10 @@
       </div>
 
       <!-- TODO: Update Armor Bonus automatically with Javascript -->
+      <!-- TODO: Enable and require Armor Bonus as needed -->
       <div class="col-sm-6 mb-2">
         <label for="armorBonus" class="form-label">Armor Bonus</label>
-        <input type="number" class="form-control" id="armorBonus" value="0" aria-describedby="armorBonusHelpLabel" aria-readonly="true" readonly aria-required="true" required>
+        <input type="number" class="form-control" id="armorBonus" value="0" aria-describedby="armorBonusHelpLabel" aria-disabled="true" disabled>
         <div id="armorBonusHelpLabel" class="form-text">
           Armor bonus updates automatically. For manual control, select <i>Natural Armor</i> or <i>Other</i>. <br>
           <strong>Not yet implemented</strong>
@@ -138,21 +141,22 @@
         </div>
       </div>
 
-      <!-- TODO: Update Hitpoints (HP) automatically with Javascript -->
+      <!-- TODO: Update Health Points (HP) automatically with Javascript -->
+      <!-- TODO: Enable and require Health Points as needed -->
       <div class="col-sm-6 mb-2">
         <label for="health" class="form-label">Health Points</label>
-        <input type="number" class="form-control" id="health" value="0" aria-describedby="healthHelpLabel" aria-readonly="true" readonly aria-required="true" required>
+        <input type="number" class="form-control" id="health" value="0" aria-describedby="healthHelpLabel" aria-disabled="true" disabled>
         <div id="healthHelpLabel" class="form-text">
           Health points are calculated automatically. For manual control, select <i>Custom HP</i>. <br>
           <strong>Not yet implemented</strong>
         </div>
       </div>
     </section>
-
     <hr>
 
-    <h2>Movement</h2>
     <section class="row">
+      <h2>Movement</h2>
+
       <?php include '/opt/src/templates/monster-editor/speed.html'; ?>
       <?php include '/opt/src/templates/monster-editor/speed.html'; ?>
       <?php include '/opt/src/templates/monster-editor/speed.html'; ?>
@@ -161,11 +165,11 @@
         <button type="button" class="btn btn-success">New</button>
       </div>
     </section>
-
     <hr>
 
-    <h2>Ability Scores</h2>
     <section>
+      <h2>Ability Scores</h2>
+
       <div class="row mb-1 d-none d-sm-flex">
         <div class="align-items-center justify-content-center text-center 
         d-none col-5 offset-3 
@@ -193,11 +197,11 @@
       <?php include '/opt/src/templates/monster-editor/ability-score.html'; ?>
       <?php include '/opt/src/templates/monster-editor/ability-score.html'; ?>
     </section>
-
     <hr>
 
-    <h2>Attributes</h2>
     <section class="row gx-sm-5 gy-sm-3">
+      <h2>Attributes</h2>
+
       <section class="col-sm-6 col-lg-4">
         <h3>Skill Proficiencies</h3>
 
@@ -282,11 +286,11 @@
         </div>
       </section>
     </section>
-
     <hr>
 
-    <h2>Senses and Languages</h2>
     <section class="row gx-sm-5 gy-sm-3">
+      <h2>Senses and Languages</h2>
+      
       <section class="col-sm-6">
         <h3>Senses</h3>
 
@@ -329,11 +333,11 @@
         </div>
       </section>
     </section>
-
     <hr>
-
-    <h2>Abilities</h2>
+    
     <section>
+      <h2>Abilities</h2>
+
       <div class="row gx-sm-5 gy-sm-3">
         <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
         <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
@@ -343,11 +347,11 @@
         <button type="button" class="btn btn-success">New</button>
       </div>
     </section>
-
     <hr>
 
-    <h2>Actions</h2>
     <section>
+      <h2>Actions</h2>
+
       <div class="row gx-sm-5 gy-sm-3">
         <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
         <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
@@ -357,11 +361,11 @@
         <button type="button" class="btn btn-success">New</button>
       </div>
     </section>
-
     <hr>
 
-    <h2>Bonus Actions</h2>
     <section>
+      <h2>Bonus Actions</h2>
+
       <div class="row gx-sm-5 gy-sm-3">
         <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
         <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
@@ -371,11 +375,10 @@
         <button type="button" class="btn btn-success">New</button>
       </div>
     </section>
-
     <hr>
 
-    <h2>Reactions</h2>
     <section>
+      <h2>Reactions</h2>
       <div class="row gx-sm-5 gy-sm-3">
         <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
         <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
@@ -385,12 +388,11 @@
         <button type="button" class="btn btn-success">New</button>
       </div>
     </section>
-
     <hr>
 
     <!-- TODO: Show / hide the legendary actions based on the Legendary Monster checkbox -->
-    <h2>Legendary Features</h2>
     <section>
+      <h2>Legendary Features</h2>
       <div class="text-center mb-1">
         <input class="form-check-input" type="checkbox" id="" style="border-width:1px; border-color:darkgray;">
         <label class="form-check-label" for=""><strong>Legendary Monster</strong></label>
@@ -405,15 +407,15 @@
         <button type="button" class="btn btn-success">New</button>
       </div>
     </section>
-
     <hr>
 
-    <h2>Challenge Rating</h2>
     <section class="row gy-2">
+      <h2>Challenge Rating</h2>
+
       <div class="col-sm-6 text-center">
         <div class="card py-3 d-flex content-align-center justify-content-center" style="min-height: 120px;">
           <div class="w-75 mx-auto mb-1">
-            <input type="radio" class="btn-check" name="options-outlined" id="estimatedChallengeRadio" autocomplete="off" checked>
+            <input type="radio" class="btn-check" name="options-outlined" id="estimatedChallengeRadio" checked>
             <label class="btn btn-outline-success" for="estimatedChallengeRadio">Estimated Challenge Rating</label>
           </div>          
         
@@ -425,13 +427,14 @@
       <div class="col-sm-6 text-center">
         <div class="card py-3 d-flex content-align-center justify-content-center" style="min-height: 120px;">
           <div class="w-75 mx-auto mb-1">
-            <input type="radio" class="btn-check" name="options-outlined" id="customChallengeRadio" autocomplete="off">
+            <input type="radio" class="btn-check" name="options-outlined" id="customChallengeRadio">
             <label class="btn btn-outline-success" for="customChallengeRadio">Custom Challenge Rating</label>
           </div>
         
           <!-- <label for="size" class="form-label">Custom Challenge Rating</label> -->
           <select id="size" class="form-select w-50 mx-auto" aria-required="true" required>
-            <option selected>Challenge 1: 200XP </option>
+            <option selected>Challenge 0: 10XP </option>
+            <option>Challenge 1: 200XP </option>
           </select>
         </div>
       </div>
