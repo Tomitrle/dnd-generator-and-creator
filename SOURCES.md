@@ -3,6 +3,9 @@ This file should be reformatted at a later date.
 
 For now, list any specific resources alongside the applicable code. All  _generic_ or _multi-purpose_ sources should also be listed below:
 
+## Inspiration
+- D&D 5e Statblock Generator: https://tetra-cube.com/dnd/dnd-statblock.html
+
 ## Documentation
 - Bootstrap Documentation: https://getbootstrap.com/docs/5.3/
 - Bootstrap Examples: https://getbootstrap.com/docs/5.3/examples/

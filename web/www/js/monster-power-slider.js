@@ -1,5 +1,7 @@
 // https://stackoverflow.com/questions/62707474/how-to-assign-labels-on-a-range-slider
 
+// TODO: Apply to all range-display pairs
+
 var slider = document.getElementById("range");
 var display = document.getElementById("display");
 var getVal = slider.value;

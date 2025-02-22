@@ -1,3 +1,9 @@
+<!-- TODO: HTML Validation -->
+<!-- TODO: Convert to HTML for Sprint 2 -->
+<!-- TODO: Connect form options to PHP / PostgreSQL model -->
+<!-- TODO: Implement asynchronous save / update requests with AJAX -->
+<!-- TODO: Create / delete form elements with custom IDs using PHP / Javascript -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,50 +44,54 @@
 
   <?php include '/opt/src/templates/navbar.html'; ?>
 
+  <!-- TODO: Include a "return to previous page" button -->
+
   <header class="container text-center">
     <h1>Monster Editor</h1>
   </header>
-
+  
   <hr>
 
-  <!-- <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="name" placeholder="None" aria-describedby="HelpLabel">
-    <label for="name" class="form-label">Name</label>
-    <div id="HelpLabel" class="form-text">Tips or instructions go here...</div>
-  </div> -->
-
-  <!-- https://getbootstrap.com/docs/5.3/forms/overview/ -->
-  <form class="container">
-
+  <!-- Source: https://getbootstrap.com/docs/5.3/forms/overview/ -->
+  <!-- Source: https://getbootstrap.com/docs/5.0/forms/validation/ -->
+  <form class="container needs-validation" novalidate>
     <h2>General Information</h2>
     <section class="row">
       <div class="col-sm-6 mb-2">
         <label for="name" class="form-label">Name</label>
-        <input type="text" class="form-control" id="name">
+        <input type="text" pattern=".*\S+.*" class="form-control" id="name" aria-required="true" required>
       </div>
 
-      <!-- https://stackoverflow.com/questions/3518002/how-can-i-set-the-default-value-for-an-html-select-element -->
+      <!-- Source: https://stackoverflow.com/questions/3518002/how-can-i-set-the-default-value-for-an-html-select-element -->
+      <!-- Source: https://stackoverflow.com/questions/13766015/is-it-possible-to-configure-a-required-field-to-ignore-white-space -->
       <div class="col-sm-6 mb-2">
         <label for="size" class="form-label">Size</label>
-        <select id="size" class="form-select">
-          <option selected disabled hidden>Select an option...</option>
+        <select id="size" class="form-select" aria-required="true" required>
+          <option selected disabled hidden value="">Select an option...</option>
+          <option>Tiny</option>
+          <option>Small</option>
           <option>Medium</option>
+          <option>Large</option>
+          <option>Huge</option>
+          <option>Gargantuan</option>
         </select>
       </div>
 
       <div class="col-sm-6 mb-2">
         <label for="type" class="form-label">Type</label>
-        <select id="type" class="form-select">
-          <option selected disabled hidden>Select an option...</option>
+        <select id="type" class="form-select" aria-required="true" required>
+          <option selected disabled hidden value="">Select an option...</option>
           <option>Humanoid</option>
+          <option>Other</option>
         </select>
       </div>
 
       <div class="col-sm-6 mb-2">
         <label for="alignment" class="form-label">Alignment</label>
-        <select id="alignment" class="form-select">
-          <option selected disabled hidden>Select an option...</option>
+        <select id="alignment" class="form-select" aria-required="true" required>
+          <option selected disabled hidden value="">Select an option...</option>
           <option>Neutral</option>
+          <option>Other</option>
         </select>
       </div>
     </section>
@@ -92,9 +102,10 @@
     <section class="row">
       <div class="col-sm-6 mb-2">
         <label for="armor" class="form-label">Armor</label>
-        <select id="armor" class="form-select">
-          <option selected disabled hidden>Select an option...</option>
-          <option>Custom</option>
+        <select id="armor" class="form-select" aria-required="true" required>
+          <option selected disabled hidden value="">Select an option...</option>
+          <option>Natural Armor</option>
+          <option>Other</option>
         </select>
 
         <div class="form-check mt-1">
@@ -105,18 +116,20 @@
         </div>
       </div>
 
+      <!-- TODO: Update Armor Bonus automatically with Javascript -->
       <div class="col-sm-6 mb-2">
         <label for="armorBonus" class="form-label">Armor Bonus</label>
-        <input type="number" class="form-control" id="armorBonus" value="0" aria-describedby="armorBonusHelpLabel" aria-readonly="true" readonly>
+        <input type="number" class="form-control" id="armorBonus" value="0" aria-describedby="armorBonusHelpLabel" aria-readonly="true" readonly aria-required="true" required>
         <div id="armorBonusHelpLabel" class="form-text">
-          Armor bonus updates automatically. For manual control, select <i>Custom</i>. <br>
+          Armor bonus updates automatically. For manual control, select <i>Natural Armor</i> or <i>Other</i>. <br>
           <strong>Not yet implemented</strong>
         </div>
       </div>
 
+      <!-- TODO: Swap "readonly" attribute between HP and Hit Dice based on the value of the Custom HP checkbox with Javascript -->
       <div class="col-sm-6 mb-2">
         <label for="hitDice" class="form-label">Hit Dice</label>
-        <input type="number" class="form-control" id="hitDice" placeholder="0" aria-describedby="healthHelpLabel">
+        <input type="number" min="0" class="form-control" id="hitDice" placeholder="0" aria-describedby="healthHelpLabel" aria-required="true" required>
         <div class="form-check mt-1">
           <input class="form-check-input" type="checkbox" id="customHP">
           <label class="form-check-label" for="customHP">
@@ -125,9 +138,10 @@
         </div>
       </div>
 
+      <!-- TODO: Update Hitpoints (HP) automatically with Javascript -->
       <div class="col-sm-6 mb-2">
         <label for="health" class="form-label">Health Points</label>
-        <input type="number" class="form-control" id="health" value="0" aria-describedby="healthHelpLabel" aria-readonly="true" readonly>
+        <input type="number" class="form-control" id="health" value="0" aria-describedby="healthHelpLabel" aria-readonly="true" readonly aria-required="true" required>
         <div id="healthHelpLabel" class="form-text">
           Health points are calculated automatically. For manual control, select <i>Custom HP</i>. <br>
           <strong>Not yet implemented</strong>
@@ -142,11 +156,6 @@
       <?php include '/opt/src/templates/monster-editor/speed.html'; ?>
       <?php include '/opt/src/templates/monster-editor/speed.html'; ?>
       <?php include '/opt/src/templates/monster-editor/speed.html'; ?>
-
-      <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
-      <div class="col-12 form-text text-center">
-        <strong>Not yet implemented</strong>
-      </div>
 
       <div class="col-12 my-2 text-center">
         <button type="button" class="btn btn-success">New</button>
@@ -183,11 +192,6 @@
       <?php include '/opt/src/templates/monster-editor/ability-score.html'; ?>
       <?php include '/opt/src/templates/monster-editor/ability-score.html'; ?>
       <?php include '/opt/src/templates/monster-editor/ability-score.html'; ?>
-
-      <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
-      <div class="mt-2 form-text text-center">
-        <strong>Not yet implemented</strong>
-      </div>
     </section>
 
     <hr>
@@ -201,11 +205,6 @@
           <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-        </div>
-
-        <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
-        <div class="col-12 form-text text-center">
-          <strong>Not yet implemented</strong>
         </div>
 
         <div class="col-12 my-2 text-center">
@@ -222,11 +221,6 @@
           <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
         </div>
 
-        <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
-        <div class="col-12 form-text text-center">
-          <strong>Not yet implemented</strong>
-        </div>
-
         <div class="col-12 my-2 text-center">
           <button type="button" class="btn btn-success">New</button>
         </div>
@@ -239,11 +233,6 @@
           <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-        </div>
-
-        <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
-        <div class="col-12 form-text text-center">
-          <strong>Not yet implemented</strong>
         </div>
 
         <div class="col-12 my-2 text-center">
@@ -260,11 +249,6 @@
           <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
         </div>
 
-        <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
-        <div class="col-12 form-text text-center">
-          <strong>Not yet implemented</strong>
-        </div>
-
         <div class="col-12 my-2 text-center">
           <button type="button" class="btn btn-success">New</button>
         </div>
@@ -279,11 +263,6 @@
           <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
         </div>
 
-        <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
-        <div class="col-12 form-text text-center">
-          <strong>Not yet implemented</strong>
-        </div>
-
         <div class="col-12 my-2 text-center">
           <button type="button" class="btn btn-success">New</button>
         </div>
@@ -296,11 +275,6 @@
           <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-        </div>
-
-        <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
-        <div class="col-12 form-text text-center">
-          <strong>Not yet implemented</strong>
         </div>
 
         <div class="col-12 my-2 text-center">
@@ -327,11 +301,6 @@
           <?php include '/opt/src/templates/monster-editor/sense.html'; ?>
         </div>
 
-        <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
-        <div class="col-12 form-text text-center">
-          <strong>Not yet implemented</strong>
-        </div>
-
         <div class="col-12 my-2 text-center">
           <button type="button" class="btn btn-success">New</button>
         </div>
@@ -341,11 +310,11 @@
         <h3>Languages</h3>
 
         <div class="row mb-1">
-          <div class="col-sm-3 d-flex justify-content-sm-center align-items-center">
+          <div class="col-sm-6 d-flex justify-content-start align-items-center">
             <label for="" class="form-label" style="margin-bottom:0;">Telepathy</label>
           </div>
-          <div class="col-sm-9">
-            <input type="number" class="form-control" id="" placeholder="0 ft" value="0">
+          <div class="col-sm-6">
+            <input type="number" min="0" step="5" class="form-control" id="" placeholder="0 ft">
           </div>
         </div>
 
@@ -353,11 +322,6 @@
           <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-        </div>
-
-        <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
-        <div class="col-12 form-text text-center">
-          <strong>Not yet implemented</strong>
         </div>
 
         <div class="col-12 my-2 text-center">
@@ -375,11 +339,6 @@
         <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
       </div>
 
-      <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
-      <div class="form-text text-center">
-        <strong>Not yet implemented</strong>
-      </div>
-
       <div class="my-2 text-center">
         <button type="button" class="btn btn-success">New</button>
       </div>
@@ -392,11 +351,6 @@
       <div class="row gx-sm-5 gy-sm-3">
         <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
         <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
-      </div>
-
-      <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
-      <div class="form-text text-center">
-        <strong>Not yet implemented</strong>
       </div>
 
       <div class="my-2 text-center">
@@ -413,11 +367,6 @@
         <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
       </div>
 
-      <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
-      <div class="form-text text-center">
-        <strong>Not yet implemented</strong>
-      </div>
-
       <div class="my-2 text-center">
         <button type="button" class="btn btn-success">New</button>
       </div>
@@ -432,11 +381,6 @@
         <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
       </div>
 
-      <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
-      <div class="form-text text-center">
-        <strong>Not yet implemented</strong>
-      </div>
-
       <div class="my-2 text-center">
         <button type="button" class="btn btn-success">New</button>
       </div>
@@ -444,6 +388,7 @@
 
     <hr>
 
+    <!-- TODO: Show / hide the legendary actions based on the Legendary Monster checkbox -->
     <h2>Legendary Features</h2>
     <section>
       <div class="text-center mb-1">
@@ -454,11 +399,6 @@
       <div class="row gx-sm-5 gy-sm-3">
         <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
         <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
-      </div>
-
-      <!-- TODO: Update the IDs and textfor each list element dynamically. Probably can be done with PHP -->
-      <div class="form-text text-center">
-        <strong>Not yet implemented</strong>
       </div>
 
       <div class="my-2 text-center">
@@ -477,8 +417,8 @@
             <label class="btn btn-outline-success" for="estimatedChallengeRadio">Estimated Challenge Rating</label>
           </div>          
         
-          <p class="mb-0" style="font-size:x-large;">Challenge 1: 200XP
-          </p>
+          <!-- TODO: Calculate estimated challenge rating with Javascript -->
+          <p class="mb-0" style="font-size:x-large;">Challenge <span>1: 200XP</span></p>
         </div>
       </div>
 
@@ -490,20 +430,26 @@
           </div>
         
           <!-- <label for="size" class="form-label">Custom Challenge Rating</label> -->
-          <select id="size" class="form-select w-50 mx-auto">
-            <option selected disabled hidden>Select an option...</option>
+          <select id="size" class="form-select w-50 mx-auto" aria-required="true" required>
+            <option selected disabled hidden value="">Select an option...</option>
             <option>Challenge 1: 200XP </option>
           </select>
         </div>
       </div>
     </section>
 
-
+    <!-- TODO: Implement saving and exporting using AJAX / Javascript -->
+    <div class="d-flex justify-content-center mt-4">
+      <button type="button" class="btn btn-secondary me-2" style="min-width:100px; font-size:x-large;">Export</button>
+      <button type="submit" class="btn btn-success ms-2" style="min-width:100px; font-size:x-large;">Save</button>
+    </div>
   </form>
 
 
   <?php include '/opt/src/templates/footer.html'; ?>
   <?php include '/opt/src/templates/base-javascript.html'; ?>
+  <script src="/js/monster-power-slider.js"></script>
+  <script src="/js/monster-editor-validator.js"></script>
 </body>
 
 </html>
