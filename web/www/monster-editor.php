@@ -1,13 +1,6 @@
-<!-- TODO: HTML Validation -->
-<!-- TODO: Convert to HTML for Sprint 2 -->
-<!-- TODO: Connect form options to PHP / PostgreSQL model -->
-<!-- TODO: Implement asynchronous save / update requests with AJAX -->
-<!-- TODO: Create / delete form elements with custom IDs using PHP / Javascript -->
-
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- https://www.w3schools.com/PHP/php_includes.asp -->
 <?php include '/opt/src/templates/base.html'; ?>
 
 <body>
@@ -58,7 +51,7 @@
   <form class="container needs-validation" novalidate>
     <section class="row">
       <h2>General Information</h2>
-      
+
       <div class="col-sm-6 mb-2">
         <label for="name" class="form-label">Name</label>
         <input type="text" pattern=".*\S+.*" class="form-control" id="name" aria-required="true" required>
@@ -98,7 +91,7 @@
       </div>
     </section>
     <hr>
-  
+
     <section class="row">
       <h2>Armor Class and Hitpoints</h2>
 
@@ -118,8 +111,8 @@
         </div>
       </div>
 
-      <!-- TODO: Update Armor Bonus automatically with Javascript -->
-      <!-- TODO: Enable and require Armor Bonus as needed -->
+
+      <!-- Enable and require Armor Bonus if "Natural Armor" or "Other" is selected -->
       <div class="col-sm-6 mb-2">
         <label for="armorBonus" class="form-label">Armor Bonus</label>
         <input type="number" class="form-control" id="armorBonus" value="0" aria-describedby="armorBonusHelpLabel" aria-disabled="true" disabled>
@@ -129,7 +122,7 @@
         </div>
       </div>
 
-      <!-- TODO: Swap "readonly" attribute between HP and Hit Dice based on the value of the Custom HP checkbox with Javascript -->
+      <!-- Swap disabled attribute between HP and Hit Dice based on the value of the Custom HP checkbox -->
       <div class="col-sm-6 mb-2">
         <label for="hitDice" class="form-label">Hit Dice</label>
         <input type="number" min="0" class="form-control" id="hitDice" aria-describedby="healthHelpLabel" aria-required="true" required>
@@ -141,8 +134,6 @@
         </div>
       </div>
 
-      <!-- TODO: Update Health Points (HP) automatically with Javascript -->
-      <!-- TODO: Enable and require Health Points as needed -->
       <div class="col-sm-6 mb-2">
         <label for="health" class="form-label">Health Points</label>
         <input type="number" class="form-control" id="health" value="0" aria-describedby="healthHelpLabel" aria-disabled="true" disabled>
@@ -290,7 +281,7 @@
 
     <section class="row gx-sm-5 gy-sm-3">
       <h2>Senses and Languages</h2>
-      
+
       <section class="col-sm-6">
         <h3>Senses</h3>
 
@@ -334,7 +325,7 @@
       </section>
     </section>
     <hr>
-    
+
     <section>
       <h2>Abilities</h2>
 
@@ -390,7 +381,6 @@
     </section>
     <hr>
 
-    <!-- TODO: Show / hide the legendary actions based on the Legendary Monster checkbox -->
     <section>
       <h2>Legendary Features</h2>
       <div class="text-center mb-1">
@@ -417,9 +407,8 @@
           <div class="w-75 mx-auto mb-1">
             <input type="radio" class="btn-check" name="options-outlined" id="estimatedChallengeRadio" checked>
             <label class="btn btn-outline-success" for="estimatedChallengeRadio">Estimated Challenge Rating</label>
-          </div>          
-        
-          <!-- TODO: Calculate estimated challenge rating with Javascript -->
+          </div>
+
           <p class="mb-0" style="font-size:x-large;">Challenge <span>1: 200XP</span></p>
         </div>
       </div>
@@ -430,8 +419,7 @@
             <input type="radio" class="btn-check" name="options-outlined" id="customChallengeRadio">
             <label class="btn btn-outline-success" for="customChallengeRadio">Custom Challenge Rating</label>
           </div>
-        
-          <!-- <label for="CRselect" class="form-label">Custom Challenge Rating</label> -->
+
           <select id="CRSelect" class="form-select w-50 mx-auto" aria-label="Custom challenge rating">
             <option selected>Challenge 0: 10XP </option>
             <option>Challenge 1: 200XP </option>
@@ -440,7 +428,6 @@
       </div>
     </section>
 
-    <!-- TODO: Implement saving and exporting using AJAX / Javascript -->
     <div class="d-flex justify-content-center mt-4">
       <button type="button" class="btn btn-secondary me-2" style="min-width:100px; font-size:x-large;">Export</button>
       <button type="submit" class="btn btn-success ms-2" style="min-width:100px; font-size:x-large;">Save</button>
