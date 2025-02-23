@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Arguably unnecessary, but included for completeness  -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Account</title>
+    <meta name="author" content="Brennen Muller">
+    <meta name="description" content="An account page with records of your custom monsters.">
+    <meta name="keywords" content="account, monster, dnd, D&D, Dungeons & Dragons">
+
+    <meta property="og:title" content="Account">
+    <meta property="og:description" content="An account page with records of your custom monsters.">
+    <meta property="og:type" content="website">
+
+    <!-- STYLESHEETS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="/styles/main.less" rel="stylesheet/less" type="text/css">
+
+    <script src="https://cdn.jsdelivr.net/npm/less"></script>
+  </head>
+
+  <body>
+    <!-- https://getbootstrap.com/docs/5.3/components/navbar/-->
+    <nav class="navbar navbar-expand-sm">
+      <div class="container-fluid">
+
+        <a class="navbar-brand" href="/">Home</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav container-fluid">
+            <a class="nav-link" href="#">+ Encounter</a>
+            <a class="nav-link" href="/monster-editor.html">+ Monster</a>
+
+            <a class="nav-link ms-auto" href="#">About</a>
+            <a class="nav-link" href="/account.html">Account</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <header class="container p-4 text-center">
+      <h1>
+        Account
+      </h1>
+    </header>
+
+    <section class="container text-center">
+      <h2>My Monsters</h2>
+
+      <div class="d-flex flex-column w-50 mx-auto">
+        <div class="row my-2">
+          <div class="col-sm-6 text-end" style="font-size:x-large;">
+            Custom Monster
+          </div>
+
+          <div class="col-sm-6">
+            <button type="button" class="btn btn-secondary">View</button>
+            <a role="button" class="btn btn-warning" href="/monster-editor.html">Edit</a>
+            <button type="button" class="btn btn-danger">Delete</button>
+          </div>
+        </div>
+
+        <div class="row my-2">
+          <div class="col-sm-6 text-end" style="font-size:x-large;">
+            Custom Monster
+          </div>
+
+          <div class="col-sm-6">
+            <button type="button" class="btn btn-secondary">View</button>
+            <a role="button" class="btn btn-warning" href="/monster-editor.html">Edit</a>
+            <button type="button" class="btn btn-danger">Delete</button>
+          </div>
+        </div>
+
+        <div class="row my-2">
+          <div class="col-sm-6 text-end" style="font-size:x-large;">
+            Custom Monster
+          </div>
+
+          <div class="col-sm-6">
+            <button type="button" class="btn btn-secondary">View</button>
+            <a role="button" class="btn btn-warning" href="/monster-editor.html">Edit</a>
+            <button type="button" class="btn btn-danger">Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <a role="button" class="btn btn-success mt-1" href="/monster-editor.html">New</a>
+    </section>
+
+    <!-- https://getbootstrap.com/docs/5.3/examples/footers/ -->
+    <div class="container">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <p class="col-md-4 mb-0 text-body-secondary">&copy; 2025 Brennen Muller & Tommy Le</p>
+
+        <ul class="nav col-md-4 justify-content-end">
+          <li class="nav-item"><a href="/" class="nav-link px-2 text-body-secondary">Home</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+          <li class="nav-item"><a href="/account.html" class="nav-link px-2 text-body-secondary">Account</a></li>
+        </ul>
+      </footer>
+    </div>
+
+    <!-- BOOTSTRAP JAVASCRIPT -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"></script>
+  </body>
+
+</html>
