@@ -18,9 +18,8 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <!-- <link href="/styles/main.less" rel="stylesheet/less" type="text/css"> will be uncommented after merge -->
-    <!-- will be moved to /styles after merge -->
-    <link href="encounter-generator.less" rel="stylesheet/less" type="text/css">
+    <link href="styles/main.less" rel="stylesheet/less" type="text/css">
+    <link href="styles/encounter-generator.less" rel="stylesheet/less" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/less"></script>
     <!-- Source: https://stackoverflow.com/questions/16712941/display-div-if-a-specific-select-option-value-is-selected -->
     <script type="text/JavaScript">function customSizeCheck(nameSelect)
@@ -161,13 +160,13 @@
                 <!-- https://stackoverflow.com/questions/4530957/html-code-to-indent-without-using-blockquote-so-there-is-no-space-on-the-next-l -->
                 <span style="padding-left: 20px; display:block">
                 There are four categories of encounter difficulty.<br>
-                    <strong>Easy</strong>. An easy encounter doesn’t tax the characters’ resources or put them in serious peril. They might lose a few hit points, but victory is pretty much guaranteed.<br>
+                    <strong style="font-style: italic">Easy</strong>. An easy encounter doesn’t tax the characters’ resources or put them in serious peril. They might lose a few hit points, but victory is pretty much guaranteed.<br>
 
-                    <strong>Medium</strong>. A medium encounter usually has one or two scary moments for the players, but the characters should emerge victorious with no casualties. One or more of them might need to use healing resources.<br>
+                    <strong style="font-style: italic">Medium</strong>. A medium encounter usually has one or two scary moments for the players, but the characters should emerge victorious with no casualties. One or more of them might need to use healing resources.<br>
 
-                    <strong>Hard</strong>. A hard encounter could go badly for the adventurers. Weaker characters might get taken out of the fight, and there’s a slim chance that one or more characters might die.<br>
+                    <strong style="font-style: italic">Hard</strong>. A hard encounter could go badly for the adventurers. Weaker characters might get taken out of the fight, and there’s a slim chance that one or more characters might die.<br>
 
-                    <strong>Deadly</strong>. A deadly encounter could be lethal for one or more player characters. Survival often requires good tactics and quick thinking, and the party risks defeat.
+                    <strong style="font-style: italic">Deadly</strong>. A deadly encounter could be lethal for one or more player characters. Survival often requires good tactics and quick thinking, and the party risks defeat.
                 </span>
             </p>
             <p>For the purposes of random encounter generation, the difference between these difficulties is how much experience (XP) the encounter provides. Deadly is the last XP threshold and technically has no maximum, but there is (will be) a preset maximum of 500 XP past the Deadly threshold to reduce the otherwise wild variance in Deadly encounters generated. If you would like a more specific XP amount, please select the "Custom" option, particularly if you want a Deadly encounter for a lower leveled party.</p>
@@ -212,7 +211,7 @@
                 <li><input type="checkbox" id='monstrosity'><label for="monstrosity">Monstrosity</label></li>
                 <li><input type="checkbox" id='ooze'><label for="ooze">Ooze</label></li>
                 <li><input type="checkbox" id='plant'><label for="plant">Plant</label></li>
-                <li><input type="checkbox" id='undead'><label for="undead">Fiend</label></li>
+                <li><input type="checkbox" id='undead'><label for="undead">Undead</label></li>
             </ul>
         </div>
 
@@ -322,8 +321,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-<!-- will move to js after merge -->
-<script src="encounter-generator-validator.js"></script>
+<script src="js/encounter-generator-validator.js"></script>
 </body>
 
 </html>
