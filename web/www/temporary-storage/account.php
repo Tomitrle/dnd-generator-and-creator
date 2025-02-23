@@ -14,7 +14,7 @@
   <section class="container text-center">
     <h2>My Monsters</h2>
 
-    <div class="d-flex flex-column w-50 mx-auto">
+    <div class="d-flex flex-column mx-auto">
       <?php include '/opt/src/templates/account/monster.html'; ?>
       <?php include '/opt/src/templates/account/monster.html'; ?>
       <?php include '/opt/src/templates/account/monster.html'; ?>
