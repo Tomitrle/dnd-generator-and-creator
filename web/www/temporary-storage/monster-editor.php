@@ -4,44 +4,15 @@
 <?php include '/opt/src/templates/base.html'; ?>
 
 <body>
-  <!-- TODO: Move <style> to <head> or separate file... -->
-  <style>
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      text-align: center;
-    }
-
-    h2 {
-      font-size: x-large;
-    }
-
-    h3 {
-      font-size: large;
-    }
-
-    input[readonly] {
-      background-color: var(--bs-secondary-bg);
-      opacity: 1;
-    }
-
-    input[readonly]:focus {
-      background-color: var(--bs-secondary-bg);
-    }
-
-    textarea {
-      resize: none;
-    }
-  </style>
-
+  <!-- TODO: Include monster-editor.less stylesheet -->
   <?php include '/opt/src/templates/navbar.html'; ?>
-
-  <!-- Source: https://www.w3schools.com/jsref/met_his_back.asp -->
-  <button type="button" aria-label="Previous" class="btn btn-back" onclick="history.back()">&#129120;</button>
-
+  
   <header class="container text-center">
+    <!-- Source: https://www.w3schools.com/jsref/met_his_back.asp -->
+    <div class="empty-container">
+      <button type="button" aria-label="Previous" class="btn btn-back" onclick="history.back()">&#129120;</button>
+    </div>
+
     <h1>Monster Editor</h1>
     <hr>
   </header>
