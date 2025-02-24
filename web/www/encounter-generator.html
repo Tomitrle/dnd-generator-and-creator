@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -22,7 +22,7 @@
     <link href="styles/encounter-generator.less" rel="stylesheet/less" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/less"></script>
     <!-- Source: https://stackoverflow.com/questions/16712941/display-div-if-a-specific-select-option-value-is-selected -->
-    <script type="text/JavaScript">function customSizeCheck(nameSelect)
+    <script>function customSizeCheck(nameSelect)
     {
         console.log(nameSelect);
         if(nameSelect){
@@ -39,7 +39,7 @@
         }
     }
     </script>
-    <script type="text/JavaScript">function customDiffCheck(nameSelect)
+    <script>function customDiffCheck(nameSelect)
     {
         console.log(nameSelect);
         if(nameSelect){
@@ -192,8 +192,8 @@
         <h2>Creature Information</h2>
         <p>If you would like to filter what creatures can be included in the generated encounter, you can choose which types and challenge ratings are allowed below. You can also manually add a creature to guarantee it will be in the generated encounter with the "Add Monster" button.</p>
 
-        <label for="creatureTypes" class="form-label">Creature Types</label>
-        <div id="creatureTypes" aria-required="true">
+        <fieldset id="creatureTypes">
+            <legend>Creature Types</legend>
             <!-- Source: https://stackoverflow.com/questions/42108219/display-checkboxes-in-two-columns-with-bootstrap -->
             <ul style="column-count: 3; column-gap: 2rem; list-style: none;">
                 <li><input type="checkbox" id='aberration'><label for="aberration">Aberration</label></li>
@@ -213,12 +213,12 @@
                 <li><input type="checkbox" id='plant'><label for="plant">Plant</label></li>
                 <li><input type="checkbox" id='undead'><label for="undead">Undead</label></li>
             </ul>
-        </div>
+        </fieldset>
 
         <div class="col-sm-12 mb-2">
             <label for="minCR" class="form-label">Minimum Challenge Rating</label>
             <select id="minCR" class="form-select" aria-required="true" required>
-                <option selected disabled hidden value="1/8">Select an option...</option>
+                <option selected disabled hidden value="">Select an option...</option>
                 <option value="1/8">1/8</option>
                 <option value="1/4">1/4</option>
                 <option value="1/2">1/2</option>
@@ -258,7 +258,7 @@
         <div class="col-sm-12 mb-2">
             <label for="maxCR" class="form-label">Maximum Challenge Rating</label>
             <select id="maxCR" class="form-select" aria-required="true" required>
-                <option selected disabled hidden value="30">Select an option...</option>
+                <option selected disabled hidden value="">Select an option...</option>
                 <option value="1/8">1/8</option>
                 <option value="1/4">1/4</option>
                 <option value="1/2">1/2</option>
