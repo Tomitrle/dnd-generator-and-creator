@@ -192,8 +192,8 @@
         <h2>Creature Information</h2>
         <p>If you would like to filter what creatures can be included in the generated encounter, you can choose which types and challenge ratings are allowed below. You can also manually add a creature to guarantee it will be in the generated encounter with the "Add Monster" button.</p>
 
-        <fieldset id="creatureTypes">
-            <legend>Creature Types</legend>
+        <div id="creatureTypes">
+            <label>Creature Types</label>
             <!-- Source: https://stackoverflow.com/questions/42108219/display-checkboxes-in-two-columns-with-bootstrap -->
             <ul style="column-count: 3; column-gap: 2rem; list-style: none;">
                 <li><input type="checkbox" id='aberration'><label for="aberration">Aberration</label></li>
@@ -213,7 +213,7 @@
                 <li><input type="checkbox" id='plant'><label for="plant">Plant</label></li>
                 <li><input type="checkbox" id='undead'><label for="undead">Undead</label></li>
             </ul>
-        </fieldset>
+        </div>
 
         <div class="col-sm-12 mb-2">
             <label for="minCR" class="form-label">Minimum Challenge Rating</label>
