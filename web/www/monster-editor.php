@@ -5,7 +5,7 @@ $DESCRIPTION = "Create and edit custom monsters for Dungeons & Dragons.";
 $KEYWORDS = "dungeons and dragons, d&d, dnd, monster, creator, editor";
 
 $LESS = ["styles/monster-editor.less"];
-$SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/monster-armor-class.js", "js/monster-health-points.js"];
+$SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/monster-form-update.js"];
 ?>
 
 <!DOCTYPE html>
@@ -17,11 +17,6 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
   <?php include '/opt/src/templates/navbar.php'; ?>
   
   <header class="container">
-    <!-- Source: https://www.w3schools.com/jsref/met_his_back.asp -->
-    <!-- <div class="empty-container">
-      <button type="button" aria-label="Previous" class="btn btn-back" onclick="history.back()">&#129120;</button>
-    </div> -->
-
     <h1>Monster Editor</h1>
     <hr>
   </header>
@@ -136,7 +131,6 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
         </div>
       </div>
 
-      <!-- Swap disabled attribute between HP and Hit Dice based on the value of the Custom HP checkbox -->
       <div class="col-sm-6 mb-2">
         <label for="hitDice" class="form-label">Hit Dice</label>
         <input type="number" min="0" class="form-control" id="hitDice" aria-describedby="healthHelpLabel" aria-required="true" required>
@@ -194,7 +188,6 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
         </div> -->
       </div>
 
-      <!-- Remember: IDs for "dexterityModifier", etc. -->
       <?php
         $IDS = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"];
         foreach ($IDS as $ID) {
