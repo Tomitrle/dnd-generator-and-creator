@@ -5,7 +5,12 @@ $DESCRIPTION = "Create and edit custom monsters for Dungeons & Dragons.";
 $KEYWORDS = "dungeons and dragons, d&d, dnd, monster, creator, editor";
 
 $LESS = ["styles/monster-editor.less"];
-$SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/monster-form-update.js", "js/delete.js"];
+$SCRIPTS = ["js/monster-form-validator.js", "js/monster-form-update.js", "js/delete.js"];
+?>
+
+<?php
+// USED TO GIVE UNIQUE ID NUMBERS TO EAC ELEMENT. PROBABLY NEEDS TO BE UPDATED LATER (ESPECIALLY TO ADD NEW ELEMENTS)
+$UNIQUE_ID = 1;
 ?>
 
 <!DOCTYPE html>

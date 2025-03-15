@@ -138,3 +138,25 @@ size.addEventListener("change", updateHealthPoints);
 hitDice.addEventListener("input", updateHealthPoints);
 customHP.addEventListener("change", updateHealthPoints);
 constitution.addEventListener("input", updateHealthPoints);
+
+// https://stackoverflow.com/questions/62707474/how-to-assign-labels-on-a-range-slider
+function updateSliderLabel(event) {
+  var label = document.getElementById(event.target.id.replace("range", "rangeLabel"));
+
+  switch (event.target.value) {
+    case "-1":
+        label.innerHTML = "Detrimental";
+        break;
+    case "0":
+        label.innerHTML = "Neutral";
+        break;
+    case "1":
+        label.innerHTML = "Beneficial";
+        break;
+    case "2":
+        label.innerHTML = "Powerful";
+        break;
+    default:
+        break;
+    }
+}
