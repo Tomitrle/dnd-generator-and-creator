@@ -144,7 +144,7 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
 
       <div class="col-sm-6 mb-2">
         <label for="health" class="form-label">Health Points (HP)</label>
-        <input type="number" class="form-control" id="health" min="1" aria-describedby="healthHelpLabel" aria-disabled="true" disabled>
+        <input type="number" class="form-control" id="health" min="1" value="1" aria-describedby="healthHelpLabel" aria-disabled="true" disabled>
         <div id="healthHelpLabel" class="form-text">
           Health points are calculated automatically. For manual control, select <i>Custom HP</i>. <br>
         </div>

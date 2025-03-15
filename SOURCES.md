@@ -13,7 +13,7 @@ For now, list any specific resources alongside the applicable code. All  _generi
 
 ## References
 - Javascript Cheat Sheet: https://htmlcheatsheet.com/js/
-
+- Mozilla Developer Reference: https://developer.mozilla.org/en-US/docs/Web/
 
 ## Forums
 - https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript
