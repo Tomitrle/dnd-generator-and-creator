@@ -1,3 +1,13 @@
+<?php 
+$TITLE = "Login";
+$AUTHOR = "Tommy Le";
+$DESCRIPTION = "Login to the Dungeons & Dragons Generator and Creator.";
+$KEYWORDS = "dungeons and dragons, d&d, dnd, login";
+
+$LESS = ["styles/login.less"];
+$SCRIPTS = [];
+?>
+
 <!-- Sources used: https://getbootstrap.com/docs/5.3/forms/overview/#overview -->
 
 <!DOCTYPE html>
@@ -38,11 +48,11 @@
 
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav container-fluid">
-                    <a class="nav-link" href="encounter-generator.html">+ Encounter</a>
-                    <a class="nav-link" href="monster-editor.html">+ Monster</a>
+                    <a class="nav-link" href="encounter-generator.php">+ Encounter</a>
+                    <a class="nav-link" href="monster-editor.php">+ Monster</a>
 
                     <a class="nav-link ms-auto" href="#">About</a>
-                    <a class="nav-link" href="account.html">Account</a>
+                    <a class="nav-link" href="account.php">Account</a>
                 </div>
             </div>
         </div>

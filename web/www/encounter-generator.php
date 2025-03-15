@@ -1,3 +1,13 @@
+<?php 
+$TITLE = "Encounter Generator";
+$AUTHOR = "Tommy Le";
+$DESCRIPTION = "Generate encounters for Dungeons & Dragons.";
+$KEYWORDS = "dungeons and dragons, d&d, dnd, encounter, generator";
+
+$LESS = ["styles/encounter-generator.less"];
+$SCRIPTS = ["js/encounter-generator-validator.js"];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,11 +83,11 @@
 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav container-fluid">
-                <a class="nav-link" href="encounter-generator.html">+ Encounter</a>
-                <a class="nav-link" href="monster-editor.html">+ Monster</a>
+                <a class="nav-link" href="encounter-generator.php">+ Encounter</a>
+                <a class="nav-link" href="monster-editor.php">+ Monster</a>
 
                 <a class="nav-link ms-auto" href="#">About</a>
-                <a class="nav-link" href="account.html">Account</a>
+                <a class="nav-link" href="account.php">Account</a>
             </div>
         </div>
     </div>
@@ -312,7 +322,7 @@
             <li class="nav-item"><a href="." class="nav-link px-2 text-body-secondary">Home</a></li>
 
             <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
-            <li class="nav-item"><a href="account.html" class="nav-link px-2 text-body-secondary">Account</a></li>
+            <li class="nav-item"><a href="account.php" class="nav-link px-2 text-body-secondary">Account</a></li>
         </ul>
     </footer>
 </div>

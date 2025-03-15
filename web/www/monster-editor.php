@@ -1,17 +1,26 @@
+<?php 
+$TITLE = "Monster Editor";
+$AUTHOR = "Brennen Muller";
+$DESCRIPTION = "Create and edit custom monsters for Dungeons & Dragons.";
+$KEYWORDS = "dungeons and dragons, d&d, dnd, monster, creator, editor";
+
+$LESS = ["styles/monster-editor.less"];
+$SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/monster-armor-class.js"];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include '/opt/src/templates/base.html'; ?>
+<?php include '/opt/src/templates/head.php'; ?>
 
 <body>
-  <!-- TODO: Include monster-editor.less stylesheet -->
-  <?php include '/opt/src/templates/navbar.html'; ?>
+  <?php include '/opt/src/templates/navbar.php'; ?>
   
-  <header class="container text-center">
+  <header class="container">
     <!-- Source: https://www.w3schools.com/jsref/met_his_back.asp -->
-    <div class="empty-container">
+    <!-- <div class="empty-container">
       <button type="button" aria-label="Previous" class="btn btn-back" onclick="history.back()">&#129120;</button>
-    </div>
+    </div> -->
 
     <h1>Monster Editor</h1>
     <hr>
@@ -34,12 +43,12 @@
         <label for="size" class="form-label">Size</label>
         <select id="size" class="form-select" aria-required="true" required>
           <option selected disabled hidden value="">Select an option...</option>
-          <option>Tiny</option>
-          <option>Small</option>
-          <option>Medium</option>
-          <option>Large</option>
-          <option>Huge</option>
-          <option>Gargantuan</option>
+          <option value="tiny">Tiny</option>
+          <option value="small">Small</option>
+          <option value="medium">Medium</option>
+          <option value="large">Large</option>
+          <option value="huge">Huge</option>
+          <option value="gargantuan">Gargantuan</option>
         </select>
       </div>
 
@@ -47,8 +56,21 @@
         <label for="type" class="form-label">Type</label>
         <select id="type" class="form-select" aria-required="true" required>
           <option selected disabled hidden value="">Select an option...</option>
-          <option>Humanoid</option>
-          <option>Other</option>
+          <option value="aberration">Aberration</option>
+          <option value="beast">Beast</option>
+          <option value="celestial">Celestial</option>
+          <option value="construct">Construct</option>
+          <option value="dragon">Dragon</option>
+          <option value="elemental">Elemental</option>
+          <option value="fey">Fey</option>
+          <option value="fiend">Fiend</option>
+          <option value="giant">Giant</option>
+          <option value="humanoid">Humanoid</option>
+          <option value="monstrosity">Monstrosity</option>
+          <option value="ooze">Ooze</option>
+          <option value="plant">Plant</option>
+          <option value="undead">Undead</option>
+          <option value="other">Other</option>
         </select>
       </div>
 
@@ -56,8 +78,15 @@
         <label for="alignment" class="form-label">Alignment</label>
         <select id="alignment" class="form-select" aria-required="true" required>
           <option selected disabled hidden value="">Select an option...</option>
-          <option>Neutral</option>
-          <option>Other</option>
+          <option value="lawful good">Lawful Good</option>
+          <option value="neutral good">Neutral Good</option>
+          <option value="chaotic good">Chaotic Good</option>
+          <option value="lawful neutral">Lawful Neutral</option>
+          <option value="true neutral">True Neutral</option>
+          <option value="chaotic neutral">Chaotic Neutral</option>
+          <option value="lawful evil">Lawful Evil</option>
+          <option value="neutral evil">Neutral Evil</option>
+          <option value="chaotic evil">Chaotic Evil</option>
         </select>
       </div>
     </section>
@@ -70,8 +99,25 @@
         <label for="armor" class="form-label">Armor</label>
         <select id="armor" class="form-select" aria-required="true" required>
           <option selected disabled hidden value="">Select an option...</option>
-          <option>Natural Armor</option>
-          <option>Other</option>
+          <option data-ac="10" data-type="light">None</option>
+          <option data-ac="11" data-type="light">Padded</option>
+          <option data-ac="11" data-type="light">Leather</option>
+          <option data-ac="12" data-type="light">Studded Leather</option>
+
+          <option data-ac="12" data-type="medium">Hide</option>
+          <option data-ac="13" data-type="medium">Chain Shirt</option>
+          <option data-ac="14" data-type="medium">Scale Mail</option>
+          <option data-ac="14" data-type="medium">Spiked Armor</option>
+          <option data-ac="14" data-type="medium">Breastplate</option>
+          <option data-ac="15" data-type="medium">Halfplate</option>
+
+          <option data-ac="14" data-type="heavy">Ring Mail</option>
+          <option data-ac="16" data-type="heavy">Chain Mail</option>
+          <option data-ac="17" data-type="heavy">Splint</option>
+          <option data-ac="18" data-type="heavy">Plate</option>
+
+          <option data-ac="0">Natural Armor</option>
+          <option data-ac="0">Other</option>
         </select>
 
         <div class="form-check mt-1">
@@ -82,14 +128,11 @@
         </div>
       </div>
 
-
-      <!-- Enable and require Armor Bonus if "Natural Armor" or "Other" is selected -->
       <div class="col-sm-6 mb-2">
-        <label for="armorBonus" class="form-label">Armor Bonus</label>
-        <input type="number" class="form-control" id="armorBonus" value="0" aria-describedby="armorBonusHelpLabel" aria-disabled="true" disabled>
-        <div id="armorBonusHelpLabel" class="form-text">
-          Armor bonus updates automatically. For manual control, select <i>Natural Armor</i> or <i>Other</i>. <br>
-          <strong>Not yet implemented</strong>
+        <label for="armorClass" class="form-label">Armor Class (AC)</label>
+        <input type="number" class="form-control" id="armorClass" min="0" max="10" value="" aria-describedby="armorClassHelpLabel" aria-disabled="true" disabled>
+        <div id="armorClassHelpLabel" class="form-text">
+          Armor class updates automatically. For manual control, select <i>Natural Armor</i> or <i>Other</i>. <br>
         </div>
       </div>
 
@@ -119,9 +162,9 @@
     <section class="row">
       <h2>Movement</h2>
 
-      <?php include '/opt/src/templates/monster-editor/speed.html'; ?>
-      <?php include '/opt/src/templates/monster-editor/speed.html'; ?>
-      <?php include '/opt/src/templates/monster-editor/speed.html'; ?>
+      <?php include '/opt/src/templates/monster-editor/speed.php'; ?>
+      <?php include '/opt/src/templates/monster-editor/speed.php'; ?>
+      <?php include '/opt/src/templates/monster-editor/speed.php'; ?>
 
       <div class="col-12 my-2 text-center">
         <button type="button" class="btn btn-success">New</button>
@@ -152,12 +195,13 @@
         </div> -->
       </div>
 
-      <?php include '/opt/src/templates/monster-editor/ability-score.html'; ?>
-      <?php include '/opt/src/templates/monster-editor/ability-score.html'; ?>
-      <?php include '/opt/src/templates/monster-editor/ability-score.html'; ?>
-      <?php include '/opt/src/templates/monster-editor/ability-score.html'; ?>
-      <?php include '/opt/src/templates/monster-editor/ability-score.html'; ?>
-      <?php include '/opt/src/templates/monster-editor/ability-score.html'; ?>
+      <!-- Remember: IDs for "dexterityModifier", etc. -->
+      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
+      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
+      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
+      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
+      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
+      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
     </section>
     <hr>
 
@@ -168,9 +212,9 @@
         <h3>Skill Proficiencies</h3>
 
         <div class="d-flex flex-column">
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
         <div class="col-12 my-2 text-center">
@@ -182,9 +226,9 @@
         <h3>Skill Expertises</h3>
 
         <div class="d-flex flex-column">
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
         <div class="col-12 my-2 text-center">
@@ -196,9 +240,9 @@
         <h3>Damage Vulnerabilities</h3>
 
         <div class="d-flex flex-column">
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
         <div class="col-12 my-2 text-center">
@@ -210,9 +254,9 @@
         <h3>Damage Resistances</h3>
 
         <div class="d-flex flex-column">
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
         <div class="col-12 my-2 text-center">
@@ -224,9 +268,9 @@
         <h3>Damage Immunities</h3>
 
         <div class="d-flex flex-column">
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
         <div class="col-12 my-2 text-center">
@@ -238,9 +282,9 @@
         <h3>Condition Immunities</h3>
 
         <div class="d-flex flex-column">
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
         <div class="col-12 my-2 text-center">
@@ -262,9 +306,9 @@
         </div>
 
         <div class="d-flex flex-column">
-          <?php include '/opt/src/templates/monster-editor/sense.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/sense.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/sense.html'; ?>
+          <?php include '/opt/src/templates/monster-editor/sense.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/sense.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/sense.php'; ?>
         </div>
 
         <div class="col-12 my-2 text-center">
@@ -285,9 +329,9 @@
         </div>
 
         <div class="d-flex flex-column">
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
         <div class="col-12 my-2 text-center">
@@ -301,8 +345,8 @@
       <h2>Abilities</h2>
 
       <div class="row gx-sm-5 gy-sm-3">
-        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
-        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
       <div class="my-2 text-center">
@@ -315,8 +359,8 @@
       <h2>Actions</h2>
 
       <div class="row gx-sm-5 gy-sm-3">
-        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
-        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
       <div class="my-2 text-center">
@@ -329,8 +373,8 @@
       <h2>Bonus Actions</h2>
 
       <div class="row gx-sm-5 gy-sm-3">
-        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
-        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
       <div class="my-2 text-center">
@@ -342,8 +386,8 @@
     <section>
       <h2>Reactions</h2>
       <div class="row gx-sm-5 gy-sm-3">
-        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
-        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
       <div class="my-2 text-center">
@@ -360,8 +404,8 @@
       </div>
 
       <div class="row gx-sm-5 gy-sm-3">
-        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
-        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
       <div class="my-2 text-center">
@@ -405,11 +449,8 @@
     </div>
   </form>
 
-
-  <?php include '/opt/src/templates/footer.html'; ?>
-  <?php include '/opt/src/templates/base-javascript.html'; ?>
-  <script src="/js/monster-power-slider.js"></script>
-  <script src="/js/monster-editor-validator.js"></script>
+  <?php include '/opt/src/templates/footer.php'; ?>
+  <?php include '/opt/src/templates/javascript.php'; ?>
 </body>
 
 </html>
