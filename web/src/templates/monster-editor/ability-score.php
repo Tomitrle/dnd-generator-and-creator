@@ -1,5 +1,3 @@
-<!-- Used in the monster editor form for ability scores, modifiers, and saving throw proficiencies. -->
-<!-- Displays each ability as an independent row. -->
 <div class="row mb-1">
   <div class="mb-1 d-flex align-items-center justify-content-start   col-8   col-sm-2 justify-content-sm-center">
     <label for="<?php echo $ID; ?>" class="form-label mb-0"><?php echo ucfirst($ID);?></label>
