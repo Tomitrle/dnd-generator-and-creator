@@ -16,11 +16,11 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js"];
 <body>
   <?php include '/opt/src/templates/navbar.php'; ?>
   
-  <header class="container text-center">
+  <header class="container">
     <!-- Source: https://www.w3schools.com/jsref/met_his_back.asp -->
-    <div class="empty-container">
+    <!-- <div class="empty-container">
       <button type="button" aria-label="Previous" class="btn btn-back" onclick="history.back()">&#129120;</button>
-    </div>
+    </div> -->
 
     <h1>Monster Editor</h1>
     <hr>
@@ -79,6 +79,7 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js"];
         <label for="armor" class="form-label">Armor</label>
         <select id="armor" class="form-select" aria-required="true" required>
           <option selected disabled hidden value="">Select an option...</option>
+          <option>None</option>
           <option>Natural Armor</option>
           <option>Other</option>
         </select>
