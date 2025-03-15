@@ -5,7 +5,7 @@ $DESCRIPTION = "Create and edit custom monsters for Dungeons & Dragons.";
 $KEYWORDS = "dungeons and dragons, d&d, dnd, monster, creator, editor";
 
 $LESS = ["styles/monster-editor.less"];
-$SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/monster-armor-class.js"];
+$SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/monster-armor-class.js", "js/monster-health-points.js"];
 ?>
 
 <!DOCTYPE html>
@@ -149,11 +149,10 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
       </div>
 
       <div class="col-sm-6 mb-2">
-        <label for="health" class="form-label">Health Points</label>
-        <input type="number" class="form-control" id="health" value="0" aria-describedby="healthHelpLabel" aria-disabled="true" disabled>
+        <label for="health" class="form-label">Health Points (HP)</label>
+        <input type="number" class="form-control" id="health" min="1" aria-describedby="healthHelpLabel" aria-disabled="true" disabled>
         <div id="healthHelpLabel" class="form-text">
           Health points are calculated automatically. For manual control, select <i>Custom HP</i>. <br>
-          <strong>Not yet implemented</strong>
         </div>
       </div>
     </section>

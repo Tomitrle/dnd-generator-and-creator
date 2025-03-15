@@ -1,13 +1,16 @@
+// Author: Brennen Muller
+
 var armor = document.getElementById("armor");
 var shield = document.getElementById("shield");
-var dexterity = document.getElementById("dexterityModifier");
 var armorClass = document.getElementById("armorClass");
+
+var dexterity = document.getElementById("dexterityModifier");
 
 // https://htmlcheatsheet.com/js/
 // https://html.spec.whatwg.org/#embedding-custom-non-visible-data-with-the-data-*-attributes
 // https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript
 // https://stackoverflow.com/questions/12328144/how-do-i-access-custom-html-attributes-in-javascript
-function armorUpdate() {
+function updateArmorClass() {
     if (armor.value === "Natural Armor" || armor.value === "Other") {
         armorClass.disabled = false;
         return;    
@@ -36,10 +39,5 @@ function armorUpdate() {
     armorClass.value = AC;
 }
 
-armor.oninput = function () {
-    armorUpdate();
-}
-
-shield.oninput = function () {
-    armorUpdate();
-}
+armor.onchange = function () {updateArmorClass();}
+shield.onchange = function () {updateArmorClass();}
