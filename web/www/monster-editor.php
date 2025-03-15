@@ -1,4 +1,4 @@
-<?php 
+<?php
 $TITLE = "Monster Editor";
 $AUTHOR = "Brennen Muller";
 $DESCRIPTION = "Create and edit custom monsters for Dungeons & Dragons.";
@@ -20,7 +20,7 @@ $UNIQUE_ID = 1;
 
 <body>
   <?php include '/opt/src/templates/navbar.php'; ?>
-  
+
   <header class="container">
     <h1>Monster Editor</h1>
     <hr>
@@ -164,9 +164,12 @@ $UNIQUE_ID = 1;
       <?php include '/opt/src/templates/monster-editor/speed.php'; ?>
       <?php include '/opt/src/templates/monster-editor/speed.php'; ?>
 
-      <div class="col-12 my-2 text-center">
-        <button type="button" class="btn btn-success">New</button>
-      </div>
+      <?php
+      $NAME = "movement";
+      $OPTIONS = ["Burrow Speed", "Climb Speed", "Fly Speed", "Swim Speed"];
+
+      include '/opt/src/templates/monster-editor/add-many-button-modal.php';
+      ?>
     </section>
     <hr>
 
@@ -194,10 +197,10 @@ $UNIQUE_ID = 1;
       </div>
 
       <?php
-        $IDS = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"];
-        foreach ($IDS as $ID) {
-          include '/opt/src/templates/monster-editor/ability-score.php';
-        }
+      $IDS = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"];
+      foreach ($IDS as $ID) {
+        include '/opt/src/templates/monster-editor/ability-score.php';
+      }
       ?>
     </section>
     <hr>
@@ -214,9 +217,36 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <div class="col-12 my-2 text-center">
-          <button type="button" class="btn btn-success">New</button>
-        </div>
+        <?php
+        $NAME = "skill";
+        $OPTIONS = [
+          "Athletics",
+
+          "Acrobatics",
+          "Sleight of Hand",
+          "Stealth",
+
+          "Arcana",
+          "History",
+          "Investigation",
+          "Nature",
+          "Religion",
+
+          "Animal Handling",
+          "Insight",
+          "Medicine",
+          "Perception",
+          "Survival",
+
+          "Deception",
+          "Intimidation",
+          "Performance",
+          "Persuasion",
+        ];
+        sort($OPTIONS);
+
+        include '/opt/src/templates/monster-editor/add-many-button-modal.php';
+        ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -228,9 +258,36 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <div class="col-12 my-2 text-center">
-          <button type="button" class="btn btn-success">New</button>
-        </div>
+        <?php
+        $NAME = "skill";
+        $OPTIONS = [
+          "Athletics",
+
+          "Acrobatics",
+          "Sleight of Hand",
+          "Stealth",
+
+          "Arcana",
+          "History",
+          "Investigation",
+          "Nature",
+          "Religion",
+
+          "Animal Handling",
+          "Insight",
+          "Medicine",
+          "Perception",
+          "Survival",
+
+          "Deception",
+          "Intimidation",
+          "Performance",
+          "Persuasion",
+        ];
+        sort($OPTIONS);
+
+        include '/opt/src/templates/monster-editor/add-many-button-modal.php';
+        ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -242,9 +299,31 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <div class="col-12 my-2 text-center">
-          <button type="button" class="btn btn-success">New</button>
-        </div>
+        <?php
+        $NAME = "damageType";
+        $OPTIONS = [
+          "Acid",
+          "Bludgeoning",
+          "Cold",
+          "Fire",
+          "Force",
+          "Lightning",
+          "Necrotic",
+          "Piercing",
+          "Poison",
+          "Psychic",
+          "Radiant",
+          "Slashing",
+          "Thunder",
+
+          "Non-Magical",
+          "Magical",
+          "Non-Silvered",
+          "Non-Adamantine"
+        ];
+
+        include '/opt/src/templates/monster-editor/add-many-button-modal.php';
+        ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -256,9 +335,30 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <div class="col-12 my-2 text-center">
-          <button type="button" class="btn btn-success">New</button>
-        </div>
+        <?php
+        $NAME = "damageType";
+        $OPTIONS = [
+          "Acid",
+          "Bludgeoning",
+          "Cold",
+          "Fire",
+          "Force",
+          "Lightning",
+          "Necrotic",
+          "Piercing",
+          "Poison",
+          "Psychic",
+          "Radiant",
+          "Slashing",
+          "Thunder",
+
+          "Non-Magical",
+          "Magical",
+          "Non-Silvered",
+          "Non-Adamantine"
+        ];
+
+        include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -270,9 +370,30 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <div class="col-12 my-2 text-center">
-          <button type="button" class="btn btn-success">New</button>
-        </div>
+        <?php
+        $NAME = "damageType";
+        $OPTIONS = [
+          "Acid",
+          "Bludgeoning",
+          "Cold",
+          "Fire",
+          "Force",
+          "Lightning",
+          "Necrotic",
+          "Piercing",
+          "Poison",
+          "Psychic",
+          "Radiant",
+          "Slashing",
+          "Thunder",
+
+          "Non-Magical",
+          "Magical",
+          "Non-Silvered",
+          "Non-Adamantine"
+        ];
+
+        include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -284,9 +405,28 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <div class="col-12 my-2 text-center">
-          <button type="button" class="btn btn-success">New</button>
-        </div>
+        <?php
+        $NAME = "condition";
+        $OPTIONS = [
+          "Blinded",
+          "Charmed",
+          "Deafened",
+          "Frightened",
+          "Grappled",
+          "Incapacitated",
+          "Invisible",
+          "Paralyzed",
+          "Petrified",
+          "Poisoned",
+          "Prone",
+          "Restrained",
+          "Stunned",
+          "Unconscious",
+          "Exhaustion",
+        ];
+        sort($OPTIONS);
+
+        include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>
       </section>
     </section>
     <hr>
@@ -308,9 +448,17 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/sense.php'; ?>
         </div>
 
-        <div class="col-12 my-2 text-center">
-          <button type="button" class="btn btn-success">New</button>
-        </div>
+        <?php
+        $NAME = "sense";
+        $OPTIONS = [
+          "Blindsight",
+          "Darkvision",
+          "Tremorsense",
+          "Truesight"
+        ];
+
+        include '/opt/src/templates/monster-editor/add-many-button-modal.php';
+        ?>
       </section>
 
       <section class="col-sm-6">
@@ -331,9 +479,34 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <div class="col-12 my-2 text-center">
-          <button type="button" class="btn btn-success">New</button>
-        </div>
+        <?php
+        $NAME = "language";
+        $OPTIONS = [
+          "Common",
+          "Dwarvish",
+          "Elvish",
+          "Giant",
+          "Gnomish",
+          "Goblin",
+          "Halfling",
+          "Orc",
+
+          "Abyssal",
+          "Aquan",
+          "Auran",
+          "Celestial",
+          "Draconic",
+          "Deep Speech",
+          "Ignan",
+          "Infernal",
+          "Primoridal",
+          "Sylvan",
+          "Terran",
+          "Undercommon"
+        ];
+
+        include '/opt/src/templates/monster-editor/add-many-button-modal.php';
+        ?>
       </section>
     </section>
     <hr>
@@ -346,9 +519,18 @@ $UNIQUE_ID = 1;
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
-      <div class="my-2 text-center">
-        <button type="button" class="btn btn-success">New</button>
-      </div>
+      <?php
+      $NAME = "ability";
+      $OPTIONS = [
+        "Multiattack",
+        "Spellcasting",
+        "Innate Spellcasting",
+
+        "Custom"
+      ];
+
+      include '/opt/src/templates/monster-editor/add-single-button-modal.php';
+      ?>
     </section>
     <hr>
 
@@ -360,9 +542,17 @@ $UNIQUE_ID = 1;
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
-      <div class="my-2 text-center">
-        <button type="button" class="btn btn-success">New</button>
-      </div>
+      <?php
+      $NAME = "action";
+      $OPTIONS = [
+        "Melee Weapon Attack",
+        "Ranged Weapon Attack",
+
+        "Custom"
+      ];
+
+      include '/opt/src/templates/monster-editor/add-single-button-modal.php';
+      ?>
     </section>
     <hr>
 
@@ -374,9 +564,17 @@ $UNIQUE_ID = 1;
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
-      <div class="my-2 text-center">
-        <button type="button" class="btn btn-success">New</button>
-      </div>
+      <?php
+      $NAME = "bonusAction";
+      $OPTIONS = [
+        "Melee Weapon Attack",
+        "Ranged Weapon Attack",
+
+        "Custom"
+      ];
+
+      include '/opt/src/templates/monster-editor/add-single-button-modal.php';
+      ?>
     </section>
     <hr>
 
@@ -390,6 +588,15 @@ $UNIQUE_ID = 1;
       <div class="my-2 text-center">
         <button type="button" class="btn btn-success">New</button>
       </div>
+
+      <?php
+      // $NAME = "reaction";
+      // $OPTIONS = [
+      //    "Custom"
+      // ];
+
+      // include '/opt/src/templates/monster-editor/add-single-button-modal.php';
+      ?>
     </section>
     <hr>
 
@@ -406,9 +613,16 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
         </div>
 
-        <div class="my-2 text-center">
-          <button type="button" class="btn btn-success">New</button>
-        </div>
+        <?php
+        $NAME = "legendaryAbility";
+        $OPTIONS = [
+          "Legendary Resistance",
+
+          "Custom"
+        ];
+
+        include '/opt/src/templates/monster-editor/add-single-button-modal.php';
+        ?>
       </div>
     </section>
     <hr>
@@ -436,7 +650,39 @@ $UNIQUE_ID = 1;
 
           <select id="CRSelect" class="form-select w-50 mx-auto" aria-label="Custom challenge rating">
             <option selected>Challenge 0: 10XP </option>
+            <option>Challenge 1/8: 25XP </option>
+            <option>Challenge 1/4: 50XP </option>
+            <option>Challenge 1/2: 100XP </option>
             <option>Challenge 1: 200XP </option>
+            <option>Challenge 2: 450XP </option>
+            <option>Challenge 3: 700XP </option>
+            <option>Challenge 4: 1,100XP </option>
+            <option>Challenge 5: 1,800XP </option>
+            <option>Challenge 6: 2,300XP </option>
+            <option>Challenge 7: 2,900XP </option>
+            <option>Challenge 8: 3,900XP </option>
+            <option>Challenge 9: 5,000XP </option>
+            <option>Challenge 10: 5,900XP </option>
+            <option>Challenge 11: 7,200XP </option>
+            <option>Challenge 12: 8,400XP </option>
+            <option>Challenge 13: 10,000XP </option>
+            <option>Challenge 14: 11,500XP </option>
+            <option>Challenge 15: 13,000XP </option>
+            <option>Challenge 16: 15,000XP </option>
+            <option>Challenge 17: 18,000XP </option>
+            <option>Challenge 18: 20,000XP </option>
+            <option>Challenge 19: 22,000XP </option>
+            <option>Challenge 20: 25,000XP </option>
+            <option>Challenge 21: 33,000XP </option>
+            <option>Challenge 22: 41,000XP </option>
+            <option>Challenge 23: 50,000XP </option>
+            <option>Challenge 24: 62,000XP </option>
+            <option>Challenge 25: 75,000XP </option>
+            <option>Challenge 26: 90,000XP </option>
+            <option>Challenge 27: 105,000XP </option>
+            <option>Challenge 28: 120,000XP </option>
+            <option>Challenge 29: 135,000XP </option>
+            <option>Challenge 30: 155,000XP </option>
           </select>
         </div>
       </div>

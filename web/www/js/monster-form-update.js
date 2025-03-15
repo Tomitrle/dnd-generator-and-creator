@@ -164,6 +164,7 @@ function updateSliderLabel(event) {
 var legendaryBlock = document.getElementById("legendaryBlock");
 var legendaryCheckbox = document.getElementById("legendaryCheckbox")
 
+// https://stackoverflow.com/questions/26325278/how-can-i-get-all-descendant-elements-for-parent-container
 function legendaryToggle() {
     var inputs = legendaryBlock.querySelectorAll("input, textarea");
 
