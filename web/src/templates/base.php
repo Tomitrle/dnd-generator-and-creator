@@ -5,49 +5,35 @@
   <!-- Arguably unnecessary, but included for completeness  -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>
-    <?php 
+  <title><?php 
       if (isset($TITLE)) echo $TITLE;
       else echo "D&D Encounter Generator and Monster Creator";
-    ?>
-  </title>
-  <meta name="author" content="
-    <?php 
+  ?></title>
+  <meta name="author" content="<?php 
       if (isset($AUTHOR)) echo $AUTHOR;
       else echo "Brennen Muller & Tommy Le";
-    ?>
-  ">
-  <meta name="description" content="
-    <?php 
+  ?>">
+  <meta name="description" content="<?php 
       if (isset($DESCRIPTION)) echo $DESCRIPTION;
       else echo "Create custom monsters and encounters for Dungeons & Dragons!";
-    ?>
-  ">
-  <meta name="keywords" content="
-    <?php 
+  ?>">
+  <meta name="keywords" content="<?php 
       if (isset($KEYWORDS)) echo $KEYWORDS;
-      else echo "D&D, DnD, dnd, Dungeons & Dragons, monster, encounter, custom, generator, creator";
-    ?>
-  ">
+      else echo "dungeons and dragons, d&d, dnd, monster, encounter, custom, generator, creator, editor";
+  ?>">
 
-  <meta property="og:url" content="
-    <?php 
+  <meta property="og:url" content="<?php 
       if (isset($URI)) echo $URI;
       else echo __DIR__;
-    ?>
-  ">
-  <meta property="og:title" content="
-    <?php 
+  ?>">
+  <meta property="og:title" content="<?php 
       if (isset($TITLE)) echo $TITLE;
       else echo "D&D Encounter Generator and Monster Creator";
-    ?>
-  ">
-  <meta property="og:description" content="
-    <?php 
+  ?>">
+  <meta property="og:description" content="<?php 
       if (isset($DESCRIPTION)) echo $DESCRIPTION;
       else echo "Create custom monsters and encounters for Dungeons & Dragons!";
-    ?>
-  ">
+  ?>">
   <meta property="og:type" content="website">
   <!-- <meta property="og:image" content="">
   <meta property="og:image:type" content="image/png">

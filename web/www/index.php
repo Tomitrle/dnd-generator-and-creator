@@ -1,3 +1,14 @@
+<?php 
+// $TITLE = "";
+// $AUTHOR = "";
+// $DESCRIPTION = "";
+// $KEYWORDS = "";
+// $URI = "";
+
+$LESS = [];
+$SCRIPTS = [];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

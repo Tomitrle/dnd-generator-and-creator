@@ -1,3 +1,13 @@
+<?php 
+$TITLE = "Encounter Generator";
+$AUTHOR = "Tommy Le";
+$DESCRIPTION = "Generate encounters for Dungeons & Dragons.";
+$KEYWORDS = "dungeons and dragons, d&d, dnd, encounter, generator";
+
+$LESS = ["styles/encounter-generator.less"];
+$SCRIPTS = ["js/encounter-generator-validator.js"];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

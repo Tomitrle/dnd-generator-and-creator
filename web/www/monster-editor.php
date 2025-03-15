@@ -1,10 +1,19 @@
+<?php 
+$TITLE = "Monster Editor";
+$AUTHOR = "Brennen Muller";
+$DESCRIPTION = "Create and edit custom monsters for Dungeons & Dragons.";
+$KEYWORDS = "dungeons and dragons, d&d, dnd, monster, creator, editor";
+
+$LESS = ["styles/monster-editor.less"];
+$SCRIPTS = ["js/monster-power-slider.js", "js/monster-editor-validator.js"];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <?php include '/opt/src/templates/base.php'; ?>
 
 <body>
-  <!-- TODO: Include monster-editor.less stylesheet -->
   <?php include '/opt/src/templates/navbar.php'; ?>
   
   <header class="container text-center">
@@ -408,8 +417,6 @@
 
   <?php include '/opt/src/templates/footer.php'; ?>
   <?php include '/opt/src/templates/base-javascript.php'; ?>
-  <script src="/js/monster-power-slider.js"></script>
-  <script src="/js/monster-editor-validator.js"></script>
 </body>
 
 </html>

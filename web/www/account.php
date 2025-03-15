@@ -1,3 +1,12 @@
+<?php 
+$TITLE = "Account";
+$AUTHOR = "Brennen Muller";
+$DESCRIPTION = "Your account page and saved custom monsters";
+
+$LESS = [];
+$SCRIPTS = [];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

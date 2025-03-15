@@ -1,3 +1,13 @@
+<?php 
+$TITLE = "Login";
+$AUTHOR = "Tommy Le";
+$DESCRIPTION = "Login to the Dungeons & Dragons Generator and Creator.";
+$KEYWORDS = "dungeons and dragons, d&d, dnd, login";
+
+$LESS = ["styles/login.less"];
+$SCRIPTS = [];
+?>
+
 <!-- Sources used: https://getbootstrap.com/docs/5.3/forms/overview/#overview -->
 
 <!DOCTYPE html>
