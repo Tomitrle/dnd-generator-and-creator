@@ -400,13 +400,15 @@ $UNIQUE_ID = 1;
         <label class="form-check-label" for="legendaryCheckbox"><strong>Legendary Monster</strong></label>
       </div>
 
-      <div class="row gx-sm-5 gy-sm-3">
-        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
-        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
-      </div>
+      <div id="legendaryBlock" style="display:none">
+        <div class="row gx-sm-5 gy-sm-3">
+          <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+        </div>
 
-      <div class="my-2 text-center">
-        <button type="button" class="btn btn-success">New</button>
+        <div class="my-2 text-center">
+          <button type="button" class="btn btn-success">New</button>
+        </div>
       </div>
     </section>
     <hr>

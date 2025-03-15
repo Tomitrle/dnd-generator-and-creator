@@ -160,3 +160,21 @@ function updateSliderLabel(event) {
         break;
     }
 }
+
+var legendaryBlock = document.getElementById("legendaryBlock");
+var legendaryCheckbox = document.getElementById("legendaryCheckbox")
+
+function legendaryToggle() {
+    var inputs = legendaryBlock.querySelectorAll("input, textarea");
+
+    if (legendaryCheckbox.checked) {
+        legendaryBlock.style.display = 'block';
+        for (input of inputs) input.disabled = false;
+        return;
+    }
+    
+    legendaryBlock.style.display = 'none';
+    for (input of inputs) input.disabled = true;
+}
+
+legendaryCheckbox.addEventListener("change", legendaryToggle);
