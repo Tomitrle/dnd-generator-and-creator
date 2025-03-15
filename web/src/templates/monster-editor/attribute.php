@@ -1,9 +1,11 @@
-<div class="row mb-1">
-  <input type="hidden" class="form-control" id="" value="Attribute">
+<div class="row mb-1" onclick="deleteSelf(event, this)">
+  <!-- REQUIRES js/delete.js -->
+  <input type="hidden" class="form-control" id="attribute<?php echo $UNIQUE_ID; ?>" value="Attribute">
   <div class="col-11 d-flex align-items-center text-wrap text-break">
     Attribute
   </div>
   <div class="col-1 gx-0 d-flex align-items-center">
-    <button type="button" class="btn-close" aria-label="Delete"></button>
+    <button type="button" class="btn-close" aria-label="Delete" data-action="delete"></button>
   </div>
 </div>
+<?php $UNIQUE_ID += 1; ?>

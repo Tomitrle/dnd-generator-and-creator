@@ -13,11 +13,7 @@ For now, list any specific resources alongside the applicable code. All  _generi
 
 ## References
 - Javascript Cheat Sheet: https://htmlcheatsheet.com/js/
-
-
-## Forums
-- https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript
-- https://stackoverflow.com/questions/12328144/how-do-i-access-custom-html-attributes-in-javascript
+- Mozilla Developer Reference: https://developer.mozilla.org/en-US/docs/Web/
 
 ## Generative AI
 NOTE: Generative AI is generally prohibited in this class and may be prohibited on this assignment; contact the TA or Professor Hott before using any generative AI.

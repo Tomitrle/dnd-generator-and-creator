@@ -1,11 +1,16 @@
-<?php 
+<?php
 $TITLE = "Monster Editor";
 $AUTHOR = "Brennen Muller";
 $DESCRIPTION = "Create and edit custom monsters for Dungeons & Dragons.";
 $KEYWORDS = "dungeons and dragons, d&d, dnd, monster, creator, editor";
 
 $LESS = ["styles/monster-editor.less"];
-$SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/monster-armor-class.js"];
+$SCRIPTS = ["js/monster-form-validator.js", "js/monster-form-update.js", "js/delete.js"];
+?>
+
+<?php
+// USED TO GIVE UNIQUE ID NUMBERS TO EAC ELEMENT. PROBABLY NEEDS TO BE UPDATED LATER (ESPECIALLY TO ADD NEW ELEMENTS)
+$UNIQUE_ID = 1;
 ?>
 
 <!DOCTYPE html>
@@ -15,13 +20,8 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
 
 <body>
   <?php include '/opt/src/templates/navbar.php'; ?>
-  
-  <header class="container">
-    <!-- Source: https://www.w3schools.com/jsref/met_his_back.asp -->
-    <!-- <div class="empty-container">
-      <button type="button" aria-label="Previous" class="btn btn-back" onclick="history.back()">&#129120;</button>
-    </div> -->
 
+  <header class="container">
     <h1>Monster Editor</h1>
     <hr>
   </header>
@@ -136,7 +136,6 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
         </div>
       </div>
 
-      <!-- Swap disabled attribute between HP and Hit Dice based on the value of the Custom HP checkbox -->
       <div class="col-sm-6 mb-2">
         <label for="hitDice" class="form-label">Hit Dice</label>
         <input type="number" min="0" class="form-control" id="hitDice" aria-describedby="healthHelpLabel" aria-required="true" required>
@@ -149,26 +148,28 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
       </div>
 
       <div class="col-sm-6 mb-2">
-        <label for="health" class="form-label">Health Points</label>
-        <input type="number" class="form-control" id="health" value="0" aria-describedby="healthHelpLabel" aria-disabled="true" disabled>
+        <label for="health" class="form-label">Health Points (HP)</label>
+        <input type="number" class="form-control" id="health" min="1" value="1" aria-describedby="healthHelpLabel" aria-disabled="true" disabled>
         <div id="healthHelpLabel" class="form-text">
           Health points are calculated automatically. For manual control, select <i>Custom HP</i>. <br>
-          <strong>Not yet implemented</strong>
         </div>
       </div>
     </section>
     <hr>
 
-    <section class="row">
+    <section>
       <h2>Movement</h2>
 
       <?php include '/opt/src/templates/monster-editor/speed.php'; ?>
       <?php include '/opt/src/templates/monster-editor/speed.php'; ?>
       <?php include '/opt/src/templates/monster-editor/speed.php'; ?>
 
-      <div class="col-12 my-2 text-center">
-        <button type="button" class="btn btn-success">New</button>
-      </div>
+      <?php
+      $NAME = "movement";
+      $OPTIONS = ["Burrow Speed", "Climb Speed", "Fly Speed", "Swim Speed"];
+
+      include '/opt/src/templates/monster-editor/add-many-button-modal.php';
+      ?>
     </section>
     <hr>
 
@@ -195,13 +196,12 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
         </div> -->
       </div>
 
-      <!-- Remember: IDs for "dexterityModifier", etc. -->
-      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
-      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
-      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
-      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
-      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
-      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
+      <?php
+      $IDS = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"];
+      foreach ($IDS as $ID) {
+        include '/opt/src/templates/monster-editor/ability-score.php';
+      }
+      ?>
     </section>
     <hr>
 
@@ -217,9 +217,36 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <div class="col-12 my-2 text-center">
-          <button type="button" class="btn btn-success">New</button>
-        </div>
+        <?php
+        $NAME = "skill";
+        $OPTIONS = [
+          "Athletics",
+
+          "Acrobatics",
+          "Sleight of Hand",
+          "Stealth",
+
+          "Arcana",
+          "History",
+          "Investigation",
+          "Nature",
+          "Religion",
+
+          "Animal Handling",
+          "Insight",
+          "Medicine",
+          "Perception",
+          "Survival",
+
+          "Deception",
+          "Intimidation",
+          "Performance",
+          "Persuasion",
+        ];
+        sort($OPTIONS);
+
+        include '/opt/src/templates/monster-editor/add-many-button-modal.php';
+        ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -231,9 +258,36 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <div class="col-12 my-2 text-center">
-          <button type="button" class="btn btn-success">New</button>
-        </div>
+        <?php
+        $NAME = "skill";
+        $OPTIONS = [
+          "Athletics",
+
+          "Acrobatics",
+          "Sleight of Hand",
+          "Stealth",
+
+          "Arcana",
+          "History",
+          "Investigation",
+          "Nature",
+          "Religion",
+
+          "Animal Handling",
+          "Insight",
+          "Medicine",
+          "Perception",
+          "Survival",
+
+          "Deception",
+          "Intimidation",
+          "Performance",
+          "Persuasion",
+        ];
+        sort($OPTIONS);
+
+        include '/opt/src/templates/monster-editor/add-many-button-modal.php';
+        ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -245,9 +299,31 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <div class="col-12 my-2 text-center">
-          <button type="button" class="btn btn-success">New</button>
-        </div>
+        <?php
+        $NAME = "damageType";
+        $OPTIONS = [
+          "Acid",
+          "Bludgeoning",
+          "Cold",
+          "Fire",
+          "Force",
+          "Lightning",
+          "Necrotic",
+          "Piercing",
+          "Poison",
+          "Psychic",
+          "Radiant",
+          "Slashing",
+          "Thunder",
+
+          "Non-Magical",
+          "Magical",
+          "Non-Silvered",
+          "Non-Adamantine"
+        ];
+
+        include '/opt/src/templates/monster-editor/add-many-button-modal.php';
+        ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -259,9 +335,30 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <div class="col-12 my-2 text-center">
-          <button type="button" class="btn btn-success">New</button>
-        </div>
+        <?php
+        $NAME = "damageType";
+        $OPTIONS = [
+          "Acid",
+          "Bludgeoning",
+          "Cold",
+          "Fire",
+          "Force",
+          "Lightning",
+          "Necrotic",
+          "Piercing",
+          "Poison",
+          "Psychic",
+          "Radiant",
+          "Slashing",
+          "Thunder",
+
+          "Non-Magical",
+          "Magical",
+          "Non-Silvered",
+          "Non-Adamantine"
+        ];
+
+        include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -273,9 +370,30 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <div class="col-12 my-2 text-center">
-          <button type="button" class="btn btn-success">New</button>
-        </div>
+        <?php
+        $NAME = "damageType";
+        $OPTIONS = [
+          "Acid",
+          "Bludgeoning",
+          "Cold",
+          "Fire",
+          "Force",
+          "Lightning",
+          "Necrotic",
+          "Piercing",
+          "Poison",
+          "Psychic",
+          "Radiant",
+          "Slashing",
+          "Thunder",
+
+          "Non-Magical",
+          "Magical",
+          "Non-Silvered",
+          "Non-Adamantine"
+        ];
+
+        include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -287,9 +405,28 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <div class="col-12 my-2 text-center">
-          <button type="button" class="btn btn-success">New</button>
-        </div>
+        <?php
+        $NAME = "condition";
+        $OPTIONS = [
+          "Blinded",
+          "Charmed",
+          "Deafened",
+          "Frightened",
+          "Grappled",
+          "Incapacitated",
+          "Invisible",
+          "Paralyzed",
+          "Petrified",
+          "Poisoned",
+          "Prone",
+          "Restrained",
+          "Stunned",
+          "Unconscious",
+          "Exhaustion",
+        ];
+        sort($OPTIONS);
+
+        include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>
       </section>
     </section>
     <hr>
@@ -311,9 +448,17 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
           <?php include '/opt/src/templates/monster-editor/sense.php'; ?>
         </div>
 
-        <div class="col-12 my-2 text-center">
-          <button type="button" class="btn btn-success">New</button>
-        </div>
+        <?php
+        $NAME = "sense";
+        $OPTIONS = [
+          "Blindsight",
+          "Darkvision",
+          "Tremorsense",
+          "Truesight"
+        ];
+
+        include '/opt/src/templates/monster-editor/add-many-button-modal.php';
+        ?>
       </section>
 
       <section class="col-sm-6">
@@ -334,9 +479,34 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <div class="col-12 my-2 text-center">
-          <button type="button" class="btn btn-success">New</button>
-        </div>
+        <?php
+        $NAME = "language";
+        $OPTIONS = [
+          "Common",
+          "Dwarvish",
+          "Elvish",
+          "Giant",
+          "Gnomish",
+          "Goblin",
+          "Halfling",
+          "Orc",
+
+          "Abyssal",
+          "Aquan",
+          "Auran",
+          "Celestial",
+          "Draconic",
+          "Deep Speech",
+          "Ignan",
+          "Infernal",
+          "Primoridal",
+          "Sylvan",
+          "Terran",
+          "Undercommon"
+        ];
+
+        include '/opt/src/templates/monster-editor/add-many-button-modal.php';
+        ?>
       </section>
     </section>
     <hr>
@@ -349,9 +519,18 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
-      <div class="my-2 text-center">
-        <button type="button" class="btn btn-success">New</button>
-      </div>
+      <?php
+      $NAME = "ability";
+      $OPTIONS = [
+        "Multiattack",
+        "Spellcasting",
+        "Innate Spellcasting",
+
+        "Custom"
+      ];
+
+      include '/opt/src/templates/monster-editor/add-single-button-modal.php';
+      ?>
     </section>
     <hr>
 
@@ -363,9 +542,17 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
-      <div class="my-2 text-center">
-        <button type="button" class="btn btn-success">New</button>
-      </div>
+      <?php
+      $NAME = "action";
+      $OPTIONS = [
+        "Melee Weapon Attack",
+        "Ranged Weapon Attack",
+
+        "Custom"
+      ];
+
+      include '/opt/src/templates/monster-editor/add-single-button-modal.php';
+      ?>
     </section>
     <hr>
 
@@ -377,9 +564,17 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
-      <div class="my-2 text-center">
-        <button type="button" class="btn btn-success">New</button>
-      </div>
+      <?php
+      $NAME = "bonusAction";
+      $OPTIONS = [
+        "Melee Weapon Attack",
+        "Ranged Weapon Attack",
+
+        "Custom"
+      ];
+
+      include '/opt/src/templates/monster-editor/add-single-button-modal.php';
+      ?>
     </section>
     <hr>
 
@@ -393,6 +588,15 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
       <div class="my-2 text-center">
         <button type="button" class="btn btn-success">New</button>
       </div>
+
+      <?php
+      // $NAME = "reaction";
+      // $OPTIONS = [
+      //    "Custom"
+      // ];
+
+      // include '/opt/src/templates/monster-editor/add-single-button-modal.php';
+      ?>
     </section>
     <hr>
 
@@ -403,13 +607,22 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
         <label class="form-check-label" for="legendaryCheckbox"><strong>Legendary Monster</strong></label>
       </div>
 
-      <div class="row gx-sm-5 gy-sm-3">
-        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
-        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
-      </div>
+      <div id="legendaryBlock" style="display:none">
+        <div class="row gx-sm-5 gy-sm-3">
+          <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+        </div>
 
-      <div class="my-2 text-center">
-        <button type="button" class="btn btn-success">New</button>
+        <?php
+        $NAME = "legendaryAbility";
+        $OPTIONS = [
+          "Legendary Resistance",
+
+          "Custom"
+        ];
+
+        include '/opt/src/templates/monster-editor/add-single-button-modal.php';
+        ?>
       </div>
     </section>
     <hr>
@@ -437,7 +650,39 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
 
           <select id="CRSelect" class="form-select w-50 mx-auto" aria-label="Custom challenge rating">
             <option selected>Challenge 0: 10XP </option>
+            <option>Challenge 1/8: 25XP </option>
+            <option>Challenge 1/4: 50XP </option>
+            <option>Challenge 1/2: 100XP </option>
             <option>Challenge 1: 200XP </option>
+            <option>Challenge 2: 450XP </option>
+            <option>Challenge 3: 700XP </option>
+            <option>Challenge 4: 1,100XP </option>
+            <option>Challenge 5: 1,800XP </option>
+            <option>Challenge 6: 2,300XP </option>
+            <option>Challenge 7: 2,900XP </option>
+            <option>Challenge 8: 3,900XP </option>
+            <option>Challenge 9: 5,000XP </option>
+            <option>Challenge 10: 5,900XP </option>
+            <option>Challenge 11: 7,200XP </option>
+            <option>Challenge 12: 8,400XP </option>
+            <option>Challenge 13: 10,000XP </option>
+            <option>Challenge 14: 11,500XP </option>
+            <option>Challenge 15: 13,000XP </option>
+            <option>Challenge 16: 15,000XP </option>
+            <option>Challenge 17: 18,000XP </option>
+            <option>Challenge 18: 20,000XP </option>
+            <option>Challenge 19: 22,000XP </option>
+            <option>Challenge 20: 25,000XP </option>
+            <option>Challenge 21: 33,000XP </option>
+            <option>Challenge 22: 41,000XP </option>
+            <option>Challenge 23: 50,000XP </option>
+            <option>Challenge 24: 62,000XP </option>
+            <option>Challenge 25: 75,000XP </option>
+            <option>Challenge 26: 90,000XP </option>
+            <option>Challenge 27: 105,000XP </option>
+            <option>Challenge 28: 120,000XP </option>
+            <option>Challenge 29: 135,000XP </option>
+            <option>Challenge 30: 155,000XP </option>
           </select>
         </div>
       </div>
