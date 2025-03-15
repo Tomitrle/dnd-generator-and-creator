@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include '/opt/src/templates/base.html'; ?>
+<?php include '/opt/src/templates/base.php'; ?>
 
 <body>
   <!-- TODO: Include monster-editor.less stylesheet -->
-  <?php include '/opt/src/templates/navbar.html'; ?>
+  <?php include '/opt/src/templates/navbar.php'; ?>
   
   <header class="container text-center">
     <!-- Source: https://www.w3schools.com/jsref/met_his_back.asp -->
@@ -119,9 +119,9 @@
     <section class="row">
       <h2>Movement</h2>
 
-      <?php include '/opt/src/templates/monster-editor/speed.html'; ?>
-      <?php include '/opt/src/templates/monster-editor/speed.html'; ?>
-      <?php include '/opt/src/templates/monster-editor/speed.html'; ?>
+      <?php include '/opt/src/templates/monster-editor/speed.php'; ?>
+      <?php include '/opt/src/templates/monster-editor/speed.php'; ?>
+      <?php include '/opt/src/templates/monster-editor/speed.php'; ?>
 
       <div class="col-12 my-2 text-center">
         <button type="button" class="btn btn-success">New</button>
@@ -152,12 +152,12 @@
         </div> -->
       </div>
 
-      <?php include '/opt/src/templates/monster-editor/ability-score.html'; ?>
-      <?php include '/opt/src/templates/monster-editor/ability-score.html'; ?>
-      <?php include '/opt/src/templates/monster-editor/ability-score.html'; ?>
-      <?php include '/opt/src/templates/monster-editor/ability-score.html'; ?>
-      <?php include '/opt/src/templates/monster-editor/ability-score.html'; ?>
-      <?php include '/opt/src/templates/monster-editor/ability-score.html'; ?>
+      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
+      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
+      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
+      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
+      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
+      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
     </section>
     <hr>
 
@@ -168,9 +168,9 @@
         <h3>Skill Proficiencies</h3>
 
         <div class="d-flex flex-column">
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
         <div class="col-12 my-2 text-center">
@@ -182,9 +182,9 @@
         <h3>Skill Expertises</h3>
 
         <div class="d-flex flex-column">
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
         <div class="col-12 my-2 text-center">
@@ -196,9 +196,9 @@
         <h3>Damage Vulnerabilities</h3>
 
         <div class="d-flex flex-column">
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
         <div class="col-12 my-2 text-center">
@@ -210,9 +210,9 @@
         <h3>Damage Resistances</h3>
 
         <div class="d-flex flex-column">
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
         <div class="col-12 my-2 text-center">
@@ -224,9 +224,9 @@
         <h3>Damage Immunities</h3>
 
         <div class="d-flex flex-column">
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
         <div class="col-12 my-2 text-center">
@@ -238,9 +238,9 @@
         <h3>Condition Immunities</h3>
 
         <div class="d-flex flex-column">
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
         <div class="col-12 my-2 text-center">
@@ -262,9 +262,9 @@
         </div>
 
         <div class="d-flex flex-column">
-          <?php include '/opt/src/templates/monster-editor/sense.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/sense.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/sense.html'; ?>
+          <?php include '/opt/src/templates/monster-editor/sense.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/sense.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/sense.php'; ?>
         </div>
 
         <div class="col-12 my-2 text-center">
@@ -285,9 +285,9 @@
         </div>
 
         <div class="d-flex flex-column">
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.html'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
+          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
         <div class="col-12 my-2 text-center">
@@ -301,8 +301,8 @@
       <h2>Abilities</h2>
 
       <div class="row gx-sm-5 gy-sm-3">
-        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
-        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
       <div class="my-2 text-center">
@@ -315,8 +315,8 @@
       <h2>Actions</h2>
 
       <div class="row gx-sm-5 gy-sm-3">
-        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
-        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
       <div class="my-2 text-center">
@@ -329,8 +329,8 @@
       <h2>Bonus Actions</h2>
 
       <div class="row gx-sm-5 gy-sm-3">
-        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
-        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
       <div class="my-2 text-center">
@@ -342,8 +342,8 @@
     <section>
       <h2>Reactions</h2>
       <div class="row gx-sm-5 gy-sm-3">
-        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
-        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
       <div class="my-2 text-center">
@@ -360,8 +360,8 @@
       </div>
 
       <div class="row gx-sm-5 gy-sm-3">
-        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
-        <?php include '/opt/src/templates/monster-editor/ability-action.html'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
       <div class="my-2 text-center">
@@ -406,8 +406,8 @@
   </form>
 
 
-  <?php include '/opt/src/templates/footer.html'; ?>
-  <?php include '/opt/src/templates/base-javascript.html'; ?>
+  <?php include '/opt/src/templates/footer.php'; ?>
+  <?php include '/opt/src/templates/base-javascript.php'; ?>
   <script src="/js/monster-power-slider.js"></script>
   <script src="/js/monster-editor-validator.js"></script>
 </body>
