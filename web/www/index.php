@@ -24,6 +24,6 @@ $SCRIPTS = [];
   </header>
 
   <?php include '/opt/src/templates/footer.php';?>
-  <?php include '/opt/src/templates/base-javascript.php';?>
+  <?php include '/opt/src/templates/javascript.php';?>
 </body>
 </html>

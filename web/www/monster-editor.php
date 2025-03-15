@@ -5,7 +5,7 @@ $DESCRIPTION = "Create and edit custom monsters for Dungeons & Dragons.";
 $KEYWORDS = "dungeons and dragons, d&d, dnd, monster, creator, editor";
 
 $LESS = ["styles/monster-editor.less"];
-$SCRIPTS = ["js/monster-power-slider.js", "js/monster-editor-validator.js"];
+$SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js"];
 ?>
 
 <!DOCTYPE html>
@@ -414,9 +414,8 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-editor-validator.js"];
     </div>
   </form>
 
-
   <?php include '/opt/src/templates/footer.php'; ?>
-  <?php include '/opt/src/templates/base-javascript.php'; ?>
+  <?php include '/opt/src/templates/javascript.php'; ?>
 </body>
 
 </html>
