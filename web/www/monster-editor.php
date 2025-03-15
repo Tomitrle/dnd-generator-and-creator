@@ -5,7 +5,7 @@ $DESCRIPTION = "Create and edit custom monsters for Dungeons & Dragons.";
 $KEYWORDS = "dungeons and dragons, d&d, dnd, monster, creator, editor";
 
 $LESS = ["styles/monster-editor.less"];
-$SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js"];
+$SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/monster-armor-class.js"];
 ?>
 
 <!DOCTYPE html>
@@ -43,12 +43,12 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js"];
         <label for="size" class="form-label">Size</label>
         <select id="size" class="form-select" aria-required="true" required>
           <option selected disabled hidden value="">Select an option...</option>
-          <option>Tiny</option>
-          <option>Small</option>
-          <option>Medium</option>
-          <option>Large</option>
-          <option>Huge</option>
-          <option>Gargantuan</option>
+          <option value="tiny">Tiny</option>
+          <option value="small">Small</option>
+          <option value="medium">Medium</option>
+          <option value="large">Large</option>
+          <option value="huge">Huge</option>
+          <option value="gargantuan">Gargantuan</option>
         </select>
       </div>
 
@@ -56,8 +56,21 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js"];
         <label for="type" class="form-label">Type</label>
         <select id="type" class="form-select" aria-required="true" required>
           <option selected disabled hidden value="">Select an option...</option>
-          <option>Humanoid</option>
-          <option>Other</option>
+          <option value="aberration">Aberration</option>
+          <option value="beast">Beast</option>
+          <option value="celestial">Celestial</option>
+          <option value="construct">Construct</option>
+          <option value="dragon">Dragon</option>
+          <option value="elemental">Elemental</option>
+          <option value="fey">Fey</option>
+          <option value="fiend">Fiend</option>
+          <option value="giant">Giant</option>
+          <option value="humanoid">Humanoid</option>
+          <option value="monstrosity">Monstrosity</option>
+          <option value="ooze">Ooze</option>
+          <option value="plant">Plant</option>
+          <option value="undead">Undead</option>
+          <option value="other">Other</option>
         </select>
       </div>
 
@@ -65,8 +78,15 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js"];
         <label for="alignment" class="form-label">Alignment</label>
         <select id="alignment" class="form-select" aria-required="true" required>
           <option selected disabled hidden value="">Select an option...</option>
-          <option>Neutral</option>
-          <option>Other</option>
+          <option value="lawful good">Lawful Good</option>
+          <option value="neutral good">Neutral Good</option>
+          <option value="chaotic good">Chaotic Good</option>
+          <option value="lawful neutral">Lawful Neutral</option>
+          <option value="true neutral">True Neutral</option>
+          <option value="chaotic neutral">Chaotic Neutral</option>
+          <option value="lawful evil">Lawful Evil</option>
+          <option value="neutral evil">Neutral Evil</option>
+          <option value="chaotic evil">Chaotic Evil</option>
         </select>
       </div>
     </section>
@@ -79,9 +99,25 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js"];
         <label for="armor" class="form-label">Armor</label>
         <select id="armor" class="form-select" aria-required="true" required>
           <option selected disabled hidden value="">Select an option...</option>
-          <option>None</option>
-          <option>Natural Armor</option>
-          <option>Other</option>
+          <option data-ac="10" data-type="light">None</option>
+          <option data-ac="11" data-type="light">Padded</option>
+          <option data-ac="11" data-type="light">Leather</option>
+          <option data-ac="12" data-type="light">Studded Leather</option>
+
+          <option data-ac="12" data-type="medium">Hide</option>
+          <option data-ac="13" data-type="medium">Chain Shirt</option>
+          <option data-ac="14" data-type="medium">Scale Mail</option>
+          <option data-ac="14" data-type="medium">Spiked Armor</option>
+          <option data-ac="14" data-type="medium">Breastplate</option>
+          <option data-ac="15" data-type="medium">Halfplate</option>
+
+          <option data-ac="14" data-type="heavy">Ring Mail</option>
+          <option data-ac="16" data-type="heavy">Chain Mail</option>
+          <option data-ac="17" data-type="heavy">Splint</option>
+          <option data-ac="18" data-type="heavy">Plate</option>
+
+          <option data-ac="0">Natural Armor</option>
+          <option data-ac="0">Other</option>
         </select>
 
         <div class="form-check mt-1">
@@ -92,14 +128,11 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js"];
         </div>
       </div>
 
-
-      <!-- Enable and require Armor Bonus if "Natural Armor" or "Other" is selected -->
       <div class="col-sm-6 mb-2">
-        <label for="armorBonus" class="form-label">Armor Bonus</label>
-        <input type="number" class="form-control" id="armorBonus" value="0" aria-describedby="armorBonusHelpLabel" aria-disabled="true" disabled>
-        <div id="armorBonusHelpLabel" class="form-text">
-          Armor bonus updates automatically. For manual control, select <i>Natural Armor</i> or <i>Other</i>. <br>
-          <strong>Not yet implemented</strong>
+        <label for="armorClass" class="form-label">Armor Class (AC)</label>
+        <input type="number" class="form-control" id="armorClass" min="0" max="10" value="" aria-describedby="armorClassHelpLabel" aria-disabled="true" disabled>
+        <div id="armorClassHelpLabel" class="form-text">
+          Armor class updates automatically. For manual control, select <i>Natural Armor</i> or <i>Other</i>. <br>
         </div>
       </div>
 
@@ -162,6 +195,7 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js"];
         </div> -->
       </div>
 
+      <!-- Remember: IDs for "dexterityModifier", etc. -->
       <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
       <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
       <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
