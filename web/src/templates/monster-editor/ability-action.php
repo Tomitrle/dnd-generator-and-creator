@@ -1,7 +1,7 @@
 <!-- Used in the monster editor form for various abilities and actions. -->
 <!-- Must be contained within a ".row" element. -->
 
-<!-- REQUIRES /js/monster-power-slider.js -->
+<!-- REQUIRES js/monster-power-slider.js -->
 <div class="col-sm-6 col-lg-4">
   <div class="row mb-1">
     <label for="" class="form-label">Name</label>

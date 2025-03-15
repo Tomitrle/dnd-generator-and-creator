@@ -195,12 +195,12 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js", "js/mo
       </div>
 
       <!-- Remember: IDs for "dexterityModifier", etc. -->
-      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
-      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
-      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
-      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
-      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
-      <?php include '/opt/src/templates/monster-editor/ability-score.php'; ?>
+      <?php
+        $IDS = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"];
+        foreach ($IDS as $ID) {
+          include '/opt/src/templates/monster-editor/ability-score.php';
+        }
+      ?>
     </section>
     <hr>
 
