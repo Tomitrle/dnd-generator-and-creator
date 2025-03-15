@@ -11,7 +11,7 @@ $SCRIPTS = ["js/monster-power-slider.js", "js/monster-form-validator.js"];
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include '/opt/src/templates/base.php'; ?>
+<?php include '/opt/src/templates/head.php'; ?>
 
 <body>
   <?php include '/opt/src/templates/navbar.php'; ?>

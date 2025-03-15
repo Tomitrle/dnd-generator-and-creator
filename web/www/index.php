@@ -5,15 +5,15 @@
 // $KEYWORDS = "";
 // $URI = "";
 
-$LESS = [];
-$SCRIPTS = [];
+// $LESS = [];
+// $SCRIPTS = [];
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <!-- Source: https://www.w3schools.com/PHP/php_includes.asp -->
-<?php include '/opt/src/templates/base.php';?>
+<?php include '/opt/src/templates/head.php';?>
 
 <body>
   <?php include '/opt/src/templates/navbar.php';?>
