@@ -141,7 +141,7 @@ constitution.addEventListener("input", updateHealthPoints);
 
 // https://stackoverflow.com/questions/62707474/how-to-assign-labels-on-a-range-slider
 function updateSliderLabel(event) {
-  var label = document.getElementById(event.target.id.replace("range", "rangeLabel"));
+  var label = document.getElementById(event.target.id.replace("Benefit", "BenefitLabel"));
 
   switch (event.target.value) {
     case "-1":
