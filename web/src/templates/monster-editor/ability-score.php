@@ -1,6 +1,6 @@
 <div class="row mb-1">
   <div class="mb-1 d-flex align-items-center justify-content-start   col-8   col-sm-2 justify-content-sm-center">
-    <label for="<?php echo $CATEGORY; ?>Score" class="form-label mb-0"><?php echo ucfirst(preg_replace("/(?<![A-Z])[A-Z]/", ' $0', $CATEGORY)); ?></label>
+    <label for="<?php echo $CATEGORY; ?>Score" class="form-label mb-0"><?php echo ucfirst($CATEGORY); ?></label>
   </div>
 
   <div class="mb-1 text-center   d-block col-4   d-sm-none">

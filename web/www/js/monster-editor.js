@@ -306,9 +306,10 @@ function addSelectedAttribute(self) {
     document.getElementById(category + "Container").appendChild(selectedAttribute);
 }
 
-// TODO
+// Do not access manually; use uniqueID() instead.
+var uniqueIDValue = document.getElementById("IDCounter").value;
 function uniqueID() {
-    return 100;
+    return uniqueIDValue++;
 }
 
 // https://stackoverflow.com/questions/3662821/how-to-correctly-use-innerhtml-to-create-an-element-with-possible-children-fro
@@ -323,3 +324,6 @@ function createElement(htmlFragment) {
     }
     return fragment;
 }
+
+
+// MARK: UPDATE CR
