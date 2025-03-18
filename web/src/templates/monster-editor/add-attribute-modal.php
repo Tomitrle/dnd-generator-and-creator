@@ -1,5 +1,5 @@
 <div class="my-2 text-center">
-  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#<?php echo $CATEGORY; ?>Modal" data-category="<?php echo $CATEGORY; ?>" onclick="updateChoices(this)">Add</button>
+  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#<?php echo $CATEGORY; ?>Modal" data-category="<?php echo $CATEGORY; ?>" onclick="updateAttributeChoices(this)">Add</button>
 </div>
 <div id="<?php echo $CATEGORY; ?>Modal" class="modal fade" tabindex="-1" aria-labelledby="<?php echo $CATEGORY; ?>ModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable">
@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

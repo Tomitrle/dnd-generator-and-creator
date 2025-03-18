@@ -5,12 +5,7 @@ $DESCRIPTION = "Create and edit custom monsters for Dungeons & Dragons.";
 $KEYWORDS = "dungeons and dragons, d&d, dnd, monster, creator, editor";
 
 $LESS = ["styles/monster-editor.less"];
-$SCRIPTS = [
-  "js/monster-form-validator.js",
-  "js/monster-form-update.js",
-  "js/monster-add-multiple.js",
-  "js/delete.js",
-];
+$SCRIPTS = ["js/monster-editor.js"];
 ?>
 
 <?php
@@ -22,17 +17,17 @@ $OPTIONS = "";
 
 <!DOCTYPE html>
 <html lang="en">
-<?php include '/opt/src/templates/head.php'; ?>
+<?php require '/opt/src/templates/head.php'; ?>
 
 <body>
-  <?php include '/opt/src/templates/navbar.php'; ?>
+  <?php require '/opt/src/templates/navbar.php'; ?>
 
   <header class="container">
     <h1>Monster Editor</h1>
     <hr>
   </header>
 
-  <?php include '/opt/src/templates/alerts.php'; ?>
+  <?php require '/opt/src/templates/alerts.php'; ?>
 
   <!-- Source: https://getbootstrap.com/docs/5.3/forms/overview/ -->
   <!-- Source: https://getbootstrap.com/docs/5.0/forms/validation/ -->
@@ -183,7 +178,8 @@ $OPTIONS = "";
 
       <div id="<?php echo $CATEGORY; ?>Container"></div>
 
-      <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
+      <?php // require '/opt/src/templates/monster-editor/something.php';
+      ?>
     </section>
     <hr>
 
@@ -207,10 +203,9 @@ $OPTIONS = "";
       </div>
 
       <?php
-        //#MARK: ABILITY SCORES
-      ;
+      //#MARK: ABILITY SCORES
       foreach (["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"] as $CATEGORY) {
-        include '/opt/src/templates/monster-editor/ability-score.php';
+        require '/opt/src/templates/monster-editor/ability-score.php';
       }
       ?>
     </section>
@@ -225,35 +220,30 @@ $OPTIONS = "";
         //#MARK: SKILL PROFICIENCIES
         $CATEGORY = "skillProficiency";
         $OPTIONS = [
-          "Athletics",
-
           "Acrobatics",
-          "Sleight of Hand",
-          "Stealth",
-
-          "Arcana",
-          "History",
-          "Investigation",
-          "Nature",
-          "Religion",
-
           "Animal Handling",
-          "Insight",
-          "Medicine",
-          "Perception",
-          "Survival",
-
+          "Arcana",
+          "Athletics",
           "Deception",
+          "History",
+          "Insight",
           "Intimidation",
+          "Investigation",
+          "Medicine",
+          "Nature",
+          "Perception",
           "Performance",
           "Persuasion",
+          "Religion",
+          "Sleight of Hand",
+          "Stealth",
+          "Survival",
         ];
-        sort($OPTIONS)
         ?>
 
         <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
-        <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
+        <?php require '/opt/src/templates/monster-editor/add-attribute-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -261,36 +251,11 @@ $OPTIONS = "";
         <?php
         //#MARK: SKILL EXPERTISES
         $CATEGORY = "skillExpertise";
-        $OPTIONS = [
-          "Athletics",
-
-          "Acrobatics",
-          "Sleight of Hand",
-          "Stealth",
-
-          "Arcana",
-          "History",
-          "Investigation",
-          "Nature",
-          "Religion",
-
-          "Animal Handling",
-          "Insight",
-          "Medicine",
-          "Perception",
-          "Survival",
-
-          "Deception",
-          "Intimidation",
-          "Performance",
-          "Persuasion",
-        ];
-        sort($OPTIONS);
         ?>
 
         <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
-        <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
+        <?php require '/opt/src/templates/monster-editor/add-attribute-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -322,7 +287,7 @@ $OPTIONS = "";
 
         <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
-        <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
+        <?php require '/opt/src/templates/monster-editor/add-attribute-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -330,31 +295,11 @@ $OPTIONS = "";
         <?php
         //#MARK: DAMAGE RESISTANCES
         $CATEGORY = "damageResistance";
-        $OPTIONS = [
-          "Acid",
-          "Bludgeoning",
-          "Cold",
-          "Fire",
-          "Force",
-          "Lightning",
-          "Necrotic",
-          "Piercing",
-          "Poison",
-          "Psychic",
-          "Radiant",
-          "Slashing",
-          "Thunder",
-
-          "Non-Magical",
-          "Magical",
-          "Non-Silvered",
-          "Non-Adamantine"
-        ];
         ?>
 
         <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
-        <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
+        <?php require '/opt/src/templates/monster-editor/add-attribute-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -362,31 +307,11 @@ $OPTIONS = "";
         <?php
         // #MARK: DAMAGE IMMUNITIES
         $CATEGORY = "damageImmunity";
-        $OPTIONS = [
-          "Acid",
-          "Bludgeoning",
-          "Cold",
-          "Fire",
-          "Force",
-          "Lightning",
-          "Necrotic",
-          "Piercing",
-          "Poison",
-          "Psychic",
-          "Radiant",
-          "Slashing",
-          "Thunder",
-
-          "Non-Magical",
-          "Magical",
-          "Non-Silvered",
-          "Non-Adamantine"
-        ];
         ?>
 
         <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
-        <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
+        <?php require '/opt/src/templates/monster-editor/add-attribute-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -398,6 +323,7 @@ $OPTIONS = "";
           "Blinded",
           "Charmed",
           "Deafened",
+          "Exhaustion",
           "Frightened",
           "Grappled",
           "Incapacitated",
@@ -409,14 +335,12 @@ $OPTIONS = "";
           "Restrained",
           "Stunned",
           "Unconscious",
-          "Exhaustion",
         ];
-        sort($OPTIONS);
         ?>
 
         <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
-        <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
+        <?php require '/opt/src/templates/monster-editor/add-attribute-modal.php'; ?>
       </section>
     </section>
     <hr>
@@ -444,7 +368,8 @@ $OPTIONS = "";
 
         <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
-        <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
+        <?php // require '/opt/src/templates/monster-editor/something.php';
+        ?>
       </section>
 
       <section class="col-sm-6">
@@ -488,7 +413,7 @@ $OPTIONS = "";
 
         <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
-        <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
+        <?php require '/opt/src/templates/monster-editor/add-attribute-modal.php'; ?>
       </section>
     </section>
     <hr>
@@ -508,10 +433,11 @@ $OPTIONS = "";
       ?>
 
       <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3">
-        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+        <?php require '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
-      <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
+      <?php // require '/opt/src/templates/monster-editor/something.php';
+      ?>
     </section>
     <hr>
 
@@ -529,10 +455,11 @@ $OPTIONS = "";
       ?>
 
       <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3">
-        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+        <?php require '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
-      <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
+      <?php // require '/opt/src/templates/monster-editor/something.php';
+      ?>
     </section>
     <hr>
 
@@ -550,10 +477,11 @@ $OPTIONS = "";
       ?>
 
       <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3">
-        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+        <?php require '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
-      <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
+      <?php // require '/opt/src/templates/monster-editor/something.php';
+      ?>
     </section>
     <hr>
 
@@ -569,14 +497,10 @@ $OPTIONS = "";
       ?>
 
       <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3">
-        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+        <?php require '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
-      <div class="my-2 text-center">
-        <button class="btn btn-success" type="button">New</button>
-      </div>
-
-      <?php // include '/opt/src/templates/monster-editor/add-button-modal.php';
+      <?php // require '/opt/src/templates/monster-editor/something.php';
       ?>
     </section>
     <hr>
@@ -600,10 +524,11 @@ $OPTIONS = "";
 
       <div id="legendaryBlock" style="display:none">
         <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3">
-          <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+          <?php require '/opt/src/templates/monster-editor/ability-action.php'; ?>
         </div>
 
-        <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
+        <?php // require '/opt/src/templates/monster-editor/something.php';
+        ?>
       </div>
     </section>
     <hr>
@@ -674,10 +599,12 @@ $OPTIONS = "";
       <button class="btn btn-secondary me-2" type="button" style="min-width:100px; font-size:x-large;">Export</button>
       <button id="saveButton" class="btn btn-success ms-2" type="submit" style="min-width:100px; font-size:x-large;">Save</button>
     </div>
+
+    <input id="IDCounter" type="hidden" value="<?php echo $UNIQUE_ID; ?>">
   </form>
 
-  <?php include '/opt/src/templates/footer.php'; ?>
-  <?php include '/opt/src/templates/javascript.php'; ?>
+  <?php require '/opt/src/templates/footer.php'; ?>
+  <?php require '/opt/src/templates/javascript.php'; ?>
 </body>
 
 </html>

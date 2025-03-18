@@ -1,6 +1,44 @@
 // Author: Brennen Muller
 
 /**
+ * SOURCES:
+ * https://www.w3schools.com/jsref/met_element_remove.asp
+ * https://stackoverflow.com/questions/16404327/how-to-pass-event-as-argument-to-an-inline-event-handler-in-javascript
+ * https://stackoverflow.com/questions/5898656/check-if-an-element-contains-a-class-in-javascript
+*/
+
+
+// MARK: FORM VALIDATION
+// https://getbootstrap.com/docs/5.0/forms/validation/
+(function () {
+    'use strict'
+
+    var forms = document.querySelectorAll('.needs-validation')
+
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()
+
+
+// MARK: DELETE SELF
+function deleteSelf(event, self) {
+    if (event.target.getAttribute('data-action') === "delete") {
+        self.remove();
+    }
+}
+
+
+/**
+ * MARK: ABILITY SCORES
  * Converts and updates ability modifiers into ability scores.
  * Automatic updates are handled with EventListeners.
  */
@@ -9,7 +47,7 @@ function modifier(score) {
     return Math.floor((Number(score) - 10) / 2);
 }
 
-function updateAbilityModifier (event) {
+function updateAbilityModifier(event) {
     console.log(event.target.id.replace("Score", "Modifier"));
     var abilityModifier = document.getElementById(event.target.id.replace("Score", "Modifier"));
     var value = modifier(event.target.value);
@@ -25,7 +63,9 @@ function setupAbilityUpdates() {
 
 setupAbilityUpdates();
 
+
 /**
+ * MARK: AC & HP
  * Updates armor class and hitpoints automatically.
  * Enables and disables fields as needed.
  *
@@ -160,31 +200,35 @@ hitDice.addEventListener("input", updateHealthPoints);
 customHP.addEventListener("change", updateHealthPoints);
 constitution.addEventListener("input", updateHealthPoints);
 
+
+// MARK: BENEFIT SLIDER
 // https://stackoverflow.com/questions/62707474/how-to-assign-labels-on-a-range-slider
 function updateSliderLabel(event) {
-  var label = document.getElementById(event.target.id.replace("Benefit", "BenefitLabel"));
+    var label = document.getElementById(event.target.id.replace("Benefit", "BenefitLabel"));
 
-  switch (event.target.value) {
-    case "-1":
-        label.innerHTML = "Detrimental";
-        break;
-    case "0":
-        label.innerHTML = "Neutral";
-        break;
-    case "1":
-        label.innerHTML = "Beneficial";
-        break;
-    case "2":
-        label.innerHTML = "Powerful";
-        break;
-    default:
-        break;
+    switch (event.target.value) {
+        case "-1":
+            label.innerHTML = "Detrimental";
+            break;
+        case "0":
+            label.innerHTML = "Neutral";
+            break;
+        case "1":
+            label.innerHTML = "Beneficial";
+            break;
+        case "2":
+            label.innerHTML = "Powerful";
+            break;
+        default:
+            break;
     }
 }
 
 var legendaryBlock = document.getElementById("legendaryBlock");
 var legendaryCheckbox = document.getElementById("legendaryCheckbox")
 
+
+// MARK: TOGGLE LEGENDARY
 // https://stackoverflow.com/questions/26325278/how-can-i-get-all-descendant-elements-for-parent-container
 function legendaryToggle() {
     var inputs = legendaryBlock.querySelectorAll("input, textarea");
@@ -210,3 +254,72 @@ function legendaryToggle() {
 }
 
 legendaryCheckbox.addEventListener("change", legendaryToggle);
+
+
+// MARK: UPDATE ATTRIBUTES
+function updateAttributeChoices(self) {
+    const category = self.getAttribute('data-category');
+
+    // Make all the options visible
+    for (var attributeChoice of document.getElementById(category + "AddContainer").children) {
+        showChoice(attributeChoice);
+    }
+
+    // Disable the options that are already in the form
+    for (var selectedAttribute of document.getElementById(category + "Container").children) {
+        var attributeChoice = document.getElementById(category + "Add" + selectedAttribute.querySelector('input').value);
+        hideChoice(attributeChoice);
+    }
+}
+
+// https://stackoverflow.com/questions/195951/how-can-i-change-an-elements-class-with-javascript
+function showChoice(choice) {
+    if (choice !== null) {
+        choice.classList.remove('d-none');
+        choice.classList.add('d-flex');
+    }
+}
+
+function hideChoice(choice) {
+    if (choice !== null) {
+        choice.classList.remove('d-flex');
+        choice.classList.add('d-none');
+    }
+}
+
+function addSelectedAttribute(self) {
+    const category = self.getAttribute('data-category');
+    const attributeName = self.getAttribute('data-attribute');
+    const ID = uniqueID();
+
+    var selectedAttribute = createElement(
+        "<div class=\"row mb-1\" onclick=\"deleteSelf(event, this)\">\
+            <input id=\"" + category + ID + "\" name=\"" + category + ID + "\" type=\"hidden\" value=\"" + attributeName + "\">\
+            <div class=\"col-11 d-flex align-items-center text-wrap text-break\">" + attributeName + "</div>\
+            <div class=\"col-1 gx-0 d-flex align-items-center\">\
+                <button type=\"button\" class=\"btn-close\" aria-label=\"Delete\" data-action=\"delete\"></button>\
+            </div>\
+        </div>"
+    );
+
+    hideChoice(document.getElementById(category + "Add" + attributeName));
+    document.getElementById(category + "Container").appendChild(selectedAttribute);
+}
+
+// TODO
+function uniqueID() {
+    return 100;
+}
+
+// https://stackoverflow.com/questions/3662821/how-to-correctly-use-innerhtml-to-create-an-element-with-possible-children-fro
+function createElement(htmlFragment) {
+    var fragment = document.createDocumentFragment();
+
+    var element = document.createElement('div');
+    element.innerHTML = htmlFragment;
+
+    while (element.childNodes[0]) {
+        fragment.appendChild(element.childNodes[0]);
+    }
+    return fragment;
+}
