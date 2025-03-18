@@ -1,4 +1,4 @@
-<div id="<?php echo $NAME . $OPTION; ?>" class="d-flex align-items-center">
+<div id="<?php echo $CATEGORY . "Add" . $OPTION; ?>" class="d-flex align-items-center">
   <div class="flex-grow-1 mb-1 d-flex justify-content-center align-items-center">
     <?php echo $OPTION; ?>
   </div>

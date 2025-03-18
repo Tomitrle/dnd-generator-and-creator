@@ -200,7 +200,7 @@ function legendaryToggle() {
         return;
     }
 
-    // legendaryBlock.style.display = 'none';
+    legendaryBlock.style.display = 'none';
     for (input of inputs) {
         input.setAttribute("aria-required", "false");
         input.setAttribute("aria-disabled", "true");

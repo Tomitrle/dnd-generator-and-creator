@@ -9,13 +9,15 @@ $SCRIPTS = [
   "js/monster-form-validator.js",
   "js/monster-form-update.js",
   "js/monster-add-multiple.js",
-  "js/delete.js"
+  "js/delete.js",
 ];
 ?>
 
 <?php
 // USED TO GIVE UNIQUE ID NUMBERS TO EACH ELEMENT. PROBABLY NEEDS TO BE UPDATED LATER (ESPECIALLY TO ADD NEW ELEMENTS)
 $UNIQUE_ID = 1;
+$CATEGORY = "";
+$OPTIONS = "";
 ?>
 
 <!DOCTYPE html>
@@ -34,20 +36,20 @@ $UNIQUE_ID = 1;
 
   <!-- Source: https://getbootstrap.com/docs/5.3/forms/overview/ -->
   <!-- Source: https://getbootstrap.com/docs/5.0/forms/validation/ -->
-  <form action="monster-editor.php" method="post" class="container needs-validation" novalidate>
+  <form class="container needs-validation" action="monster-editor.php" method="post" novalidate>
     <section class="row">
       <h2>General Information</h2>
       <div class="col-sm-6 mb-2">
-        <label for="name" class="form-label">Name</label>
-        <input type="text" pattern=".*\S+.*" id="name" name="name" class="form-control" aria-required="true" required>
+        <label class="form-label" for="name">Name</label>
+        <input id="name" name="name" class="form-control" type="text" pattern="[\w\s]+" aria-required="true" required>
       </div>
 
       <!-- Source: https://stackoverflow.com/questions/3518002/how-can-i-set-the-default-value-for-an-html-select-element -->
       <!-- Source: https://stackoverflow.com/questions/13766015/is-it-possible-to-configure-a-required-field-to-ignore-white-space -->
       <div class="col-sm-6 mb-2">
-        <label for="size" class="form-label">Size</label>
+        <label class="form-label" for="size">Size</label>
         <select id="size" name="size" class="form-select" aria-required="true" required>
-          <option selected disabled hidden value="">Select an option...</option>
+          <option selected disabled hidden>Select an option...</option>
           <option>Tiny</option>
           <option>Small</option>
           <option>Medium</option>
@@ -58,9 +60,9 @@ $UNIQUE_ID = 1;
       </div>
 
       <div class="col-sm-6 mb-2">
-        <label for="type" class="form-label">Type</label>
+        <label class="form-label" for="type">Type</label>
         <select id="type" name="type" class="form-select" aria-required="true" required>
-          <option selected disabled hidden value="">Select an option...</option>
+          <option selected disabled hidden>Select an option...</option>
           <option>Aberration</option>
           <option>Beast</option>
           <option>Celestial</option>
@@ -80,9 +82,9 @@ $UNIQUE_ID = 1;
       </div>
 
       <div class="col-sm-6 mb-2">
-        <label for="alignment" class="form-label">Alignment</label>
+        <label class="form-label" for="alignment">Alignment</label>
         <select id="alignment" name="alignment" class="form-select" aria-required="true" required>
-          <option selected disabled hidden value="">Select an option...</option>
+          <option selected disabled hidden>Select an option...</option>
           <option>Lawful Good</option>
           <option>Neutral Good</option>
           <option>Chaotic Good</option>
@@ -101,9 +103,9 @@ $UNIQUE_ID = 1;
       <h2>Armor Class and Hitpoints</h2>
 
       <div class="col-sm-6 mb-2">
-        <label for="armor" class="form-label">Armor</label>
+        <label class="form-label" for="armor">Armor</label>
         <select id="armor" name="armor" class="form-select" aria-required="true" required>
-          <option selected disabled hidden value="">Select an option...</option>
+          <option selected disabled hidden>Select an option...</option>
           <option data-ac="10" data-type="light">None</option>
           <option data-ac="11" data-type="light">Padded</option>
           <option data-ac="11" data-type="light">Leather</option>
@@ -126,7 +128,7 @@ $UNIQUE_ID = 1;
         </select>
 
         <div class="form-check mt-1">
-          <input type="checkbox" id="shield" name="shield" class="form-check-input">
+          <input id="shield" name="shield" class="form-check-input" type="checkbox">
           <label class="form-check-label" for="shield">
             Shield
           </label>
@@ -134,18 +136,18 @@ $UNIQUE_ID = 1;
       </div>
 
       <div class="col-sm-6 mb-2">
-        <label for="armorClass" class="form-label">Armor Class (AC)</label>
-        <input type="number" min="0" max="30" value="" id="armorClass" name="armorClass" class="form-control" aria-describedby="armorClassHelpLabel" aria-disabled="true" disabled>
+        <label class="form-label" for="armorClass">Armor Class (AC)</label>
+        <input id="armorClass" name="armorClass" class="form-control" type="number" min="0" max="30" aria-describedby="armorClassHelpLabel" aria-disabled="true" disabled>
         <div id="armorClassHelpLabel" class="form-text">
           Armor class updates automatically. For manual control, select <i>Natural Armor</i> or <i>Other</i>. <br>
         </div>
       </div>
 
       <div class="col-sm-6 mb-2">
-        <label for="hitDice" class="form-label">Hit Dice</label>
-        <input type="number" min="0" id="hitDice" name="hitDice" class="form-control" aria-describedby="healthHelpLabel" aria-required="true" required>
+        <label class="form-label" for="hitDice">Hit Dice</label>
+        <input id="hitDice" name="hitDice" class="form-control" type="number" min="0" max="1000" aria-describedby="healthHelpLabel" aria-required="true" required>
         <div class="form-check mt-1">
-          <input type="checkbox" id="customHP" name="customHP" class="form-check-input">
+          <input id="customHP" name="customHP" class="form-check-input" type="checkbox">
           <label class="form-check-label" for="customHP">
             Custom HP
           </label>
@@ -153,8 +155,8 @@ $UNIQUE_ID = 1;
       </div>
 
       <div class="col-sm-6 mb-2">
-        <label for="health" class="form-label">Health Points (HP)</label>
-        <input type="number" min="1" value="1" id="health" name="health" class="form-control" aria-describedby="healthHelpLabel" aria-required="true" disabled>
+        <label class="form-label" for="health">Health Points (HP)</label>
+        <input id="health" name="health" class="form-control" type="number" min="1" value="1" aria-describedby="healthHelpLabel" aria-disabled="true" disabled>
         <div id="healthHelpLabel" class="form-text">
           Health points are calculated automatically. For manual control, select <i>Custom HP</i>. <br>
         </div>
@@ -165,24 +167,21 @@ $UNIQUE_ID = 1;
     <section>
       <h2>Movement</h2>
       <?php
-      $NAME = "speed";
+      //#MARK: MOVEMENT
+      $CATEGORY = "speed";
       $OPTIONS = ["Burrow Speed", "Climb Speed", "Fly Speed", "Swim Speed"];
       ?>
 
       <div class="row">
         <div class="col-sm-2 mb-1 d-flex justify-content-sm-center align-items-center">
-          <label for="speedRange" class="form-label" style="margin-bottom:0;">Speed</label>
+          <label class="form-label" for="speedRange" style="margin-bottom:0;">Speed</label>
         </div>
         <div class="col-sm-9 col-11 mb-1">
-          <input type="number" min="0" step="5" class="form-control" id="speedRange" name="speedRange" placeholder="0 ft" aria-required="true" required>
+          <input id="speedRange" name="speedRange" class="form-control" type="number" min="0" step="5" placeholder="0 ft" aria-required="true" required>
         </div>
       </div>
 
-      <div id="<?php echo $NAME; ?>Container">
-        <?php include '/opt/src/templates/monster-editor/speed.php'; ?>
-        <?php include '/opt/src/templates/monster-editor/speed.php'; ?>
-        <?php include '/opt/src/templates/monster-editor/speed.php'; ?>
-      </div>
+      <div id="<?php echo $CATEGORY; ?>Container"></div>
 
       <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
     </section>
@@ -192,15 +191,11 @@ $UNIQUE_ID = 1;
       <h2>Ability Scores</h2>
 
       <div class="row mb-1 d-none d-sm-flex">
-        <div class="align-items-center justify-content-center text-center
-        d-none col-5 offset-3
-        d-sm-flex col-sm-5 offset-sm-2">
+        <div class="align-items-center justify-content-center text-center   d-none col-5 offset-3   d-sm-flex col-sm-5 offset-sm-2">
           <label class="form-label">Score</label>
         </div>
 
-        <div class="d-flex align-items-center justify-content-center text-center
-        col-4
-        col-sm-1">
+        <div class="d-flex align-items-center justify-content-center text-center   col-4   col-sm-1">
           <label class="form-label">Modifier</label>
         </div>
 
@@ -212,8 +207,9 @@ $UNIQUE_ID = 1;
       </div>
 
       <?php
-      $IDS = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"];
-      foreach ($IDS as $ID) {
+        //#MARK: ABILITY SCORES
+      ;
+      foreach (["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"] as $CATEGORY) {
         include '/opt/src/templates/monster-editor/ability-score.php';
       }
       ?>
@@ -226,7 +222,8 @@ $UNIQUE_ID = 1;
       <section class="col-sm-6 col-lg-4">
         <h3>Skill Proficiencies</h3>
         <?php
-        $NAME = "skillProficiency";
+        //#MARK: SKILL PROFICIENCIES
+        $CATEGORY = "skillProficiency";
         $OPTIONS = [
           "Athletics",
 
@@ -254,11 +251,7 @@ $UNIQUE_ID = 1;
         sort($OPTIONS)
         ?>
 
-        <div class="d-flex flex-column" id="<?php echo $NAME; ?>Container">
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-        </div>
+        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
         <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
       </section>
@@ -266,7 +259,8 @@ $UNIQUE_ID = 1;
       <section class="col-sm-6 col-lg-4">
         <h3>Skill Expertises</h3>
         <?php
-        $NAME = "skillExpertise";
+        //#MARK: SKILL EXPERTISES
+        $CATEGORY = "skillExpertise";
         $OPTIONS = [
           "Athletics",
 
@@ -294,11 +288,7 @@ $UNIQUE_ID = 1;
         sort($OPTIONS);
         ?>
 
-        <div class="d-flex flex-column" id="<?php echo $NAME; ?>Container">
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-        </div>
+        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
         <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
       </section>
@@ -306,7 +296,8 @@ $UNIQUE_ID = 1;
       <section class="col-sm-6 col-lg-4">
         <h3>Damage Vulnerabilities</h3>
         <?php
-        $NAME = "damageVulnerability";
+        //#MARK: DAMAGE VULNERABILITIES
+        $CATEGORY = "damageVulnerability";
         $OPTIONS = [
           "Acid",
           "Bludgeoning",
@@ -329,11 +320,7 @@ $UNIQUE_ID = 1;
         ];
         ?>
 
-        <div class="d-flex flex-column" id="<?php echo $NAME; ?>Container">
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-        </div>
+        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
         <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
       </section>
@@ -341,7 +328,8 @@ $UNIQUE_ID = 1;
       <section class="col-sm-6 col-lg-4">
         <h3>Damage Resistances</h3>
         <?php
-        $NAME = "damageResistance";
+        //#MARK: DAMAGE RESISTANCES
+        $CATEGORY = "damageResistance";
         $OPTIONS = [
           "Acid",
           "Bludgeoning",
@@ -364,11 +352,7 @@ $UNIQUE_ID = 1;
         ];
         ?>
 
-        <div class="d-flex flex-column" id="<?php echo $NAME; ?>Container">
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-        </div>
+        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
         <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
       </section>
@@ -376,7 +360,8 @@ $UNIQUE_ID = 1;
       <section class="col-sm-6 col-lg-4">
         <h3>Damage Immunities</h3>
         <?php
-        $NAME = "damageImmunity";
+        // #MARK: DAMAGE IMMUNITIES
+        $CATEGORY = "damageImmunity";
         $OPTIONS = [
           "Acid",
           "Bludgeoning",
@@ -399,11 +384,7 @@ $UNIQUE_ID = 1;
         ];
         ?>
 
-        <div class="d-flex flex-column" id="<?php echo $NAME; ?>Container">
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-        </div>
+        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
         <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
       </section>
@@ -411,7 +392,8 @@ $UNIQUE_ID = 1;
       <section class="col-sm-6 col-lg-4">
         <h3>Condition Immunities</h3>
         <?php
-        $NAME = "conditionImmunity";
+        // #MARK: CONDITION IMMUNITIES
+        $CATEGORY = "conditionImmunity";
         $OPTIONS = [
           "Blinded",
           "Charmed",
@@ -432,11 +414,7 @@ $UNIQUE_ID = 1;
         sort($OPTIONS);
         ?>
 
-        <div class="d-flex flex-column" id="<?php echo $NAME; ?>Container">
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-        </div>
+        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
         <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
       </section>
@@ -449,7 +427,8 @@ $UNIQUE_ID = 1;
       <section class="col-sm-6">
         <h3>Senses</h3>
         <?php
-        $NAME = "sense";
+        // #MARK: SENSES
+        $CATEGORY = "sense";
         $OPTIONS = [
           "Blindsight",
           "Darkvision",
@@ -459,15 +438,11 @@ $UNIQUE_ID = 1;
         ?>
 
         <div class="text-center mb-1">
-          <input type="checkbox" id="blind" name="blind" class="form-check-input">
+          <input id="blind" name="blind" class="form-check-input" type="checkbox">
           <label class="form-check-label" for="blind">Blind</label>
         </div>
 
-        <div class="d-flex flex-column" id="<?php echo $NAME; ?>Container">
-          <?php include '/opt/src/templates/monster-editor/sense.php'; ?>
-          <?php include '/opt/src/templates/monster-editor/sense.php'; ?>
-          <?php include '/opt/src/templates/monster-editor/sense.php'; ?>
-        </div>
+        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
         <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
       </section>
@@ -475,7 +450,8 @@ $UNIQUE_ID = 1;
       <section class="col-sm-6">
         <h3>Languages</h3>
         <?php
-        $NAME = "language";
+        // #MARK: LANGUAGES
+        $CATEGORY = "language";
         $OPTIONS = [
           "Common",
           "Dwarvish",
@@ -503,18 +479,14 @@ $UNIQUE_ID = 1;
 
         <div class="row mb-2">
           <div class="col-sm-6 d-flex justify-content-start align-items-center">
-            <label for="telepathy" class="form-label" style="margin-bottom:0;">Telepathy</label>
+            <label class="form-label" for="telepathy" style="margin-bottom:0;">Telepathy</label>
           </div>
           <div class="col-sm-6">
-            <input type="number" min="0" step="5" placeholder="0 ft" id="telepathy" name="telepathy" class="form-control">
+            <input id="telepathy" name="telepathy" class="form-control" type="number" min="0" step="5" placeholder="0 ft">
           </div>
         </div>
 
-        <div class="d-flex flex-column" id="<?php echo $NAME; ?>Container">
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-          <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
-        </div>
+        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
         <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
       </section>
@@ -524,7 +496,8 @@ $UNIQUE_ID = 1;
     <section>
       <h2>Abilities</h2>
       <?php
-      $NAME = "ability";
+      // #MARK: ABILITIES
+      $CATEGORY = "ability";
       $OPTIONS = [
         "Multiattack",
         "Spellcasting",
@@ -534,8 +507,7 @@ $UNIQUE_ID = 1;
       ];
       ?>
 
-      <div id="<?php echo $NAME; ?>Container" class="row gx-sm-5 gy-sm-3">
-        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+      <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3">
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
@@ -546,7 +518,8 @@ $UNIQUE_ID = 1;
     <section>
       <h2>Actions</h2>
       <?php
-      $NAME = "action";
+      // #MARK: ACTIONS
+      $CATEGORY = "action";
       $OPTIONS = [
         "Melee Weapon Attack",
         "Ranged Weapon Attack",
@@ -555,8 +528,7 @@ $UNIQUE_ID = 1;
       ];
       ?>
 
-      <div id="<?php echo $NAME; ?>Container" class="row gx-sm-5 gy-sm-3">
-        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+      <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3">
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
@@ -567,7 +539,8 @@ $UNIQUE_ID = 1;
     <section>
       <h2>Bonus Actions</h2>
       <?php
-      $NAME = "bonusAction";
+      // #MARK: BONUS ACTIONS
+      $CATEGORY = "bonusAction";
       $OPTIONS = [
         "Melee Weapon Attack",
         "Ranged Weapon Attack",
@@ -576,8 +549,7 @@ $UNIQUE_ID = 1;
       ];
       ?>
 
-      <div id="<?php echo $NAME; ?>Container" class="row gx-sm-5 gy-sm-3">
-        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+      <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3">
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
@@ -589,19 +561,19 @@ $UNIQUE_ID = 1;
       <h2>Reactions</h2>
 
       <?php
-      $NAME = "reaction";
+      // #MARK: REACTIONS
+      $CATEGORY = "reaction";
       // $OPTIONS = [
       //    "Custom"
       // ];
       ?>
 
-      <div id="<?php echo $NAME; ?>Container" class="row gx-sm-5 gy-sm-3">
-        <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+      <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3">
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
       <div class="my-2 text-center">
-        <button type="button" class="btn btn-success">New</button>
+        <button class="btn btn-success" type="button">New</button>
       </div>
 
       <?php // include '/opt/src/templates/monster-editor/add-button-modal.php';
@@ -612,7 +584,8 @@ $UNIQUE_ID = 1;
     <section>
       <h2>Legendary Features</h2>
       <?php
-      $NAME = "legendaryAbility";
+      // #MARK: LEGENDARY
+      $CATEGORY = "legendaryAbility";
       $OPTIONS = [
         "Legendary Resistance",
 
@@ -621,13 +594,12 @@ $UNIQUE_ID = 1;
       ?>
 
       <div class="text-center mb-1">
-        <input type="checkbox" id="legendaryCheckbox" name="legendaryCheckbox" class="form-check-input" style="border-width:1px; border-color:darkgray;">
+        <input id="legendaryCheckbox" name="legendaryCheckbox" class="form-check-input" type="checkbox" style="border-width:1px; border-color:darkgray;">
         <label class="form-check-label" for="legendaryCheckbox"><strong>Legendary Monster</strong></label>
       </div>
 
       <div id="legendaryBlock" style="display:none">
-        <div id="<?php echo $NAME; ?>Container" class="row gx-sm-5 gy-sm-3">
-          <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
+        <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3">
           <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
         </div>
 
@@ -642,7 +614,7 @@ $UNIQUE_ID = 1;
       <div class="col-sm-6 text-center">
         <div class="card py-3 d-flex content-align-center justify-content-center" style="min-height: 120px;">
           <div class="w-75 mx-auto mb-1">
-            <input type="radio" value="estimated" name="challengeRadio" id="estimatedChallengeRadio" class="btn-check" checked>
+            <input id="estimatedChallengeRadio" name="challengeRadio" class="btn-check" type="radio" value="estimated" checked>
             <label class="btn btn-outline-success" for="estimatedChallengeRadio">Estimated Challenge Rating</label>
           </div>
 
@@ -654,7 +626,7 @@ $UNIQUE_ID = 1;
       <div class="col-sm-6 text-center">
         <div class="card py-3 d-flex content-align-center justify-content-center" style="min-height: 120px;">
           <div class="w-75 mx-auto mb-1">
-            <input type="radio" value="custom" id="customChallengeRadio" name="challengeRadio" class="btn-check">
+            <input id="customChallengeRadio" name="challengeRadio" class="btn-check" type="radio" value="custom">
             <label class="btn btn-outline-success" for="customChallengeRadio">Custom Challenge Rating</label>
           </div>
 
@@ -699,8 +671,8 @@ $UNIQUE_ID = 1;
     </section>
 
     <div class="d-flex justify-content-center mt-4">
-      <button type="button" class="btn btn-secondary me-2" style="min-width:100px; font-size:x-large;">Export</button>
-      <button id="saveButton" type="submit" class="btn btn-success ms-2" style="min-width:100px; font-size:x-large;">Save</button>
+      <button class="btn btn-secondary me-2" type="button" style="min-width:100px; font-size:x-large;">Export</button>
+      <button id="saveButton" class="btn btn-success ms-2" type="submit" style="min-width:100px; font-size:x-large;">Save</button>
     </div>
   </form>
 
