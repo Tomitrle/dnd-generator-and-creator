@@ -1,5 +1,5 @@
 <div class="my-2 text-center">
-  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#<?php echo $NAME; ?>Modal">Add</button>
+  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#<?php echo $NAME; ?>Modal" data-name="<?php echo $NAME; ?>" onclick="updateChoices(this)">Add</button>
 </div>
 
 <div class="modal fade" id="<?php echo $NAME; ?>Modal" tabindex="-1" aria-labelledby="<?php echo $NAME; ?>ModalLabel" aria-hidden="true">

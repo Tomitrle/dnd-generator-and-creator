@@ -8,6 +8,7 @@ $LESS = ["styles/monster-editor.less"];
 $SCRIPTS = [
   "js/monster-form-validator.js",
   "js/monster-form-update.js",
+  "js/monster-add-multiple.js",
   "js/delete.js"
 ];
 ?>
@@ -163,7 +164,10 @@ $UNIQUE_ID = 1;
 
     <section>
       <h2>Movement</h2>
-      <?php $NAME = "speed"; ?>
+      <?php
+      $NAME = "speed";
+      $OPTIONS = ["Burrow Speed", "Climb Speed", "Fly Speed", "Swim Speed"];
+      ?>
 
       <div class="row">
         <div class="col-sm-2 mb-1 d-flex justify-content-sm-center align-items-center">
@@ -173,16 +177,14 @@ $UNIQUE_ID = 1;
           <input type="number" min="0" step="5" class="form-control" id="speedRange" name="speedRange" placeholder="0 ft" aria-required="true" required>
         </div>
       </div>
-      <?php include '/opt/src/templates/monster-editor/speed.php'; ?>
-      <?php include '/opt/src/templates/monster-editor/speed.php'; ?>
-      <?php include '/opt/src/templates/monster-editor/speed.php'; ?>
 
-      <?php
-      $NAME = "movement";
-      $OPTIONS = ["Burrow Speed", "Climb Speed", "Fly Speed", "Swim Speed"];
+      <div id="<?php echo $NAME; ?>Container">
+        <?php include '/opt/src/templates/monster-editor/speed.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/speed.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/speed.php'; ?>
+      </div>
 
-      include '/opt/src/templates/monster-editor/add-button-modal.php';
-      ?>
+      <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
     </section>
     <hr>
 
@@ -252,7 +254,7 @@ $UNIQUE_ID = 1;
         sort($OPTIONS)
         ?>
 
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column" id="<?php echo $NAME; ?>Container">
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
@@ -292,7 +294,7 @@ $UNIQUE_ID = 1;
         sort($OPTIONS);
         ?>
 
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column" id="<?php echo $NAME; ?>Container">
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
@@ -327,7 +329,7 @@ $UNIQUE_ID = 1;
         ];
         ?>
 
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column" id="<?php echo $NAME; ?>Container">
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
@@ -362,7 +364,7 @@ $UNIQUE_ID = 1;
         ];
         ?>
 
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column" id="<?php echo $NAME; ?>Container">
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
@@ -397,7 +399,7 @@ $UNIQUE_ID = 1;
         ];
         ?>
 
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column" id="<?php echo $NAME; ?>Container">
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
@@ -430,7 +432,7 @@ $UNIQUE_ID = 1;
         sort($OPTIONS);
         ?>
 
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column" id="<?php echo $NAME; ?>Container">
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
@@ -461,7 +463,7 @@ $UNIQUE_ID = 1;
           <label class="form-check-label" for="blind">Blind</label>
         </div>
 
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column" id="<?php echo $NAME; ?>Container">
           <?php include '/opt/src/templates/monster-editor/sense.php'; ?>
           <?php include '/opt/src/templates/monster-editor/sense.php'; ?>
           <?php include '/opt/src/templates/monster-editor/sense.php'; ?>
@@ -508,7 +510,7 @@ $UNIQUE_ID = 1;
           </div>
         </div>
 
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column" id="<?php echo $NAME; ?>Container">
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
@@ -532,7 +534,7 @@ $UNIQUE_ID = 1;
       ];
       ?>
 
-      <div class="row gx-sm-5 gy-sm-3">
+      <div id="<?php echo $NAME; ?>Container" class="row gx-sm-5 gy-sm-3">
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
@@ -553,7 +555,7 @@ $UNIQUE_ID = 1;
       ];
       ?>
 
-      <div class="row gx-sm-5 gy-sm-3">
+      <div id="<?php echo $NAME; ?>Container" class="row gx-sm-5 gy-sm-3">
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
@@ -574,7 +576,7 @@ $UNIQUE_ID = 1;
       ];
       ?>
 
-      <div class="row gx-sm-5 gy-sm-3">
+      <div id="<?php echo $NAME; ?>Container" class="row gx-sm-5 gy-sm-3">
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
@@ -593,7 +595,7 @@ $UNIQUE_ID = 1;
       // ];
       ?>
 
-      <div class="row gx-sm-5 gy-sm-3">
+      <div id="<?php echo $NAME; ?>Container" class="row gx-sm-5 gy-sm-3">
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
@@ -624,7 +626,7 @@ $UNIQUE_ID = 1;
       </div>
 
       <div id="legendaryBlock" style="display:none">
-        <div class="row gx-sm-5 gy-sm-3">
+        <div id="<?php echo $NAME; ?>Container" class="row gx-sm-5 gy-sm-3">
           <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
           <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
         </div>

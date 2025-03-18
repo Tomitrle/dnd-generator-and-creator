@@ -3,7 +3,7 @@
     [Sense Name...]
   </div>
   <div class="col-5 text-wrap text-break">
-    <input type="hidden" class="form-control" id="sense<?php echo $UNIQUE_ID; ?>" name="sense<?php echo $UNIQUE_ID; ?>" value="Sense">
+    <input type="hidden" class="form-control" id="sense<?php echo $UNIQUE_ID; ?>" name="sense<?php echo $UNIQUE_ID; ?>" value="">
     <input type="number" min="0" step="5" class="form-control" id="senseRange<?php echo $UNIQUE_ID; ?>" name="senseRange<?php echo $UNIQUE_ID; ?>" placeholder="0 ft" aria-required="true" required>
   </div>
   <div class="col-1 gx-0 d-flex align-items-center">
