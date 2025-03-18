@@ -1,9 +1,9 @@
 <?php
-class MonsterEditorController {
-  public function __construct() {}
-
-  public function run() : void {
-    // TODO: FIND BETTER WAYS TO HANDLE ALERTS
+class MonsterEditorController extends BaseController
+{
+  public function run(): void
+  {
+    // TODO: Find better ways to handle alerts across controllers
     $ALERTS = [
       "danger" => [],
       "warning" => [],
@@ -26,7 +26,7 @@ class MonsterEditorController {
               return;
             }
 
-            // TODO: LOAD PRE-POPULATED PAGE
+            // TODO: Query and load the database record(s)
             include "/opt/src/templates/monster-editor/monster-editor.php";
             return;
 
@@ -48,7 +48,7 @@ class MonsterEditorController {
             return;
         }
 
-      // MARK: POST
+        // MARK: POST
       case "POST":
         if (!$this->isAuthenticated()) {
           $this->errorResponse(401, "You must be logged in to edit this resource.");
@@ -68,13 +68,12 @@ class MonsterEditorController {
               return;
             }
 
-            // TODO: CREATE A NEW DATABASE OBJECT
-            // WHAT SHOULD BE RETURNED HERE? SHOULD THERE BE REDIRECTS? SHOULD THE RELOAD TARGET CHANGE?
+            // TODO: Create new database record(s)
             // HTTPS 200: OK
             return;
 
           case false:
-            // TODO: UPDATE DATABASE MODEL
+            // TODO: Update the database record(s)
             var_dump($_POST);
             return;
         }
@@ -85,12 +84,7 @@ class MonsterEditorController {
     }
   }
 
-  // TODO
-  protected function isAuthenticated() : bool {
-    return true;
-  }
-
-  // TODO
+  // TODO: Query the database and check permissions
   protected function checkPermissions(): bool
   {
     return false;
@@ -101,7 +95,8 @@ class MonsterEditorController {
    * Checks whether the form inputs are valid.
    * Returns true on success and an error message on failure.
    */
-  protected function formValidation() : bool | string {
+  protected function formValidation(): bool | string
+  {
     $requiredFields = [
       "name" => "/\A[\w\s]+\z/",
       "size" => [
@@ -260,40 +255,40 @@ class MonsterEditorController {
     ];
 
     $variableFields = [
-        "speed" => "/\A[\w\s]+\z/",
-        "speedRange" => [0, 1000, 5],
+      "speed" => "/\A[\w\s]+\z/",
+      "speedRange" => [0, 1000, 5],
 
-        "skillProficiency" => "/\A[\w\s]+\z/",
-        "skillExpertise" => "/\A[\w\s]+\z/",
-        "damageVulnerability" => "/\A[\w\s]+\z/",
-        "damageResistance" => "/\A[\w\s]+\z/",
-        "damageImmunity" => "/\A[\w\s]+\z/",
-        "conditionImmunity" => "/\A[\w\s]+\z/",
+      "skillProficiency" => "/\A[\w\s]+\z/",
+      "skillExpertise" => "/\A[\w\s]+\z/",
+      "damageVulnerability" => "/\A[\w\s]+\z/",
+      "damageResistance" => "/\A[\w\s]+\z/",
+      "damageImmunity" => "/\A[\w\s]+\z/",
+      "conditionImmunity" => "/\A[\w\s]+\z/",
 
-        "sense" => "/\A[\w\s]+\z/",
-        "senseRange" => [0, 1000, 5],
+      "sense" => "/\A[\w\s]+\z/",
+      "senseRange" => [0, 1000, 5],
 
-        "language" => "/\A[\w\s]+\z/",
+      "language" => "/\A[\w\s]+\z/",
 
-        "abilityName" => "/\A[\w\s]+\z/",
-        "abilityDescription" => "/\A[\w\s]+\z/",
-        "abilityBenefit" => [-1, 2, 1],
+      "abilityName" => "/\A[\w\s]+\z/",
+      "abilityDescription" => "/\A[\w\s]+\z/",
+      "abilityBenefit" => [-1, 2, 1],
 
-        "actionName" => "/\A[\w\s]+\z/",
-        "actionDescription" => "/\A[\w\s]+\z/",
-        "actionBenefit" => [-1, 2, 1],
+      "actionName" => "/\A[\w\s]+\z/",
+      "actionDescription" => "/\A[\w\s]+\z/",
+      "actionBenefit" => [-1, 2, 1],
 
-        "bonusActionName" => "/\A[\w\s]+\z/",
-        "bonusActionDescription" => "/\A[\w\s]+\z/",
-        "bonusActionBenefit" => [-1, 2, 1],
+      "bonusActionName" => "/\A[\w\s]+\z/",
+      "bonusActionDescription" => "/\A[\w\s]+\z/",
+      "bonusActionBenefit" => [-1, 2, 1],
 
-        "reactionName" => "/\A[\w\s]+\z/",
-        "reactionDescription" => "/\A[\w\s]+\z/",
-        "reactionBenefit" => [-1, 2, 1],
+      "reactionName" => "/\A[\w\s]+\z/",
+      "reactionDescription" => "/\A[\w\s]+\z/",
+      "reactionBenefit" => [-1, 2, 1],
 
-        "legendaryAbilityName" => "/\A[\w\s]+\z/",
-        "legendaryAbilityDescription" => "/\A[\w\s]+\z/",
-        "legendaryAbilityBenefit" => [-1, 2, 1],
+      "legendaryAbilityName" => "/\A[\w\s]+\z/",
+      "legendaryAbilityDescription" => "/\A[\w\s]+\z/",
+      "legendaryAbilityBenefit" => [-1, 2, 1],
     ];
 
     try {
@@ -323,7 +318,6 @@ class MonsterEditorController {
       }
 
       if (!isset($_POST["health"]) && !isset($_POST["hitDice"])) return "Value for fields 'hitDice' or 'health' must be set.";
-
     } catch (ValueError) {
       return false;
     }
@@ -332,7 +326,8 @@ class MonsterEditorController {
   }
 
   // MAY THROW VALUE ERROR
-  private function validate($conditions, $value) : bool {
+  private function validate($conditions, $value): bool
+  {
     // MATCH REGULAR EXPRESSION
     if (gettype($conditions) === "string") {
       if (!preg_match($conditions, $value)) return false;
@@ -353,26 +348,4 @@ class MonsterEditorController {
 
     return true;
   }
-
-  protected function errorResponse(int $code, string $message) : void {
-    http_response_code($code);
-    echo "
-    <!DOCTYPE html>
-    <html lang=\"en\">
-
-    <head>
-      <meta charset=\"UTF-8\">
-      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
-      <title>Error</title>
-      <meta name=\"author\" content=\"Brennen Muller\">
-    </head>
-
-    <body>
-      <h1>HTTP $code</h1>
-      <p>$message</p>
-    </body>
-
-    </html>";
-  }
 }
-?>
