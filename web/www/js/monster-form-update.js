@@ -2,10 +2,10 @@
 
 /**
  * Converts and updates ability modifiers into ability scores.
- * Automatic updates are handled with EventListeners. 
+ * Automatic updates are handled with EventListeners.
  */
 
-function modifier(score) { 
+function modifier(score) {
     return Math.floor((Number(score) - 10) / 2);
 }
 
@@ -27,9 +27,9 @@ setupAbilityUpdates();
 
 /**
  * Updates armor class and hitpoints automatically.
- * Enables and disables fields as needed. 
+ * Enables and disables fields as needed.
  *
- * Sources: 
+ * Sources:
  * https://html.spec.whatwg.org/#embedding-custom-non-visible-data-with-the-data-*-attributes
  * https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript
  * https://stackoverflow.com/questions/12328144/how-do-i-access-custom-html-attributes-in-javascript
@@ -45,23 +45,30 @@ var health = document.getElementById("health");
 
 var dexterity = document.getElementById("dexterityScore");
 var constitution = document.getElementById("constitutionScore");
- 
+
 function updateArmorClass() {
     /**
      * Enables and disables element(s) as necessary.
      * The automatic update is not performed when the user has selected manual entry.
      */
     if (armor.value === "Natural Armor" || armor.value === "Other") {
+        armorClass.setAttribute("aria-required", "true");
+        armorClass.setAttribute("aria-disabled", "false");
+        armorClass.required = true;
         armorClass.disabled = false;
-        return;    
-    } 
+        return;
+    }
+
+    armorClass.setAttribute("aria-required", "false");
+    armorClass.setAttribute("aria-disabled", "true");
+    armorClass.required = false;
     armorClass.disabled = true;
 
     /**
      * Calculates the update to the monster's armor class
      */
     var AC = Number(armor.options[armor.selectedIndex].getAttribute('data-ac'));
-    
+
     switch (armor.options[armor.selectedIndex].getAttribute('data-type')) {
         case "light":
             AC += modifier(dexterity.value);
@@ -89,37 +96,51 @@ dexterity.addEventListener("input", updateArmorClass);
 
 function updateHealthPoints() {
     if (customHP.checked) {
+        health.setAttribute("aria-required", "true");
+        health.setAttribute("aria-disabled", "false");
+        health.required = true;
         health.disabled = false;
+
+        hitDice.setAttribute("aria-required", "false");
+        hitDice.setAttribute("aria-disabled", "true");
+        hitDice.required = false;
         hitDice.disabled = true;
-        return;    
+        return;
     }
+    health.setAttribute("aria-required", "false");
+    health.setAttribute("aria-disabled", "true");
+    health.required = false;
     health.disabled = true;
+
+    hitDice.setAttribute("aria-required", "true");
+    hitDice.setAttribute("aria-disabled", "false");
+    hitDice.required = true;
     hitDice.disabled = false;
-    
+
     var HP = Number(modifier(constitution.value));
 
     switch (size.value) {
-        case "tiny": // d4 
+        case "Tiny": // d4
             HP += 2.5 * Number(hitDice.value);
             break;
 
-        case "small": // d6
+        case "Small": // d6
             HP += 3.5 * Number(hitDice.value);
             break;
 
-        case "medium": // d8
+        case "Medium": // d8
             HP += 4.5 * Number(hitDice.value);
             break;
 
-        case "large": // d10 
+        case "Large": // d10
             HP += 5.5 * Number(hitDice.value);
             break;
 
-        case "huge": // d12
+        case "Huge": // d12
             HP += 6.5 * Number(hitDice.value);
             break;
 
-        case "gargantuan": // d20 
+        case "Gargantuan": // d20
             HP += 10.5 * Number(hitDice.value);
             break;
 
@@ -170,12 +191,22 @@ function legendaryToggle() {
 
     if (legendaryCheckbox.checked) {
         legendaryBlock.style.display = 'block';
-        for (input of inputs) input.disabled = false;
+        for (input of inputs) {
+            input.setAttribute("aria-required", "true");
+            input.setAttribute("aria-disabled", "false");
+            input.required = true;
+            input.disabled = false;
+        }
         return;
     }
-    
-    legendaryBlock.style.display = 'none';
-    for (input of inputs) input.disabled = true;
+
+    // legendaryBlock.style.display = 'none';
+    for (input of inputs) {
+        input.setAttribute("aria-required", "false");
+        input.setAttribute("aria-disabled", "true");
+        input.required = false;
+        input.disabled = true;
+    }
 }
 
 legendaryCheckbox.addEventListener("change", legendaryToggle);

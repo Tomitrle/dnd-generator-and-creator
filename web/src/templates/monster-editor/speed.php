@@ -1,5 +1,4 @@
 <div class="row" onclick="deleteSelf(event, this)">
-  <!-- REQUIRES js/delete.js -->
   <div class="col-sm-2 mb-1 d-flex justify-content-sm-center align-items-center">
     <label for="speed<?php echo $UNIQUE_ID; ?>" class="form-label" style="margin-bottom:0;">[Speed Name...]</label>
   </div>

@@ -1,6 +1,5 @@
 
 <div class="col-sm-6 col-lg-4" onclick="deleteSelf(event, this)">
-  <!-- Must be contained within a ".row" element and include js/delete.js -->
   <div class="row mb-1">
     <label for="<?php echo $NAME; ?>Name<?php echo $UNIQUE_ID; ?>" class="form-label">Name</label>
     <div class="col-10">
@@ -10,7 +9,7 @@
       <button type="button" class="btn-close" aria-label="Delete" data-action="delete"></button>
     </div>
   </div>
-  
+
   <label for="<?php echo $NAME; ?>Description<?php echo $UNIQUE_ID; ?>" class="form-label">Description</label>
   <textarea class="form-control" id="<?php echo $NAME; ?>Description<?php echo $UNIQUE_ID; ?>" name="<?php echo $NAME; ?>Description<?php echo $UNIQUE_ID; ?>" rows="4" aria-required="true" required></textarea>
 

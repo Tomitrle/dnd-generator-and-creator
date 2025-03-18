@@ -6,8 +6,8 @@ $KEYWORDS = "dungeons and dragons, d&d, dnd, monster, creator, editor";
 
 $LESS = ["styles/monster-editor.less"];
 $SCRIPTS = [
-  "js/monster-form-validator.js", 
-  "js/monster-form-update.js", 
+  "js/monster-form-validator.js",
+  "js/monster-form-update.js",
   "js/delete.js"
 ];
 ?>
@@ -19,7 +19,6 @@ $UNIQUE_ID = 1;
 
 <!DOCTYPE html>
 <html lang="en">
-
 <?php include '/opt/src/templates/head.php'; ?>
 
 <body>
@@ -135,7 +134,7 @@ $UNIQUE_ID = 1;
 
       <div class="col-sm-6 mb-2">
         <label for="armorClass" class="form-label">Armor Class (AC)</label>
-        <input type="number" min="0" max="10" value="" id="armorClass" name="armorClass" class="form-control" aria-describedby="armorClassHelpLabel" aria-disabled="true" aria-required="true" required disabled>
+        <input type="number" min="0" max="30" value="" id="armorClass" name="armorClass" class="form-control" aria-describedby="armorClassHelpLabel" aria-disabled="true" disabled>
         <div id="armorClassHelpLabel" class="form-text">
           Armor class updates automatically. For manual control, select <i>Natural Armor</i> or <i>Other</i>. <br>
         </div>
@@ -154,7 +153,7 @@ $UNIQUE_ID = 1;
 
       <div class="col-sm-6 mb-2">
         <label for="health" class="form-label">Health Points (HP)</label>
-        <input type="number" min="1" value="1" id="health" name="health" class="form-control" aria-describedby="healthHelpLabel" aria-required="true" aria-disabled="true" required disabled>
+        <input type="number" min="1" value="1" id="health" name="health" class="form-control" aria-describedby="healthHelpLabel" aria-required="true" disabled>
         <div id="healthHelpLabel" class="form-text">
           Health points are calculated automatically. For manual control, select <i>Custom HP</i>. <br>
         </div>
@@ -191,8 +190,8 @@ $UNIQUE_ID = 1;
       <h2>Ability Scores</h2>
 
       <div class="row mb-1 d-none d-sm-flex">
-        <div class="align-items-center justify-content-center text-center 
-        d-none col-5 offset-3 
+        <div class="align-items-center justify-content-center text-center
+        d-none col-5 offset-3
         d-sm-flex col-sm-5 offset-sm-2">
           <label class="form-label">Score</label>
         </div>
@@ -259,7 +258,7 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <?php include '/opt/src/templates/monster-editor/add-many-button-modal.php';?>
+        <?php include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -299,7 +298,7 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <?php include '/opt/src/templates/monster-editor/add-many-button-modal.php';?>
+        <?php include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -334,7 +333,7 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <?php include '/opt/src/templates/monster-editor/add-many-button-modal.php';?>
+        <?php include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -404,7 +403,7 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <?php   include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -437,7 +436,7 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <?php include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>        
+        <?php include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>
       </section>
     </section>
     <hr>
@@ -603,20 +602,21 @@ $UNIQUE_ID = 1;
         <button type="button" class="btn btn-success">New</button>
       </div>
 
-      <?php // include '/opt/src/templates/monster-editor/add-single-button-modal.php'; ?>
+      <?php // include '/opt/src/templates/monster-editor/add-single-button-modal.php';
+      ?>
     </section>
     <hr>
 
     <section>
       <h2>Legendary Features</h2>
       <?php
-        $NAME = "legendaryAbility";
-        $OPTIONS = [
-          "Legendary Resistance",
+      $NAME = "legendaryAbility";
+      $OPTIONS = [
+        "Legendary Resistance",
 
-          "Custom"
-        ];
-        ?>
+        "Custom"
+      ];
+      ?>
 
       <div class="text-center mb-1">
         <input type="checkbox" id="legendaryCheckbox" name="legendaryCheckbox" class="form-check-input" style="border-width:1px; border-color:darkgray;">
@@ -644,6 +644,7 @@ $UNIQUE_ID = 1;
             <label class="btn btn-outline-success" for="estimatedChallengeRadio">Estimated Challenge Rating</label>
           </div>
 
+          <input type="hidden" id="estimatedChallengeRating" name="estimatedChallengeRating" value="1">
           <p class="mb-0" style="font-size:x-large;">Challenge <span>1: 200XP</span></p>
         </div>
       </div>
@@ -651,45 +652,45 @@ $UNIQUE_ID = 1;
       <div class="col-sm-6 text-center">
         <div class="card py-3 d-flex content-align-center justify-content-center" style="min-height: 120px;">
           <div class="w-75 mx-auto mb-1">
-            <input type="radio" id="customChallengeRadio" name="challengeRadio" class="btn-check">
+            <input type="radio" value="custom" id="customChallengeRadio" name="challengeRadio" class="btn-check">
             <label class="btn btn-outline-success" for="customChallengeRadio">Custom Challenge Rating</label>
           </div>
 
           <select id="challengeRatingSelect" name="challengeRatingSelect" class="form-select w-50 mx-auto" aria-label="Custom challenge rating">
-            <option selected>Challenge 0: 10XP </option>
-            <option>Challenge 1/8: 25XP </option>
-            <option>Challenge 1/4: 50XP </option>
-            <option>Challenge 1/2: 100XP </option>
-            <option>Challenge 1: 200XP </option>
-            <option>Challenge 2: 450XP </option>
-            <option>Challenge 3: 700XP </option>
-            <option>Challenge 4: 1,100XP </option>
-            <option>Challenge 5: 1,800XP </option>
-            <option>Challenge 6: 2,300XP </option>
-            <option>Challenge 7: 2,900XP </option>
-            <option>Challenge 8: 3,900XP </option>
-            <option>Challenge 9: 5,000XP </option>
-            <option>Challenge 10: 5,900XP </option>
-            <option>Challenge 11: 7,200XP </option>
-            <option>Challenge 12: 8,400XP </option>
-            <option>Challenge 13: 10,000XP </option>
-            <option>Challenge 14: 11,500XP </option>
-            <option>Challenge 15: 13,000XP </option>
-            <option>Challenge 16: 15,000XP </option>
-            <option>Challenge 17: 18,000XP </option>
-            <option>Challenge 18: 20,000XP </option>
-            <option>Challenge 19: 22,000XP </option>
-            <option>Challenge 20: 25,000XP </option>
-            <option>Challenge 21: 33,000XP </option>
-            <option>Challenge 22: 41,000XP </option>
-            <option>Challenge 23: 50,000XP </option>
-            <option>Challenge 24: 62,000XP </option>
-            <option>Challenge 25: 75,000XP </option>
-            <option>Challenge 26: 90,000XP </option>
-            <option>Challenge 27: 105,000XP </option>
-            <option>Challenge 28: 120,000XP </option>
-            <option>Challenge 29: 135,000XP </option>
-            <option>Challenge 30: 155,000XP </option>
+            <option selected value="0">Challenge 0: 10XP </option>
+            <option value="1/8">Challenge 1/8: 25XP </option>
+            <option value="1/4">Challenge 1/4: 50XP </option>
+            <option value="1/2">Challenge 1/2: 100XP </option>
+            <option value="1">Challenge 1: 200XP </option>
+            <option value="2">Challenge 2: 450XP </option>
+            <option value="3">Challenge 3: 700XP </option>
+            <option value="4">Challenge 4: 1,100XP </option>
+            <option value="5">Challenge 5: 1,800XP </option>
+            <option value="6">Challenge 6: 2,300XP </option>
+            <option value="7">Challenge 7: 2,900XP </option>
+            <option value="8">Challenge 8: 3,900XP </option>
+            <option value="9">Challenge 9: 5,000XP </option>
+            <option value="10">Challenge 10: 5,900XP </option>
+            <option value="11">Challenge 11: 7,200XP </option>
+            <option value="12">Challenge 12: 8,400XP </option>
+            <option value="13">Challenge 13: 10,000XP </option>
+            <option value="14">Challenge 14: 11,500XP </option>
+            <option value="15">Challenge 15: 13,000XP </option>
+            <option value="16">Challenge 16: 15,000XP </option>
+            <option value="17">Challenge 17: 18,000XP </option>
+            <option value="18">Challenge 18: 20,000XP </option>
+            <option value="19">Challenge 19: 22,000XP </option>
+            <option value="20">Challenge 20: 25,000XP </option>
+            <option value="21">Challenge 21: 33,000XP </option>
+            <option value="22">Challenge 22: 41,000XP </option>
+            <option value="23">Challenge 23: 50,000XP </option>
+            <option value="24">Challenge 24: 62,000XP </option>
+            <option value="25">Challenge 25: 75,000XP </option>
+            <option value="26">Challenge 26: 90,000XP </option>
+            <option value="27">Challenge 27: 105,000XP </option>
+            <option value="28">Challenge 28: 120,000XP </option>
+            <option value="29">Challenge 29: 135,000XP </option>
+            <option value="30">Challenge 30: 155,000XP </option>
           </select>
         </div>
       </div>

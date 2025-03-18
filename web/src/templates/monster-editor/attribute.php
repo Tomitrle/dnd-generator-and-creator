@@ -1,5 +1,4 @@
 <div class="row mb-1" onclick="deleteSelf(event, this)">
-  <!-- REQUIRES js/delete.js -->
   <input type="hidden" class="form-control" id="<?php echo $NAME . $UNIQUE_ID; ?>" name="<?php echo $NAME . $UNIQUE_ID; ?>" value="">
   <div class="col-11 d-flex align-items-center text-wrap text-break">
     [<?php echo $NAME ?> Name...]

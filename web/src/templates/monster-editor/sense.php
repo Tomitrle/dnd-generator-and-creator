@@ -1,5 +1,4 @@
 <div class="row mb-1"onclick="deleteSelf(event, this)">
-  <!-- REQUIRES js/delete.js -->
   <div class="col-6 d-flex align-items-center text-wrap text-break">
     [Sense Name...]
   </div>
