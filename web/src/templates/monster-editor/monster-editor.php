@@ -181,7 +181,7 @@ $UNIQUE_ID = 1;
       $NAME = "movement";
       $OPTIONS = ["Burrow Speed", "Climb Speed", "Fly Speed", "Swim Speed"];
 
-      include '/opt/src/templates/monster-editor/add-many-button-modal.php';
+      include '/opt/src/templates/monster-editor/add-button-modal.php';
       ?>
     </section>
     <hr>
@@ -258,7 +258,7 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <?php include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -298,7 +298,7 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <?php include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -333,7 +333,7 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <?php include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -368,7 +368,7 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <?php include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -403,7 +403,7 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <?php include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -436,7 +436,7 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <?php include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
       </section>
     </section>
     <hr>
@@ -467,7 +467,7 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/sense.php'; ?>
         </div>
 
-        <?php include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
       </section>
 
       <section class="col-sm-6">
@@ -514,7 +514,7 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/attribute.php'; ?>
         </div>
 
-        <?php include '/opt/src/templates/monster-editor/add-many-button-modal.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
       </section>
     </section>
     <hr>
@@ -537,7 +537,7 @@ $UNIQUE_ID = 1;
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
-      <?php include '/opt/src/templates/monster-editor/add-single-button-modal.php'; ?>
+      <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
     </section>
     <hr>
 
@@ -558,7 +558,7 @@ $UNIQUE_ID = 1;
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
-      <?php include '/opt/src/templates/monster-editor/add-single-button-modal.php'; ?>
+      <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
     </section>
     <hr>
 
@@ -579,7 +579,7 @@ $UNIQUE_ID = 1;
         <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
       </div>
 
-      <?php include '/opt/src/templates/monster-editor/add-single-button-modal.php'; ?>
+      <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
     </section>
     <hr>
 
@@ -602,7 +602,7 @@ $UNIQUE_ID = 1;
         <button type="button" class="btn btn-success">New</button>
       </div>
 
-      <?php // include '/opt/src/templates/monster-editor/add-single-button-modal.php';
+      <?php // include '/opt/src/templates/monster-editor/add-button-modal.php';
       ?>
     </section>
     <hr>
@@ -629,7 +629,7 @@ $UNIQUE_ID = 1;
           <?php include '/opt/src/templates/monster-editor/ability-action.php'; ?>
         </div>
 
-        <?php include '/opt/src/templates/monster-editor/add-single-button-modal.php'; ?>
+        <?php include '/opt/src/templates/monster-editor/add-button-modal.php'; ?>
       </div>
     </section>
     <hr>
