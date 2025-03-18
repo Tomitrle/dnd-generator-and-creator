@@ -9,7 +9,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div>
+        <div id=<?php echo $CATEGORY . "AddContainer"; ?>>
           <?php
           foreach ($OPTIONS as $OPTION) {
             include '/opt/src/templates/monster-editor/add.php';
