@@ -178,7 +178,7 @@ $OPTIONS = "";
 
       <div id="<?php echo $CATEGORY; ?>Container"></div>
 
-      <?php // require '/opt/src/templates/monster-editor/something.php';
+      <?php require '/opt/src/templates/monster-editor/attribute-modal.php';
       ?>
     </section>
     <hr>
@@ -205,7 +205,7 @@ $OPTIONS = "";
       <?php
       //#MARK: ABILITY SCORES
       foreach (["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"] as $CATEGORY) {
-        require '/opt/src/templates/monster-editor/ability-score.php';
+        require '/opt/src/templates/monster-editor/attributes/ability-score.php';
       }
       ?>
     </section>
@@ -243,7 +243,7 @@ $OPTIONS = "";
 
         <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
-        <?php require '/opt/src/templates/monster-editor/add-attribute-modal.php'; ?>
+        <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -255,7 +255,7 @@ $OPTIONS = "";
 
         <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
-        <?php require '/opt/src/templates/monster-editor/add-attribute-modal.php'; ?>
+        <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -287,7 +287,7 @@ $OPTIONS = "";
 
         <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
-        <?php require '/opt/src/templates/monster-editor/add-attribute-modal.php'; ?>
+        <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -299,7 +299,7 @@ $OPTIONS = "";
 
         <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
-        <?php require '/opt/src/templates/monster-editor/add-attribute-modal.php'; ?>
+        <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -311,7 +311,7 @@ $OPTIONS = "";
 
         <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
-        <?php require '/opt/src/templates/monster-editor/add-attribute-modal.php'; ?>
+        <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -340,7 +340,7 @@ $OPTIONS = "";
 
         <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
-        <?php require '/opt/src/templates/monster-editor/add-attribute-modal.php'; ?>
+        <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
       </section>
     </section>
     <hr>
@@ -368,7 +368,7 @@ $OPTIONS = "";
 
         <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
-        <?php // require '/opt/src/templates/monster-editor/something.php';
+        <?php require '/opt/src/templates/monster-editor/attribute-modal.php';
         ?>
       </section>
 
@@ -413,7 +413,7 @@ $OPTIONS = "";
 
         <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
 
-        <?php require '/opt/src/templates/monster-editor/add-attribute-modal.php'; ?>
+        <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
       </section>
     </section>
     <hr>
@@ -432,11 +432,9 @@ $OPTIONS = "";
       ];
       ?>
 
-      <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3">
-        <?php require '/opt/src/templates/monster-editor/ability-action.php'; ?>
-      </div>
+      <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3"></div>
 
-      <?php // require '/opt/src/templates/monster-editor/something.php';
+      <?php require '/opt/src/templates/monster-editor/attribute-modal.php';
       ?>
     </section>
     <hr>
@@ -454,11 +452,9 @@ $OPTIONS = "";
       ];
       ?>
 
-      <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3">
-        <?php require '/opt/src/templates/monster-editor/ability-action.php'; ?>
-      </div>
+      <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3"></div>
 
-      <?php // require '/opt/src/templates/monster-editor/something.php';
+      <?php require '/opt/src/templates/monster-editor/attribute-modal.php';
       ?>
     </section>
     <hr>
@@ -476,11 +472,9 @@ $OPTIONS = "";
       ];
       ?>
 
-      <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3">
-        <?php require '/opt/src/templates/monster-editor/ability-action.php'; ?>
-      </div>
+      <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3"></div>
 
-      <?php // require '/opt/src/templates/monster-editor/something.php';
+      <?php require '/opt/src/templates/monster-editor/attribute-modal.php';
       ?>
     </section>
     <hr>
@@ -491,16 +485,14 @@ $OPTIONS = "";
       <?php
       // #MARK: REACTIONS
       $CATEGORY = "reaction";
-      // $OPTIONS = [
-      //    "Custom"
-      // ];
+      $OPTIONS = [
+         "Custom"
+      ];
       ?>
 
-      <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3">
-        <?php require '/opt/src/templates/monster-editor/ability-action.php'; ?>
-      </div>
+      <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3"></div>
 
-      <?php // require '/opt/src/templates/monster-editor/something.php';
+      <?php require '/opt/src/templates/monster-editor/attribute-modal.php';
       ?>
     </section>
     <hr>
@@ -523,11 +515,9 @@ $OPTIONS = "";
       </div>
 
       <div id="legendaryBlock" style="display:none">
-        <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3">
-          <?php require '/opt/src/templates/monster-editor/ability-action.php'; ?>
-        </div>
+        <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3"></div>
 
-        <?php // require '/opt/src/templates/monster-editor/something.php';
+        <?php require '/opt/src/templates/monster-editor/attribute-modal.php';
         ?>
       </div>
     </section>

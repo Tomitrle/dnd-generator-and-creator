@@ -12,8 +12,7 @@
   <label class="form-label" for="<?php echo $CATEGORY; ?>Description<?php echo $UNIQUE_ID; ?>">Description</label>
   <textarea id="<?php echo $CATEGORY; ?>Description<?php echo $UNIQUE_ID; ?>" name="<?php echo $CATEGORY; ?>Description<?php echo $UNIQUE_ID; ?>" class="form-control" rows="4" aria-required="true" required></textarea>
 
-  <label class="form-label" for="<?php echo $CATEGORY; ?>Benefit<?php echo $UNIQUE_ID; ?>">Power Level: </label>
-  <strong id="<?php echo $CATEGORY; ?>BenefitLabel<?php echo $UNIQUE_ID; ?>" class="ms-1">Neutral</strong>
+  <label class="form-label" for="<?php echo $CATEGORY; ?>Benefit<?php echo $UNIQUE_ID; ?>">Power Level:</label><strong id="<?php echo $CATEGORY; ?>BenefitLabel<?php echo $UNIQUE_ID; ?>" class="ms-1">Neutral</strong>
   <input id="<?php echo $CATEGORY; ?>Benefit<?php echo $UNIQUE_ID; ?>" name="<?php echo $CATEGORY; ?>Benefit<?php echo $UNIQUE_ID; ?>" class="form-range" type="range" min="-1" max="2" value="0" oninput="updateSliderLabel(event)">
 </div>
 <?php $UNIQUE_ID += 1; ?>

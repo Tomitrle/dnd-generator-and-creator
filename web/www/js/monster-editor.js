@@ -292,24 +292,93 @@ function addSelectedAttribute(self) {
     const attributeName = self.getAttribute('data-attribute');
     const ID = uniqueID();
 
-    var selectedAttribute = createElement(
-        "<div class=\"row mb-1\" onclick=\"deleteSelf(event, this)\">\
-            <input id=\"" + category + ID + "\" name=\"" + category + ID + "\" type=\"hidden\" value=\"" + attributeName + "\">\
-            <div class=\"col-11 d-flex align-items-center text-wrap text-break\">" + attributeName + "</div>\
-            <div class=\"col-1 gx-0 d-flex align-items-center\">\
-                <button type=\"button\" class=\"btn-close\" aria-label=\"Delete\" data-action=\"delete\"></button>\
-            </div>\
-        </div>"
-    );
+    var selectedAttribute;
 
-    hideChoice(document.getElementById(category + "Add" + attributeName));
+    switch (category) {
+        case "speed":
+            // speed.php
+            selectedAttribute = createElement(
+                "<div class=\"row\" onclick=\"deleteSelf(event, this)\">\
+                    <div class= \"col-sm-2 mb-1 d-flex justify-content-sm-center align-items-center text-center\" >\
+                        <label class=\"form-label\" for=\"" + category + ID + "\" style=\"margin-bottom:0;\">" + attributeName + "</label>\
+                    </div>\
+                    <div class=\"col-sm-9 col-11 mb-1 d-flex justify-content-sm-center align-items-center\">\
+                        <input id=\"" + category + ID + "\" name=\"" + category + ID + "\" type=\"hidden\" value=\"" + attributeName + "\">\
+                        <input id=\"" + category + "Range" + ID + "\" name=\"" + category + "Range" + ID + "\" class=\"form-control\" type=\"number\" min=\"0\" step=\"5\" placeholder=\"0 ft\" aria-required=\"true\" required>\
+                    </div>\
+                    <div class=\"col-1 mb-1 d-flex justify-content-start align-items-center gx-0\">\
+                        <button type=\"button\" class=\"btn-close\" aria-label=\"Delete\" data-action=\"delete\"></button>\
+                    </div>\
+                </div>"
+            );
+
+            hideChoice(document.getElementById(category + "Add" + attributeName));
+            break;
+
+        case "sense":
+            // sense.php
+            selectedAttribute = createElement(
+                "<div class=\"row mb-1\" onclick=\"deleteSelf(event, this)\">\
+                    <div class= \"col-6 d-flex align-items-center text-wrap text-break\" >" + attributeName + "</div >\
+                    <div class=\"col-5 text-wrap text-break\">\
+                        <input id=\"" + category + ID + "\" name=\"" + category + ID + "\" type=\"hidden\" value=\"" + attributeName + "\">\
+                        <input id=\""  + category + "Range" + ID + "\" name=\"" + category + "Range" + ID + "\" class=\"form-control\" type=\"number\" min=\"0\" max=\"1000\" step=\"5\" placeholder=\"0 ft\" aria-required=\"true\" required>\
+                    </div>\
+                    <div class=\"col-1 gx-0 d-flex align-items-center\">\
+                        <button type=\"button\" class=\"btn-close\" aria-label=\"Delete\" data-action=\"delete\"></button>\
+                    </div>\
+                </div>"
+            );
+
+            hideChoice(document.getElementById(category + "Add" + attributeName));
+            break;
+
+        case "ability":
+        case "action":
+        case "bonusAction":
+        case "reaction":
+        case "legendaryAbility":
+            // ability.php
+            selectedAttribute = createElement(
+                "<div class=\"col-sm-6 col-lg-4\" onclick=\"deleteSelf(event, this)\">\
+                    <div class=\"row mb-1\">\
+                        <label class=\"form-label\" for=\"" + category + "Name" + ID + "\">Name</label>\
+                        <div class=\"col-10\">\
+                            <input id=\"" + category + "Name" + ID + "\" name=\"" + category + "Name" + ID + "\" class=\"form-control\" type=\"text\" pattern=\"[\\w\\s]+\" value=\"" + attributeName + "\" aria-required=\"true\" required>\
+                        </div>\
+                        <div class=\"col-2 gx-0 d-flex align-items-center justify-content-center\">\
+                            <button type=\"button\" class=\"btn-close\" aria-label=\"Delete\" data-action=\"delete\"></button>\
+                        </div>\
+                    </div>\
+                    <label class=\"form-label\" for=\"" + category + "Description" + ID + "\">Description</label>\
+                    <textarea id=\"" + category + "Description" + ID + "\" name=\"" + category + "Description" + ID + "\" class=\"form-control\" rows=\"4\" aria-required=\"true\" required></textarea>\
+                    <label class=\"form-label\" for=\"" + category + "Benefit" + ID + "\">Power Level:</label><strong id=\"" + category + "BenefitLabel" + ID + "\" class=\"ms-1\">Neutral</strong>\
+                    <input id=\"" + category + "Benefit" + ID + "\" name=\"" + category + "Benefit" + ID + "\" class=\"form-range\" type=\"range\" min=\"-1\" max=\"2\" value=\"0\" oninput=\"updateSliderLabel(event)\">\
+                </div>"
+            );
+            break;
+
+        default:
+            // basic.php
+            selectedAttribute = createElement(
+                "<div class=\"row mb-1\" onclick=\"deleteSelf(event, this)\">\
+                    <input id=\"" + category + ID + "\" name=\"" + category + ID + "\" type=\"hidden\" value=\"" + attributeName + "\">\
+                    <div class=\"col-11 d-flex align-items-center text-wrap text-break\">" + attributeName + "</div>\
+                    <div class=\"col-1 gx-0 d-flex align-items-center\">\
+                        <button type=\"button\" class=\"btn-close\" aria-label=\"Delete\" data-action=\"delete\"></button>\
+                    </div>\
+                </div>"
+            );
+
+            hideChoice(document.getElementById(category + "Add" + attributeName));
+            break;
+    }
+
     document.getElementById(category + "Container").appendChild(selectedAttribute);
 }
 
-// Do not access manually; use uniqueID() instead.
-var uniqueIDValue = document.getElementById("IDCounter").value;
 function uniqueID() {
-    return uniqueIDValue++;
+    return document.getElementById("IDCounter").value++;
 }
 
 // https://stackoverflow.com/questions/3662821/how-to-correctly-use-innerhtml-to-create-an-element-with-possible-children-fro

@@ -12,7 +12,7 @@
         <div id=<?php echo $CATEGORY . "AddContainer"; ?>>
           <?php
           foreach ($OPTIONS as $OPTION) {
-            include '/opt/src/templates/monster-editor/add.php';
+            include '/opt/src/templates/monster-editor/attribute-modal-choice.php';
           }
           ?>
         </div>

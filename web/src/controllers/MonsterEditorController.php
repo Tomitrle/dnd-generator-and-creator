@@ -12,6 +12,7 @@ class MonsterEditorController {
     ];
 
     switch ($_SERVER["REQUEST_METHOD"]) {
+      // MARK: GET
       case "GET":
         switch (isset($_GET["databaseID"])) {
           case true:
@@ -47,6 +48,7 @@ class MonsterEditorController {
             return;
         }
 
+      // MARK: POST
       case "POST":
         if (!$this->isAuthenticated()) {
           $this->errorResponse(401, "You must be logged in to edit this resource.");
@@ -73,6 +75,7 @@ class MonsterEditorController {
 
           case false:
             // TODO: UPDATE DATABASE MODEL
+            var_dump($_POST);
             return;
         }
 
@@ -84,10 +87,17 @@ class MonsterEditorController {
 
   // TODO
   protected function isAuthenticated() : bool {
+    return true;
+  }
+
+  // TODO
+  protected function checkPermissions(): bool
+  {
     return false;
   }
 
   /**
+   * MARK: VALIDATION
    * Checks whether the form inputs are valid.
    * Returns true on success and an error message on failure.
    */
@@ -342,11 +352,6 @@ class MonsterEditorController {
     }
 
     return true;
-  }
-
-  // TODO
-  protected function checkPermissions() : bool {
-    return false;
   }
 
   protected function errorResponse(int $code, string $message) : void {
