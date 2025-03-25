@@ -1,12 +1,40 @@
 <?php
-class BaseController
+abstract class BaseController
 {
-  public function __construct() {}
+  protected $database;
 
-  // TODO: Handle authentication
-  final protected function isAuthenticated(): bool
+  public function __construct()
   {
-    return true;
+    session_start();
+    $this->database = new Database();
+
+    if (!isset($GLOBALS['src']))
+      $GLOBALS['src'] = __DIR__ . "/../";
+
+    if (!isset($_SESSION["messages"]))
+      $this->resetMessages();
+  }
+
+  abstract public function run();
+
+  protected function resetMessages(): void
+  {
+    $_SESSION["messages"] = [
+      "info" => [],
+      "success" => [],
+      "warning" => [],
+      "danger" => []
+    ];
+  }
+
+  protected function addMessage(string $type, string $message): void
+  {
+    $_SESSION["messages"][$type][] = $message;
+  }
+
+  protected function isAuthenticated(): bool
+  {
+    return isset($_SESSION["userID"]);
   }
 
   protected function errorResponse(int $code, string $message): void
@@ -26,8 +54,16 @@ class BaseController
     <body>
       <h1>HTTP $code</h1>
       <p>$message</p>
-    </body>
+    ";
 
-    </html>";
+    require "{$GLOBALS['src']}/templates/alerts.php";
+
+    echo "
+    </body>
+    </html>
+    ";
+
+    $this->resetMessages();
+    exit();
   }
 }
