@@ -13,11 +13,23 @@ class MonsterEditorController extends BaseController
             if (!$this->isAuthenticated())
               $this->errorResponse(401, "You must be logged in to edit this resource.");
 
-            if (!$this->checkPermissions())
+            if (!$this->checkPermissions($_GET["databaseID"], $_SESSION["userID"]))
               $this->errorResponse(403, "You do not have permission to edit this resource.");
 
             // MARK: TODO
-            // Query and load the database record(s)
+//             $monster = $this->database->query(
+//               "SELECT * FROM dnd_monsters WHERE id = $1;",
+//               $_GET["databaseID"]
+//             );
+//             $attributes = $this->database->query(
+//               "SELECT * FROM dnd_attributes WHERE monsterID = $1;",
+//               $_GET["databaseID"]
+//             );
+//
+//             print_r($monster);
+//             print_r($attributes);
+//             exit();
+
             require "/opt/src/templates/monster-editor/monster-editor.php";
             $this->resetMessages();
             exit();
@@ -53,7 +65,7 @@ class MonsterEditorController extends BaseController
 
         switch (isset($_POST["databaseID"])) {
           case true:
-            if (!$this->checkPermissions())
+            if (!$this->checkPermissions($_POST["databaseID"], $_SESSION["userID"]))
               $this->errorResponse(403, "You do not have permission to edit this resource");
 
             // MARK: TODO
@@ -72,11 +84,15 @@ class MonsterEditorController extends BaseController
     }
   }
 
-  // MARK: TODO
-  // Query the database and check permissions
-  protected function checkPermissions(): bool
+  protected function checkPermissions(int $monsterID, int $userID): bool
   {
-    return false;
+    $result = $this->database->query(
+      "SELECT * FROM dnd_monsters WHERE (id, userID) = ($1, $2);",
+      $monsterID,
+      $userID,
+    );
+
+    return $result && !empty($result);
   }
 
   /**
