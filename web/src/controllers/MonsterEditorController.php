@@ -82,10 +82,8 @@ class MonsterEditorController extends BaseController
             return;
 
           case true:
-            $this->addMonster();
-            // MARK: TODO
-            // Remove var_dump and send the user elsewhere
-            var_dump($_POST);
+            $monsterID = $this->addMonster();
+            header("Location: monster-editor.php?databaseID=$monsterID");
             return;
         }
 
@@ -368,7 +366,8 @@ class MonsterEditorController extends BaseController
     return true;
   }
 
-  private function addMonster(): void
+  // Creates records in the database from $_POST and returns the new monster's ID.
+  private function addMonster(): int
   {
     $monsterID = $this->database->query(
       "INSERT INTO dnd_monsters (
@@ -479,5 +478,7 @@ class MonsterEditorController extends BaseController
         $attribute["Benefit"]
       );
     }
+
+    return $monsterID;
   }
 }

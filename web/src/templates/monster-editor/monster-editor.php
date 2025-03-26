@@ -15,9 +15,7 @@ $KEYWORDS = "dungeons and dragons, d&d, dnd, monster, creator, editor";
 
 $LESS = ["styles/monster-editor.less"];
 $SCRIPTS = ["js/monster-editor.js"];
-?>
 
-<?php
 /**
  * MARK: FUTURE WORK
  * The UNIQUE_ID value is used to assign a unique value to each attribute.
@@ -496,7 +494,7 @@ $OPTIONS = "";
       // MARK: REACTIONS
       $CATEGORY = "reaction";
       $OPTIONS = [
-         "Custom"
+        "Custom"
       ];
       ?>
 
@@ -596,7 +594,7 @@ $OPTIONS = "";
     </section>
 
     <div class="d-flex justify-content-center mt-4">
-      <button class="btn btn-secondary me-2" type="button" style="min-width:100px; font-size:x-large;">Export</button>
+      <a class="btn btn-secondary me-2" type="button" href="view-monster.php?databaseID=<?php if (isset($_GET["databaseID"])) echo $_GET["databaseID"]; ?>" target="_blank" style=" min-width:100px; font-size:x-large;">Export</a>
       <button id="saveButton" class="btn btn-success ms-2" type="submit" style="min-width:100px; font-size:x-large;">Save</button>
     </div>
 

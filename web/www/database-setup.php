@@ -16,7 +16,9 @@ $database->query("INSERT INTO dnd_users (username, password) VALUES ('Brennen', 
 
 session_start();
 session_destroy();
+session_start();
 
-header("Location: id.php");
+$_SESSION["userID"] = 1;
+
 exit();
 ?>
