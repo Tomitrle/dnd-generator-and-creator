@@ -7,14 +7,14 @@
 
 class MonsterAPIController extends BaseController
 {
-  public function run($VARIABLES): void
+  // MARK: RUN
+  public function run(array | null $VARIABLES = null): void
   {
-    // MARK: TODO
-    // Make export depend on save
     switch ($_SERVER["REQUEST_METHOD"]) {
       case "GET":
         switch (empty($_GET["monsterID"])) {
           case false:
+            // CHECK FOR AUTHENTICATION AND PERMISSION
             if (!$this->isAuthenticated())
               $this->errorResponse(401, "You must be logged in to access this resource.");
 
@@ -24,6 +24,7 @@ class MonsterAPIController extends BaseController
             if (!isset($_GET["command"]))
               $_GET["command"] = "";
 
+            // ACT BASED ON THE GIVEN COMMAND. DEFAULT TO VIEW -> JSON
             switch ($_GET["command"]) {
               case "create":
                 $this->createMonster($VARIABLES);
@@ -37,6 +38,7 @@ class MonsterAPIController extends BaseController
                 $this->deleteMonster($_GET["monsterID"]);
                 return;
 
+              // VIEW THE REQUESTED MONSTER
               case "view":
               default:
                 if (!isset($_GET["format"]))
@@ -60,8 +62,9 @@ class MonsterAPIController extends BaseController
     }
   }
 
+  // MARK: PERMISSIONS
   // Checks whether the given monster is owned by the given user.
-  protected function checkPermissions(int $monsterID, int $userID): bool
+  public function checkPermissions(int $monsterID, int $userID): bool
   {
     $result = $this->database->query(
       "SELECT * FROM dnd_monsters WHERE (id, userID) = ($1, $2);",
@@ -72,6 +75,7 @@ class MonsterAPIController extends BaseController
     return !empty($result);
   }
 
+  // MARK: CREATE
   public function createMonster(array $VARIABLES): int
   {
     $monsterID = $this->database->query(
@@ -187,6 +191,7 @@ class MonsterAPIController extends BaseController
     return $monsterID;
   }
 
+  // MARK: UPDATE
   public function updateMonster(int $monsterID, array $VARIABLES): void
   {
     $this->database->query(
@@ -305,6 +310,7 @@ class MonsterAPIController extends BaseController
     }
   }
 
+  // MARK: DELETE
   public function deleteMonster(int $monsterID): void
   {
     $this->database->query(
@@ -312,6 +318,7 @@ class MonsterAPIController extends BaseController
     );
   }
 
+  // MARK: QUERY
   public function getMonsterAsArray(int $monsterID): array
   {
     $monster = $this->database->query(
@@ -345,5 +352,18 @@ class MonsterAPIController extends BaseController
     }
 
     return $monster;
+  }
+
+  public function getMonsterIDs(int $userID): array
+  {
+    $ids = $this->database->query(
+      "SELECT id FROM dnd_monsters WHERE userID = $1;",
+      $userID
+    );
+    foreach ($ids as $index => $array) {
+      $ids[$index] = $array["id"];
+    }
+
+  return $ids;
   }
 }
