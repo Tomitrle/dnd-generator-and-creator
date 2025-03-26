@@ -13,7 +13,7 @@ class MonsterEditorController extends BaseController
     switch ($_SERVER["REQUEST_METHOD"]) {
       case "GET":
         switch (empty($_GET["databaseID"])) {
-          case true:
+          case false:
             if (!$this->isAuthenticated())
               $this->errorResponse(401, "You must be logged in to edit this resource.");
 
@@ -41,7 +41,7 @@ class MonsterEditorController extends BaseController
             $this->resetMessages();
             exit();
 
-          case false:
+          case true:
             if ($this->isAuthenticated()) {
               // LOAD REGULAR PAGE
               require "/opt/src/templates/monster-editor/monster-editor.php";
@@ -73,7 +73,7 @@ class MonsterEditorController extends BaseController
           $this->errorResponse(400, "Your request to edit this resource was invalid or malformed. $output");
 
         switch (empty($_POST["databaseID"])) {
-          case true:
+          case false:
             if (!$this->checkPermissions($_POST["databaseID"], $_SESSION["userID"]))
               $this->errorResponse(403, "You do not have permission to edit this resource");
 
@@ -81,7 +81,7 @@ class MonsterEditorController extends BaseController
             // Update database records
             return;
 
-          case false:
+          case true:
             $this->addMonster();
             // MARK: TODO
             // Remove var_dump and send the user elsewhere
@@ -204,14 +204,14 @@ class MonsterEditorController extends BaseController
       ],
 
       "boolean" => [
-        "shield" => true,
-        "strengthSavingThrow" => true,
-        "dexteritySavingThrow" => true,
-        "constitutionSavingThrow" => true,
-        "intelligenceSavingThrow" => true,
-        "wisdomSavingThrow" => true,
-        "charismaSavingThrow" => true,
-        "blind" => true,
+        "shield" => null,
+        "strengthSavingThrow" => null,
+        "dexteritySavingThrow" => null,
+        "constitutionSavingThrow" => null,
+        "intelligenceSavingThrow" => null,
+        "wisdomSavingThrow" => null,
+        "charismaSavingThrow" => null,
+        "blind" => null,
       ],
     ];
 
@@ -253,14 +253,13 @@ class MonsterEditorController extends BaseController
       "boolean" => [],
     ];
 
-
     /**
      * Values are checked in one of four ways: regex, options, boolean, or range.
      * The fields for each validation type are stored as associative arrays (field => constraints).
      * Each validation type checks for different constraints:
      * - 'regex' values perform a regular expression match
      * - 'options' values are compared against a list of choices
-     * - 'boolean' values
+     * - 'boolean' values must be true if required
      * - 'range' values must be in the range of START(0), END(1), STEP(2) inclusive or in OTHER(3)
      * Additionally, optional fields without a value are set to NULL.
      * Note that "0" and false are not considered empty values while "" is.
@@ -269,8 +268,11 @@ class MonsterEditorController extends BaseController
       // REQUIRED FIELDS
       foreach ($requiredFields as $type => $field) {
         foreach ($field as $fieldName => $conditions) {
-          if (empty($_POST[$fieldName]) && $_POST[$fieldName] !== "0" && $_POST[$fieldName] !== false)
+          if (!isset($_POST[$fieldName]) || $_POST[$fieldName] === "")
             return "'$fieldName' was required but not provided.";
+
+          if ($type === 'boolean')
+            $_POST[$fieldName] = 'true';
 
           $output = $this->validate($type, $conditions, $_POST[$fieldName]);
           if ($output !== true)
@@ -281,7 +283,10 @@ class MonsterEditorController extends BaseController
       // OPTIONAL FIELDS
       foreach ($optionalFields as $type => $field) {
         foreach ($field as $fieldName => $conditions) {
-          if (empty($_POST[$fieldName]) && $_POST[$fieldName] !== "0" && $_POST[$fieldName] !== false) {
+          if ($type === 'boolean')
+            $_POST[$fieldName] = isset($_POST[$fieldName]) ? 'true' : 'false';
+
+          if (!isset($_POST[$fieldName]) || $_POST[$fieldName] === "") {
             $_POST[$fieldName] = null;
             continue;
           }
@@ -299,7 +304,10 @@ class MonsterEditorController extends BaseController
             if (!strpos($fieldName, $fieldRoot))
               continue;
 
-            if (empty($_POST[$fieldName]) && $_POST[$fieldName] !== "0" && $_POST[$fieldName] !== false)
+            if ($type === 'boolean')
+              $_POST[$fieldName] = isset($_POST[$fieldName]) ? 'true' : 'false';
+
+            if (!isset($_POST[$fieldName]) || $_POST[$fieldName] === "")
               return "Value for '$fieldName' was not provided.";
 
             $output = $this->validate($type, $conditions, $value);
@@ -326,29 +334,29 @@ class MonsterEditorController extends BaseController
     return true;
   }
 
-  private function validate(string $type, string | array $conditions, mixed $value): bool | string
+  private function validate(string $type, string | array | null $conditions, mixed $value): bool | string
   {
     switch ($type) {
       case "regex":
-        if (!preg_match($conditions, $value)) return "'$value' does not match the regular expression '$conditions'";
+        if (!preg_match($conditions, $value))
+          return "'$value' does not match the regular expression '$conditions'";
         break;
 
       case "options":
-        if (!in_array($value, $conditions, true)) return "'$value' is not in the list of valid options";
+        if (!in_array($value, $conditions, true))
+          return "'$value' is not in the list of valid options";
         break;
 
       case "boolean":
-        if ($conditions) {
-          if ($value !== "on" || $value !== true) return "'$value' must be either 'on' or true";
-        } else {
-          if ($value !== null || $value !== false) return "'$value' must either be unset or false";
-        }
+        if ($value !== 'true' && $value !== 'false')
+          return "'$value' must be 'true' or 'false' (DEVELOPER ERROR)";
         break;
 
       // INCLUSIVE RANGE (START, END, STEP, [... OTHER ACCEPTED VALUES])
       case "range":
         if (count($conditions) > 3) {
-          if (in_array($value, $conditions[3])) return true;
+          if (in_array($value, $conditions[3]))
+            return true;
         }
 
         if ($value < $conditions[0] || $value > $conditions[1] || ($value - $conditions[0]) % $conditions[2] > 0)
