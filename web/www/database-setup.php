@@ -12,9 +12,11 @@ $database = new Database();
 $database->dropTables();
 $database->createTables();
 
+$database->query("INSERT INTO dnd_users (username, password) VALUES ('Brennen', 'admin');");
+
 session_start();
 session_destroy();
 
-header("Location: index.php");
+header("Location: id.php");
 exit();
 ?>

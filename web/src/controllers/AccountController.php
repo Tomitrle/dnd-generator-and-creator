@@ -15,12 +15,10 @@ class AccountController extends BaseController
         // MARK: TODO
         // Query for this user's monster IDs
         require "/opt/src/templates/account/account.php";
-        $this->resetMessages();
         exit();
 
       default:
         $this->errorResponse(405, "This request method is not supported.");
-        $this->resetMessages();
         exit();
     }
   }

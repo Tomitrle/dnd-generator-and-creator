@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Sources
+ * https://getbootstrap.com/docs/5.3/forms/overview/
+ * https://getbootstrap.com/docs/5.0/forms/validation/
+ * https://stackoverflow.com/questions/3518002/how-can-i-set-the-default-value-for-an-html-select-element
+ * https://stackoverflow.com/questions/13766015/is-it-possible-to-configure-a-required-field-to-ignore-white-space
+ */
+
 $TITLE = "Monster Editor";
 $AUTHOR = "Brennen Muller";
 $DESCRIPTION = "Create and edit custom monsters for Dungeons & Dragons.";
@@ -9,7 +18,11 @@ $SCRIPTS = ["js/monster-editor.js"];
 ?>
 
 <?php
-// USED TO GIVE UNIQUE ID NUMBERS TO EACH ELEMENT. PROBABLY NEEDS TO BE UPDATED LATER (ESPECIALLY TO ADD NEW ELEMENTS)
+/**
+ * MARK: FUTURE WORK
+ * The UNIQUE_ID value is used to assign a unique value to each attribute.
+ * This implementation is VERY INEFFICIENT and requires lots of PHP injection, Javascript, and form validation to work.
+ */
 $UNIQUE_ID = 1;
 $CATEGORY = "";
 $OPTIONS = "";
@@ -29,8 +42,6 @@ $OPTIONS = "";
 
   <?php require '/opt/src/templates/alerts.php'; ?>
 
-  <!-- Source: https://getbootstrap.com/docs/5.3/forms/overview/ -->
-  <!-- Source: https://getbootstrap.com/docs/5.0/forms/validation/ -->
   <form class="container needs-validation" action="monster-editor.php" method="post" novalidate>
     <section class="row">
       <h2>General Information</h2>
@@ -39,8 +50,7 @@ $OPTIONS = "";
         <input id="name" name="name" class="form-control" type="text" pattern="[\w\s]+" aria-required="true" required>
       </div>
 
-      <!-- Source: https://stackoverflow.com/questions/3518002/how-can-i-set-the-default-value-for-an-html-select-element -->
-      <!-- Source: https://stackoverflow.com/questions/13766015/is-it-possible-to-configure-a-required-field-to-ignore-white-space -->
+
       <div class="col-sm-6 mb-2">
         <label class="form-label" for="size">Size</label>
         <select id="size" name="size" class="form-select" aria-required="true" required>
@@ -162,7 +172,7 @@ $OPTIONS = "";
     <section>
       <h2>Movement</h2>
       <?php
-      //#MARK: MOVEMENT
+      // MARK: MOVEMENT
       $CATEGORY = "speed";
       $OPTIONS = ["Burrow Speed", "Climb Speed", "Fly Speed", "Swim Speed"];
       ?>
@@ -203,7 +213,7 @@ $OPTIONS = "";
       </div>
 
       <?php
-      //#MARK: ABILITY SCORES
+      // MARK: ABILITY SCORES
       foreach (["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"] as $CATEGORY) {
         require '/opt/src/templates/monster-editor/attributes/ability-score.php';
       }
@@ -217,7 +227,7 @@ $OPTIONS = "";
       <section class="col-sm-6 col-lg-4">
         <h3>Skill Proficiencies</h3>
         <?php
-        //#MARK: SKILL PROFICIENCIES
+        // MARK: SKILL PROFICIENCIES
         $CATEGORY = "skillProficiency";
         $OPTIONS = [
           "Acrobatics",
@@ -249,7 +259,7 @@ $OPTIONS = "";
       <section class="col-sm-6 col-lg-4">
         <h3>Skill Expertises</h3>
         <?php
-        //#MARK: SKILL EXPERTISES
+        // MARK: SKILL EXPERTISES
         $CATEGORY = "skillExpertise";
         ?>
 
@@ -261,7 +271,7 @@ $OPTIONS = "";
       <section class="col-sm-6 col-lg-4">
         <h3>Damage Vulnerabilities</h3>
         <?php
-        //#MARK: DAMAGE VULNERABILITIES
+        // MARK: DAMAGE VULNERABILITIES
         $CATEGORY = "damageVulnerability";
         $OPTIONS = [
           "Acid",
@@ -293,7 +303,7 @@ $OPTIONS = "";
       <section class="col-sm-6 col-lg-4">
         <h3>Damage Resistances</h3>
         <?php
-        //#MARK: DAMAGE RESISTANCES
+        // MARK: DAMAGE RESISTANCES
         $CATEGORY = "damageResistance";
         ?>
 
@@ -305,7 +315,7 @@ $OPTIONS = "";
       <section class="col-sm-6 col-lg-4">
         <h3>Damage Immunities</h3>
         <?php
-        // #MARK: DAMAGE IMMUNITIES
+        // MARK: DAMAGE IMMUNITIES
         $CATEGORY = "damageImmunity";
         ?>
 
@@ -317,7 +327,7 @@ $OPTIONS = "";
       <section class="col-sm-6 col-lg-4">
         <h3>Condition Immunities</h3>
         <?php
-        // #MARK: CONDITION IMMUNITIES
+        // MARK: CONDITION IMMUNITIES
         $CATEGORY = "conditionImmunity";
         $OPTIONS = [
           "Blinded",
@@ -351,7 +361,7 @@ $OPTIONS = "";
       <section class="col-sm-6">
         <h3>Senses</h3>
         <?php
-        // #MARK: SENSES
+        // MARK: SENSES
         $CATEGORY = "sense";
         $OPTIONS = [
           "Blindsight",
@@ -375,7 +385,7 @@ $OPTIONS = "";
       <section class="col-sm-6">
         <h3>Languages</h3>
         <?php
-        // #MARK: LANGUAGES
+        // MARK: LANGUAGES
         $CATEGORY = "language";
         $OPTIONS = [
           "Common",
@@ -421,7 +431,7 @@ $OPTIONS = "";
     <section>
       <h2>Abilities</h2>
       <?php
-      // #MARK: ABILITIES
+      // MARK: ABILITIES
       $CATEGORY = "ability";
       $OPTIONS = [
         "Multiattack",
@@ -442,7 +452,7 @@ $OPTIONS = "";
     <section>
       <h2>Actions</h2>
       <?php
-      // #MARK: ACTIONS
+      // MARK: ACTIONS
       $CATEGORY = "action";
       $OPTIONS = [
         "Melee Weapon Attack",
@@ -462,7 +472,7 @@ $OPTIONS = "";
     <section>
       <h2>Bonus Actions</h2>
       <?php
-      // #MARK: BONUS ACTIONS
+      // MARK: BONUS ACTIONS
       $CATEGORY = "bonusAction";
       $OPTIONS = [
         "Melee Weapon Attack",
@@ -483,7 +493,7 @@ $OPTIONS = "";
       <h2>Reactions</h2>
 
       <?php
-      // #MARK: REACTIONS
+      // MARK: REACTIONS
       $CATEGORY = "reaction";
       $OPTIONS = [
          "Custom"
@@ -500,7 +510,7 @@ $OPTIONS = "";
     <section>
       <h2>Legendary Features</h2>
       <?php
-      // #MARK: LEGENDARY
+      // MARK: LEGENDARY
       $CATEGORY = "legendaryAbility";
       $OPTIONS = [
         "Legendary Resistance",
@@ -590,7 +600,7 @@ $OPTIONS = "";
       <button id="saveButton" class="btn btn-success ms-2" type="submit" style="min-width:100px; font-size:x-large;">Save</button>
     </div>
 
-    <input id="IDCounter" type="hidden" value="<?php echo $UNIQUE_ID; ?>">
+    <input id="IDCounter" name="IDCounter" type="hidden" value="<?php echo $UNIQUE_ID; ?>">
   </form>
 
   <?php require '/opt/src/templates/footer.php'; ?>
