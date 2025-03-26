@@ -1,5 +1,5 @@
 <div class="row mb-1" onclick="deleteSelf(event, this)">
-  <input id="<?php echo $CATEGORY . $UNIQUE_ID; ?>" name="<?php echo $CATEGORY . $UNIQUE_ID; ?>" type="hidden">
+  <input id="<?php echo $CATEGORY . "Name" . $UNIQUE_ID; ?>" name="<?php echo $CATEGORY . "Name" . $UNIQUE_ID; ?>" type="hidden">
   <div class="col-11 d-flex align-items-center text-wrap text-break">
     ...
   </div>
