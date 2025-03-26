@@ -40,7 +40,7 @@ $OPTIONS = "";
 
   <?php require '/opt/src/templates/alerts.php'; ?>
 
-  <form class="container needs-validation" action="monster-editor.php" method="post" novalidate>
+  <form class="container needs-validation" action="monster-editor.php?databaseID=<?php if (isset($_GET["databaseID"])) echo $_GET["databaseID"]; ?>" method="post" novalidate>
     <section class="row">
       <h2>General Information</h2>
       <div class="col-sm-6 mb-2">

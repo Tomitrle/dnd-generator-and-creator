@@ -72,19 +72,19 @@ class MonsterEditorController extends BaseController
         if ($output !== true)
           $this->errorResponse(400, "Your request to edit this resource was invalid or malformed. $output");
 
-        switch (empty($_POST["databaseID"])) {
+        switch (empty($_GET["databaseID"])) {
           case false:
-            if (!$this->checkPermissions($_POST["databaseID"], $_SESSION["userID"]))
+            if (!$this->checkPermissions($_GET["databaseID"], $_SESSION["userID"]))
               $this->errorResponse(403, "You do not have permission to edit this resource");
 
-            // MARK: TODO
-            // Update database records
-            return;
+            $this->updateMonster($_GET["databaseID"]);
+            // header("Location: monster-editor.php?databaseID={$_GET["databaseID"]}");
+            exit();
 
           case true:
             $monsterID = $this->addMonster();
-            header("Location: monster-editor.php?databaseID=$monsterID");
-            return;
+            // header("Location: monster-editor.php?databaseID=$monsterID");
+            exit();
         }
 
       default:
@@ -480,5 +480,123 @@ class MonsterEditorController extends BaseController
     }
 
     return $monsterID;
+  }
+
+  // Updates records in the database from $_POST.
+  private function updateMonster($monsterID): void
+  {
+    $this->database->query(
+      "UPDATE dnd_monsters * SET (
+        name,
+        size,
+        type,
+        alignment,
+        armor,
+        shield,
+        armorClass,
+        hitDice,
+        health,
+        speedRange,
+        strength,
+        dexterity,
+        constitution,
+        intelligence,
+        wisdom,
+        charmisma,
+        strengthSavingThrow,
+        dexteritySavingThrow,
+        constitutionSavingThrow,
+        intelligenceSavingThrow,
+        wisdomSavingThrow,
+        charmismaSavingThrow,
+        blind,
+        telepathy,
+        challenge
+      ) = (
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10,
+        $11, $12, $13, $14, $15, $16, $17, $18, $19, $20,
+        $21, $22, $23, $24, $25
+      ) WHERE id = $26;",
+      $_POST["name"],
+      $_POST["size"],
+      $_POST["type"],
+      $_POST["alignment"],
+      $_POST["armor"],
+      $_POST["shield"],
+      $_POST["armorClass"],
+      $_POST["hitDice"],
+      $_POST["health"],
+      $_POST["speedRange"],
+      $_POST["strengthScore"],
+      $_POST["dexterityScore"],
+      $_POST["constitutionScore"],
+      $_POST["intelligenceScore"],
+      $_POST["wisdomScore"],
+      $_POST["charismaScore"],
+      $_POST["strengthSavingThrow"],
+      $_POST["dexteritySavingThrow"],
+      $_POST["constitutionSavingThrow"],
+      $_POST["intelligenceSavingThrow"],
+      $_POST["wisdomSavingThrow"],
+      $_POST["charismaSavingThrow"],
+      $_POST["blind"],
+      $_POST["telepathy"],
+      $_POST["challengeRadio"] === "custom" ? $_POST["challengeRatingSelect"] : $_POST["estimatedChallengeRating"],
+      $monsterID
+    );
+
+    // Probably inefficient.
+    $this->database->query(
+      "DELETE FROM dnd_attributes WHERE monsterID = $1;", $monsterID
+    );
+
+    /**
+     * Each attribute value is passed separately, requiring some re-construction.
+     * Each attribute has a name, and may include a range, description, and/or benefit value.
+     * In addition, each attribute ends with a unique ID value.
+     *
+     * This implementation is VERY INEFFICIENT.
+     */
+    $attributes = [];
+    for ($i = 1; $i < $_POST["IDCounter"]; $i++) {
+      foreach ($_POST as $fieldName => $value) {
+        if (str_ends_with($fieldName, $i)) {
+          $fieldName = str_replace($i, "", $fieldName);
+
+          if (!key_exists($i, $attributes)) {
+            $attributes[$i] = [
+              "Type" => str_replace(["Name", "Range", "Description", "Benefit"], "", $fieldName),
+              "Name" => null,
+              "Range" => null,
+              "Description" => null,
+              "Benefit" => null,
+            ];
+          }
+
+          $attributes[$i][str_replace($attributes[$i]["Type"], "", $fieldName)] = $value;
+        }
+      }
+    }
+
+    foreach ($attributes as $_ => $attribute) {
+      $this->database->query(
+        "INSERT INTO dnd_attributes (
+            monsterID,
+            type,
+            name,
+            range,
+            description,
+            benefit
+          ) VALUES (
+            $1, $2, $3, $4, $5, $6
+          );",
+        $monsterID,
+        $attribute["Type"],
+        $attribute["Name"],
+        $attribute["Range"],
+        $attribute["Description"],
+        $attribute["Benefit"]
+      );
+    }
   }
 }
