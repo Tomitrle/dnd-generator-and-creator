@@ -1,5 +1,5 @@
 <?php
-abstract class BaseController
+class BaseController
 {
   protected $database;
 
@@ -14,8 +14,6 @@ abstract class BaseController
     if (!isset($_SESSION["messages"]))
       $this->resetMessages();
   }
-
-  abstract public function run();
 
   protected function resetMessages(): void
   {
