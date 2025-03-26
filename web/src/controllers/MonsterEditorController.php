@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * Sources:
+ * https://stackoverflow.com/questions/7605480/str-replace-for-multiple-items
+ */
+
 class MonsterEditorController extends BaseController
 {
   /**
@@ -43,6 +49,10 @@ class MonsterEditorController extends BaseController
 
           case true:
             if ($this->isAuthenticated()) {
+              // MARK: TODO
+              // Turn disabled inputs into readonly inputs
+              // Include values like ability modifier as inputs
+
               // LOAD REGULAR PAGE
               require "/opt/src/templates/monster-editor/monster-editor.php";
               $this->resetMessages();
@@ -483,7 +493,7 @@ class MonsterEditorController extends BaseController
   }
 
   // Updates records in the database from $_POST.
-  private function updateMonster($monsterID): void
+  private function updateMonster(int $monsterID): void
   {
     $this->database->query(
       "UPDATE dnd_monsters * SET (

@@ -8,5 +8,5 @@ spl_autoload_register(function ($classname) {
   require "/opt/src/controllers/$classname.php";
 });
 
-$controller = new MonsterJSONController();
+$controller = new MonsterAPIController();
 $controller->run();

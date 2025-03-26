@@ -594,7 +594,7 @@ $OPTIONS = "";
     </section>
 
     <div class="d-flex justify-content-center mt-4">
-      <a class="btn btn-secondary me-2" type="button" href="view-monster.php?databaseID=<?php if (isset($_GET["databaseID"])) echo $_GET["databaseID"]; ?>" target="_blank" style=" min-width:100px; font-size:x-large;">Export</a>
+      <a class="btn btn-secondary me-2" type="button" href="monster-api.php?databaseID=<?php if (isset($_GET["databaseID"])) echo $_GET["databaseID"]; ?>" target="_blank" style=" min-width:100px; font-size:x-large;">Export</a>
       <button id="saveButton" class="btn btn-success ms-2" type="submit" style="min-width:100px; font-size:x-large;">Save</button>
     </div>
 
