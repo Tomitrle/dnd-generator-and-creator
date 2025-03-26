@@ -36,33 +36,27 @@ class Database
             size            TEXT,
             type            TEXT,
             alignment       TEXT,
-
             armor           TEXT,
             shield          BOOLEAN,
             armorClass      INT,
             hitDice         INT,
             health          INT,
-
-            speed           INT,
-
+            speedRange      INT,
             strength        INT,
             dexterity       INT,
             constitution    INT,
             intelligence    INT,
             wisdom          INT,
             charmisma       INT,
-
-            strengthSave        BOOLEAN,
-            dexteritySave       BOOLEAN,
-            constitutionSave    BOOLEAN,
-            intelligenceSave    BOOLEAN,
-            wisdomSave          BOOLEAN,
-            charmismaSave       BOOLEAN,
-
+            strengthSavingThrow        BOOLEAN,
+            dexteritySavingThrow       BOOLEAN,
+            constitutionSavingThrow    BOOLEAN,
+            intelligenceSavingThrow    BOOLEAN,
+            wisdomSavingThrow          BOOLEAN,
+            charmismaSavingThrow       BOOLEAN,
             blind           BOOLEAN,
             telepathy       INT,
-
-            challenge       INT
+            challenge       TEXT
             );");
 
         $result = pg_query($this->connection, "CREATE TABLE IF NOT EXISTS dnd_attributes (
@@ -70,9 +64,7 @@ class Database
             monsterID       INT REFERENCES dnd_monsters(id) ON DELETE CASCADE,
             type            TEXT,
             name            TEXT,
-
             range           INT,
-
             description     TEXT,
             benefit         INT
             );");

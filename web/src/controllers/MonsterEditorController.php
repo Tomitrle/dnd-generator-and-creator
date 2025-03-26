@@ -1,14 +1,18 @@
 <?php
 class MonsterEditorController extends BaseController
 {
+  /**
+   * This regular expression is used for input validation.
+   * Allows all word characters, whitespace characters, and a select handful of symbols.
+   * Hopefully, this should help prevent SQL injection.
+   */
   const REGEX = "/\A[\w\s\-\?\,\.\!\&\(\)]+\z/";
 
   public function run(): void
   {
     switch ($_SERVER["REQUEST_METHOD"]) {
-      // MARK: GET
       case "GET":
-        switch (isset($_GET["databaseID"])) {
+        switch (empty($_GET["databaseID"])) {
           case true:
             if (!$this->isAuthenticated())
               $this->errorResponse(401, "You must be logged in to edit this resource.");
@@ -17,18 +21,21 @@ class MonsterEditorController extends BaseController
               $this->errorResponse(403, "You do not have permission to edit this resource.");
 
             // MARK: TODO
-//             $monster = $this->database->query(
-//               "SELECT * FROM dnd_monsters WHERE id = $1;",
-//               $_GET["databaseID"]
-//             );
-//             $attributes = $this->database->query(
-//               "SELECT * FROM dnd_attributes WHERE monsterID = $1;",
-//               $_GET["databaseID"]
-//             );
-//
-//             print_r($monster);
-//             print_r($attributes);
-//             exit();
+            // Populate fields with PHP requires
+            // Make sure "databaseID" is added as a hidden input
+
+            //             $monster = $this->database->query(
+            //               "SELECT * FROM dnd_monsters WHERE id = $1;",
+            //               $_GET["databaseID"]
+            //             );
+            //             $attributes = $this->database->query(
+            //               "SELECT * FROM dnd_attributes WHERE monsterID = $1;",
+            //               $_GET["databaseID"]
+            //             );
+            //
+            //             print_r($monster);
+            //             print_r($attributes);
+            //             exit();
 
             require "/opt/src/templates/monster-editor/monster-editor.php";
             $this->resetMessages();
@@ -45,6 +52,9 @@ class MonsterEditorController extends BaseController
             // LOAD PAGE WITHOUT SAVE OPTION
             $this->addMessage("warning", "Your progress may not be saved. To save your progress, please log in.");
             require "/opt/src/templates/monster-editor/monster-editor.php";
+
+            // MARK: TODO
+            // Handle this better so it meets validation guidelines
             echo "
             <script>
               document.getElementById(\"saveButton\").remove();
@@ -54,27 +64,27 @@ class MonsterEditorController extends BaseController
             exit();
         }
 
-      // MARK: POST
       case "POST":
         if (!$this->isAuthenticated())
           $this->errorResponse(401, "You must be logged in to edit this resource.");
 
-        $validatorOutput = $this->formValidation();
-        if ($validatorOutput !== true)
-          $this->errorResponse(400, "Your request to edit this resource was invalid or malformed. Error message: $validatorOutput");
+        $output = $this->formValidation();
+        if ($output !== true)
+          $this->errorResponse(400, "Your request to edit this resource was invalid or malformed. $output");
 
-        switch (isset($_POST["databaseID"])) {
+        switch (empty($_POST["databaseID"])) {
           case true:
             if (!$this->checkPermissions($_POST["databaseID"], $_SESSION["userID"]))
               $this->errorResponse(403, "You do not have permission to edit this resource");
 
             // MARK: TODO
-            // Create new database record(s)
+            // Update database records
             return;
 
           case false:
+            $this->addMonster();
             // MARK: TODO
-            // Update the database record(s)
+            // Remove var_dump and send the user elsewhere
             var_dump($_POST);
             return;
         }
@@ -84,6 +94,7 @@ class MonsterEditorController extends BaseController
     }
   }
 
+  // Checks whether the given monster is owned by the given user.
   protected function checkPermissions(int $monsterID, int $userID): bool
   {
     $result = $this->database->query(
@@ -92,11 +103,10 @@ class MonsterEditorController extends BaseController
       $userID,
     );
 
-    return $result && !empty($result);
+    return !empty($result);
   }
 
   /**
-   * MARK: VALIDATION
    * Checks whether the form inputs are valid.
    * Returns true on success and an error message on failure.
    */
@@ -165,7 +175,7 @@ class MonsterEditorController extends BaseController
       ],
 
       "range" => [
-        "speedRange" => [1, 30, 1],
+        "speedRange" => [0, 1000, 5],
         "strengthScore" => [1, 30, 1],
         "dexterityScore" => [1, 30, 1],
         "constitutionScore" => [1, 30, 1],
@@ -185,6 +195,8 @@ class MonsterEditorController extends BaseController
       ],
 
       "range" => [
+        "hitDice" => [0, 1000, 1],
+        "health" => [0, 1000, 1],
         "armorClass" => [0, 30, 1],
         "telepathy" => [0, 1000, 5],
         "challengeRatingSelect" => [0, 30, 1, ["1/8", "1/4", "1/2"]],
@@ -192,28 +204,28 @@ class MonsterEditorController extends BaseController
       ],
 
       "boolean" => [
-        "shield",
-        "strengthSvaingThrow",
-        "dexteritySvaingThrow",
-        "constitutionSvaingThrow",
-        "intelligenceSvaingThrow",
-        "wisdomSvaingThrow",
-        "charismaSvaingThrow",
-        "blind",
+        "shield" => true,
+        "strengthSavingThrow" => true,
+        "dexteritySavingThrow" => true,
+        "constitutionSavingThrow" => true,
+        "intelligenceSavingThrow" => true,
+        "wisdomSavingThrow" => true,
+        "charismaSavingThrow" => true,
+        "blind" => true,
       ],
     ];
 
-    $variableFields = [
+    $attributeFields = [
       "regex" => [
-        "speed" => self::REGEX,
-        "skillProficiency" => self::REGEX,
-        "skillExpertise" => self::REGEX,
-        "damageVulnerability" => self::REGEX,
-        "damageResistance" => self::REGEX,
-        "damageImmunity" => self::REGEX,
-        "conditionImmunity" => self::REGEX,
-        "sense" => self::REGEX,
-        "language" => self::REGEX,
+        "speedName" => self::REGEX,
+        "skillProficiencyName" => self::REGEX,
+        "skillExpertiseName" => self::REGEX,
+        "damageVulnerabilityName" => self::REGEX,
+        "damageResistanceName" => self::REGEX,
+        "damageImmunityName" => self::REGEX,
+        "conditionImmunityName" => self::REGEX,
+        "senseName" => self::REGEX,
+        "languageName" => self::REGEX,
         "abilityName" => self::REGEX,
         "abilityDescription" => self::REGEX,
         "actionName" => self::REGEX,
@@ -241,11 +253,23 @@ class MonsterEditorController extends BaseController
       "boolean" => [],
     ];
 
+
+    /**
+     * Values are checked in one of four ways: regex, options, boolean, or range.
+     * The fields for each validation type are stored as associative arrays (field => constraints).
+     * Each validation type checks for different constraints:
+     * - 'regex' values perform a regular expression match
+     * - 'options' values are compared against a list of choices
+     * - 'boolean' values
+     * - 'range' values must be in the range of START(0), END(1), STEP(2) inclusive or in OTHER(3)
+     * Additionally, optional fields without a value are set to NULL.
+     * Note that "0" and false are not considered empty values while "" is.
+     */
     try {
       // REQUIRED FIELDS
       foreach ($requiredFields as $type => $field) {
         foreach ($field as $fieldName => $conditions) {
-          if (!isset($_POST[$fieldName]) || empty($_POST[$fieldName]))
+          if (empty($_POST[$fieldName]) && $_POST[$fieldName] !== "0" && $_POST[$fieldName] !== false)
             return "'$fieldName' was required but not provided.";
 
           $output = $this->validate($type, $conditions, $_POST[$fieldName]);
@@ -257,8 +281,10 @@ class MonsterEditorController extends BaseController
       // OPTIONAL FIELDS
       foreach ($optionalFields as $type => $field) {
         foreach ($field as $fieldName => $conditions) {
-          if (!isset($_POST[$fieldName]) || empty($_POST[$fieldName]))
+          if (empty($_POST[$fieldName]) && $_POST[$fieldName] !== "0" && $_POST[$fieldName] !== false) {
+            $_POST[$fieldName] = null;
             continue;
+          }
 
           $output = $this->validate($type, $conditions, $_POST[$fieldName]);
           if ($output !== true)
@@ -267,13 +293,13 @@ class MonsterEditorController extends BaseController
       }
 
       // ATTRIBUTE FIELDS
-      foreach ($variableFields as $type => $field) {
+      foreach ($attributeFields as $type => $field) {
         foreach ($field as $fieldRoot => $conditions) {
           foreach ($_POST as $fieldName => $value) {
             if (!strpos($fieldName, $fieldRoot))
               continue;
 
-            if (empty($_POST[$fieldName]))
+            if (empty($_POST[$fieldName]) && $_POST[$fieldName] !== "0" && $_POST[$fieldName] !== false)
               return "Value for '$fieldName' was not provided.";
 
             $output = $this->validate($type, $conditions, $value);
@@ -283,15 +309,16 @@ class MonsterEditorController extends BaseController
         }
       }
 
-      // CHECK FOR DEPENDENCIES
+      // CHECK FOR DEPENDENCIES ON OTHER INPUTS
       if ($_POST["armor"] === "Natural Armor" || $_POST["armor"] === "Other") {
-        if (!isset($_POST["armorClass"]))
+        if (empty($_POST["armorClass"]))
           return "Value for 'armorClass' must be set when 'Natural Armor' or 'Other' is selected.";
       }
 
-      if (!isset($_POST["health"]) && !isset($_POST["hitDice"]))
+      if (empty($_POST["health"]) && empty($_POST["hitDice"]))
         return "At least one of the following must be set: 'hitDice', 'health'.";
 
+    // CATCH ERRORS
     } catch (ValueError) {
       return "Value Error: One of the request fields was malformed or missing.";
     }
@@ -299,7 +326,6 @@ class MonsterEditorController extends BaseController
     return true;
   }
 
-  // MAY THROW VALUE ERROR
   private function validate(string $type, string | array $conditions, mixed $value): bool | string
   {
     switch ($type) {
@@ -312,7 +338,11 @@ class MonsterEditorController extends BaseController
         break;
 
       case "boolean":
-        if ($value !== "on") return "'$value' must be 'on'";
+        if ($conditions) {
+          if ($value !== "on" || $value !== true) return "'$value' must be either 'on' or true";
+        } else {
+          if ($value !== null || $value !== false) return "'$value' must either be unset or false";
+        }
         break;
 
       // INCLUSIVE RANGE (START, END, STEP, [... OTHER ACCEPTED VALUES])
@@ -328,5 +358,118 @@ class MonsterEditorController extends BaseController
     }
 
     return true;
+  }
+
+  private function addMonster(): void
+  {
+    $monsterID = $this->database->query(
+      "INSERT INTO dnd_monsters (
+        userID,
+        name,
+        size,
+        type,
+        alignment,
+        armor,
+        shield,
+        armorClass,
+        hitDice,
+        health,
+        speedRange,
+        strength,
+        dexterity,
+        constitution,
+        intelligence,
+        wisdom,
+        charmisma,
+        strengthSavingThrow,
+        dexteritySavingThrow,
+        constitutionSavingThrow,
+        intelligenceSavingThrow,
+        wisdomSavingThrow,
+        charmismaSavingThrow,
+        blind,
+        telepathy,
+        challenge
+      ) VALUES (
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10,
+        $11, $12, $13, $14, $15, $16, $17, $18, $19, $20,
+        $21, $22, $23, $24, $25, $26
+      ) RETURNING id;",
+      $_SESSION["userID"],
+      $_POST["name"],
+      $_POST["size"],
+      $_POST["type"],
+      $_POST["alignment"],
+      $_POST["armor"],
+      $_POST["shield"],
+      $_POST["armorClass"],
+      $_POST["hitDice"],
+      $_POST["health"],
+      $_POST["speedRange"],
+      $_POST["strengthScore"],
+      $_POST["dexterityScore"],
+      $_POST["constitutionScore"],
+      $_POST["intelligenceScore"],
+      $_POST["wisdomScore"],
+      $_POST["charismaScore"],
+      $_POST["strengthSavingThrow"],
+      $_POST["dexteritySavingThrow"],
+      $_POST["constitutionSavingThrow"],
+      $_POST["intelligenceSavingThrow"],
+      $_POST["wisdomSavingThrow"],
+      $_POST["charismaSavingThrow"],
+      $_POST["blind"],
+      $_POST["telepathy"],
+      $_POST["challengeRadio"] === "custom" ? $_POST["challengeRatingSelect"] : $_POST["estimatedChallengeRating"]
+    )[0]["id"];
+
+    /**
+     * Each attribute value is passed separately, requiring some re-construction.
+     * Each attribute has a name, and may include a range, description, and/or benefit value.
+     * In addition, each attribute ends with a unique ID value.
+     *
+     * This implementation is VERY INEFFICIENT.
+     */
+    $attributes = [];
+    for ($i = 1; $i < $_POST["IDCounter"]; $i++) {
+      foreach ($_POST as $fieldName => $value) {
+        if (str_ends_with($fieldName, $i)) {
+          $fieldName = str_replace($i, "", $fieldName);
+
+          if (!key_exists($i, $attributes)) {
+            $attributes[$i] = [
+              "Type" => str_replace(["Name", "Range", "Description", "Benefit"], "", $fieldName),
+              "Name" => null,
+              "Range" => null,
+              "Description" => null,
+              "Benefit" => null,
+            ];
+          }
+
+          $attributes[$i][str_replace($attributes[$i]["Type"], "", $fieldName)] = $value;
+        }
+      }
+    }
+
+    foreach ($attributes as $_ => $attribute) {
+      $this->database->query(
+        "INSERT INTO dnd_attributes (
+            monsterID,
+            type,
+            name,
+            range,
+            description,
+            benefit
+          ) VALUES (
+            $1, $2, $3, $4, $5, $6
+          );",
+        $monsterID,
+        $attribute["Type"],
+        $attribute["Name"],
+        $attribute["Range"],
+        $attribute["Description"],
+        $attribute["Benefit"]
+      );
+    }
   }
 }
