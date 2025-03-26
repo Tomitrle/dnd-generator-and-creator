@@ -5,6 +5,9 @@
  * https://stackoverflow.com/questions/7605480/str-replace-for-multiple-items
  */
 
+// MARK: TODO
+// Make export depend on save
+
 class MonsterEditorController extends BaseController
 {
   /**
@@ -13,10 +16,12 @@ class MonsterEditorController extends BaseController
    * Hopefully, this should help prevent SQL injection.
    */
   const REGEX = "/\A[\w\s\-\?\,\.\!\&\(\)]+\z/";
-  private MonsterAPIController $apiController = new MonsterAPIController();
+  private MonsterAPIController $apiController;
 
   public function run(): void
   {
+    $this->apiController = new MonsterAPIController();
+
     switch ($_SERVER["REQUEST_METHOD"]) {
       case "GET":
         switch (empty($_GET["monsterID"])) {

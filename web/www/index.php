@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Source: https://www.w3schools.com/PHP/php_requires.asp -->
 <?php require '/opt/src/templates/head.php';?>
 
 <body>

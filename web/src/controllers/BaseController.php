@@ -5,7 +5,9 @@ class BaseController
 
   public function __construct()
   {
-    session_start();
+    if (session_status() === PHP_SESSION_NONE)
+      session_start();
+    
     $this->database = new Database();
 
     if (!isset($GLOBALS['src']))
