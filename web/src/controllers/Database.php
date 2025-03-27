@@ -23,13 +23,13 @@ class Database
 
     public function createTables() : void
     {
-        $result = pg_query($this->connection, "CREATE TABLE IF NOT EXISTS dnd_users (
+        pg_query($this->connection, "CREATE TABLE IF NOT EXISTS dnd_users (
             id              SERIAL PRIMARY KEY,
             username        TEXT,
             password        TEXT
             );");
 
-        $result = pg_query($this->connection, "CREATE TABLE IF NOT EXISTS dnd_monsters (
+        pg_query($this->connection, "CREATE TABLE IF NOT EXISTS dnd_monsters (
             id              SERIAL PRIMARY KEY,
             userID          INT REFERENCES dnd_users(id) ON DELETE CASCADE,
             name            TEXT,
@@ -59,7 +59,7 @@ class Database
             challenge       TEXT
             );");
 
-        $result = pg_query($this->connection, "CREATE TABLE IF NOT EXISTS dnd_attributes (
+        pg_query($this->connection, "CREATE TABLE IF NOT EXISTS dnd_attributes (
             id              SERIAL PRIMARY KEY,
             monsterID       INT REFERENCES dnd_monsters(id) ON DELETE CASCADE,
             type            TEXT,

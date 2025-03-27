@@ -5,9 +5,10 @@ class BaseController
 
   public function __construct()
   {
+    // Source: https://stackoverflow.com/questions/6249707/check-if-php-session-has-already-started
     if (session_status() === PHP_SESSION_NONE)
       session_start();
-    
+
     $this->database = new Database();
 
     if (!isset($GLOBALS['src']))
