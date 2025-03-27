@@ -12,13 +12,13 @@ class MonsterAPIController extends BaseController
   {
     switch ($_SERVER["REQUEST_METHOD"]) {
       case "GET":
-        switch (empty($_GET["monsterID"])) {
+        switch (empty($_GET["monster_id"])) {
           case false:
             // CHECK FOR AUTHENTICATION AND PERMISSION
             if (!$this->isAuthenticated())
               $this->errorResponse(401, "You must be logged in to access this resource.");
 
-            if (!$this->checkPermissions($_GET["monsterID"], $_SESSION["userID"]))
+            if (!$this->checkPermissions($_GET["monster_id"], $_SESSION["user_id"]))
               $this->errorResponse(403, "You do not have permission to access this resource.");
 
             if (!isset($_GET["command"]))
@@ -31,11 +31,11 @@ class MonsterAPIController extends BaseController
                 return;
 
               case "update":
-                $this->updateMonster($_GET["monsterID"], $VARIABLES);
+                $this->updateMonster($_GET["monster_id"], $VARIABLES);
                 return;
 
               case "delete":
-                $this->deleteMonster($_GET["monsterID"]);
+                $this->deleteMonster($_GET["monster_id"]);
                 return;
 
               // VIEW THE REQUESTED MONSTER
@@ -48,13 +48,13 @@ class MonsterAPIController extends BaseController
                   case "json":
                   default:
                     header('Content-Type: application/json; charset=utf-8');
-                    echo json_encode($this->getMonsterAsArray($_GET["monsterID"]));
+                    echo json_encode($this->getMonsterAsArray($_GET["monster_id"]));
                     exit();
                 }
             }
 
           case true:
-            $this->errorResponse(400, "A 'monsterID' is required.");
+            $this->errorResponse(400, "A 'monster_id' is required.");
         }
 
       default:
@@ -67,7 +67,7 @@ class MonsterAPIController extends BaseController
   public function checkPermissions(int $monsterID, int $userID): bool
   {
     $result = $this->database->query(
-      "SELECT * FROM dnd_monsters WHERE (id, userID) = ($1, $2);",
+      "SELECT * FROM dnd_monsters WHERE (id, user_id) = ($1, $2);",
       $monsterID,
       $userID,
     );
@@ -78,99 +78,95 @@ class MonsterAPIController extends BaseController
   // MARK: CREATE
   public function createMonster(array $VARIABLES): int
   {
+    print_r($VARIABLES);
     $monsterID = $this->database->query(
       "INSERT INTO dnd_monsters (
-        userID,
+        user_id,
         name,
         size,
         type,
         alignment,
         armor,
         shield,
-        armorClass,
-        hitDice,
+        armor_class,
+        hit_dice,
         health,
-        speedRange,
-        strength,
-        dexterity,
-        constitution,
-        intelligence,
-        wisdom,
-        charmisma,
-        strengthSavingThrow,
-        dexteritySavingThrow,
-        constitutionSavingThrow,
-        intelligenceSavingThrow,
-        wisdomSavingThrow,
-        charmismaSavingThrow,
+
+        strength_score,
+        dexterity_score,
+        constitution_score,
+        intelligence_score,
+        wisdom_score,
+        charmisma_score,
+
+        strength_modifier,
+        dexterity_modifier,
+        constitution_modifier,
+        intelligence_modifier,
+        wisdom_modifier,
+        charmisma_modifier,
+
+        strength_saving_throw,
+        dexterity_saving_throw,
+        constitution_saving_throw,
+        intelligence_saving_throw,
+        wisdom_saving_throw,
+        charmisma_saving_throw,
+
         blind,
         telepathy,
         challenge
       ) VALUES (
         $1, $2, $3, $4, $5, $6, $7, $8, $9, $10,
         $11, $12, $13, $14, $15, $16, $17, $18, $19, $20,
-        $21, $22, $23, $24, $25, $26
+        $21, $22, $23, $24, $25, $26, $27, $28, $29, $30,
+        $31
       ) RETURNING id;",
-      $_SESSION["userID"],
+      $_SESSION["user_id"],
       $VARIABLES["name"],
       $VARIABLES["size"],
       $VARIABLES["type"],
       $VARIABLES["alignment"],
       $VARIABLES["armor"],
       $VARIABLES["shield"],
-      $VARIABLES["armorClass"],
-      $VARIABLES["hitDice"],
+      $VARIABLES["armor_class"],
+      $VARIABLES["hit_dice"],
       $VARIABLES["health"],
-      $VARIABLES["speedRange"],
-      $VARIABLES["strengthScore"],
-      $VARIABLES["dexterityScore"],
-      $VARIABLES["constitutionScore"],
-      $VARIABLES["intelligenceScore"],
-      $VARIABLES["wisdomScore"],
-      $VARIABLES["charismaScore"],
-      $VARIABLES["strengthSavingThrow"],
-      $VARIABLES["dexteritySavingThrow"],
-      $VARIABLES["constitutionSavingThrow"],
-      $VARIABLES["intelligenceSavingThrow"],
-      $VARIABLES["wisdomSavingThrow"],
-      $VARIABLES["charismaSavingThrow"],
+
+      $VARIABLES["strength_score"],
+      $VARIABLES["dexterity_score"],
+      $VARIABLES["constitution_score"],
+      $VARIABLES["intelligence_score"],
+      $VARIABLES["wisdom_score"],
+      $VARIABLES["charisma_score"],
+
+      $VARIABLES["strength_modifier"],
+      $VARIABLES["dexterity_modifier"],
+      $VARIABLES["constitution_modifier"],
+      $VARIABLES["intelligence_modifier"],
+      $VARIABLES["wisdom_modifier"],
+      $VARIABLES["charisma_modifier"],
+
+      $VARIABLES["strength_saving_throw"],
+      $VARIABLES["dexterity_saving_throw"],
+      $VARIABLES["constitution_saving_throw"],
+      $VARIABLES["intelligence_saving_throw"],
+      $VARIABLES["wisdom_saving_throw"],
+      $VARIABLES["charisma_saving_throw"],
+
       $VARIABLES["blind"],
       $VARIABLES["telepathy"],
       $VARIABLES["challengeRadio"] === "custom" ? $VARIABLES["challengeRatingSelect"] : $VARIABLES["estimatedChallengeRating"]
     )[0]["id"];
 
-    /**
-     * Each attribute value is passed separately, requiring some re-construction.
-     * Each attribute has a name, and may include a range, description, and/or benefit value.
-     * In addition, each attribute ends with a unique ID value.
-     *
-     * This implementation is VERY INEFFICIENT.
-     */
-    $attributes = [];
-    for ($i = 1; $i < $VARIABLES["IDCounter"]; $i++) {
-      foreach ($VARIABLES as $fieldName => $value) {
-        if (str_ends_with($fieldName, $i)) {
-          $fieldName = str_replace($i, "", $fieldName);
+    foreach ($VARIABLES as $category => $fields) {
+      if (gettype($fields) !== "array") continue;
 
-          if (!key_exists($i, $attributes)) {
-            $attributes[$i] = [
-              "Type" => str_replace(["Name", "Range", "Description", "Benefit"], "", $fieldName),
-              "Name" => null,
-              "Range" => null,
-              "Description" => null,
-              "Benefit" => null,
-            ];
-          }
-
-          $attributes[$i][str_replace($attributes[$i]["Type"], "", $fieldName)] = $value;
-        }
-      }
-    }
-
-    foreach ($attributes as $_ => $attribute) {
-      $this->database->query(
-        "INSERT INTO dnd_attributes (
-            monsterID,
+      $attributeCount = count(current($fields));
+      for ($i = 0; $i < $attributeCount; $i++) {
+        $this->database->query(
+          "INSERT INTO dnd_attributes (
+            monster_id,
             type,
             name,
             range,
@@ -179,13 +175,14 @@ class MonsterAPIController extends BaseController
           ) VALUES (
             $1, $2, $3, $4, $5, $6
           );",
-        $monsterID,
-        $attribute["Type"],
-        $attribute["Name"],
-        $attribute["Range"],
-        $attribute["Description"],
-        $attribute["Benefit"]
-      );
+          $monsterID,
+          $category,
+          isset($fields["name"][$i]) ? $fields["name"][$i] : null,
+          isset($fields["range"][$i]) ? $fields["range"][$i] : null,
+          isset($fields["description"][$i]) ? $fields["description"][$i] : null,
+          isset($fields["benefit"][$i]) ? $fields["benefit"][$i] : null
+        );
+      }
     }
 
     return $monsterID;
@@ -202,52 +199,70 @@ class MonsterAPIController extends BaseController
         alignment,
         armor,
         shield,
-        armorClass,
-        hitDice,
+        armor_class,
+        hit_dice,
         health,
-        speedRange,
-        strength,
-        dexterity,
-        constitution,
-        intelligence,
-        wisdom,
-        charmisma,
-        strengthSavingThrow,
-        dexteritySavingThrow,
-        constitutionSavingThrow,
-        intelligenceSavingThrow,
-        wisdomSavingThrow,
-        charmismaSavingThrow,
+
+        strength_score,
+        dexterity_score,
+        constitution_score,
+        intelligence_score,
+        wisdom_score,
+        charmisma_score,
+
+        strength_modifier,
+        dexterity_modifier,
+        constitution_modifier,
+        intelligence_modifier,
+        wisdom_modifier,
+        charmisma_modifier,
+
+        strength_saving_throw,
+        dexterity_saving_throw,
+        constitution_saving_throw,
+        intelligence_saving_throw,
+        wisdom_saving_throw,
+        charmisma_saving_throw,
+
         blind,
         telepathy,
         challenge
       ) = (
         $1, $2, $3, $4, $5, $6, $7, $8, $9, $10,
         $11, $12, $13, $14, $15, $16, $17, $18, $19, $20,
-        $21, $22, $23, $24, $25
-      ) WHERE id = $26;",
+        $21, $22, $23, $24, $25, $26, $27, $28, $29, $30,
+      ) WHERE id = $31;",
       $VARIABLES["name"],
       $VARIABLES["size"],
       $VARIABLES["type"],
       $VARIABLES["alignment"],
       $VARIABLES["armor"],
       $VARIABLES["shield"],
-      $VARIABLES["armorClass"],
-      $VARIABLES["hitDice"],
+      $VARIABLES["armor_class"],
+      $VARIABLES["hit_dice"],
       $VARIABLES["health"],
-      $VARIABLES["speedRange"],
-      $VARIABLES["strengthScore"],
-      $VARIABLES["dexterityScore"],
-      $VARIABLES["constitutionScore"],
-      $VARIABLES["intelligenceScore"],
-      $VARIABLES["wisdomScore"],
-      $VARIABLES["charismaScore"],
-      $VARIABLES["strengthSavingThrow"],
-      $VARIABLES["dexteritySavingThrow"],
-      $VARIABLES["constitutionSavingThrow"],
-      $VARIABLES["intelligenceSavingThrow"],
-      $VARIABLES["wisdomSavingThrow"],
-      $VARIABLES["charismaSavingThrow"],
+
+      $VARIABLES["strength_score"],
+      $VARIABLES["dexterity_score"],
+      $VARIABLES["constitution_score"],
+      $VARIABLES["intelligence_score"],
+      $VARIABLES["wisdom_score"],
+      $VARIABLES["charisma_score"],
+
+      $VARIABLES["strength_modifier"],
+      $VARIABLES["dexterity_modifier"],
+      $VARIABLES["constitution_modifier"],
+      $VARIABLES["intelligence_modifier"],
+      $VARIABLES["wisdom_modifier"],
+      $VARIABLES["charisma_modifier"],
+
+      $VARIABLES["strength_saving_throw"],
+      $VARIABLES["dexterity_saving_throw"],
+      $VARIABLES["constitution_saving_throw"],
+      $VARIABLES["intelligence_saving_throw"],
+      $VARIABLES["wisdom_saving_throw"],
+      $VARIABLES["charisma_saving_throw"],
+
       $VARIABLES["blind"],
       $VARIABLES["telepathy"],
       $VARIABLES["challengeRadio"] === "custom" ? $VARIABLES["challengeRatingSelect"] : $VARIABLES["estimatedChallengeRating"],
@@ -256,42 +271,18 @@ class MonsterAPIController extends BaseController
 
     // Probably inefficient.
     $this->database->query(
-      "DELETE FROM dnd_attributes WHERE monsterID = $1;",
+      "DELETE FROM dnd_attributes WHERE monster_id = $1;",
       $monsterID
     );
 
-    /**
-     * Each attribute value is passed separately, requiring some re-construction.
-     * Each attribute has a name, and may include a range, description, and/or benefit value.
-     * In addition, each attribute ends with a unique ID value.
-     *
-     * This implementation is VERY INEFFICIENT.
-     */
-    $attributes = [];
-    for ($i = 1; $i < $VARIABLES["IDCounter"]; $i++) {
-      foreach ($VARIABLES as $fieldName => $value) {
-        if (str_ends_with($fieldName, $i)) {
-          $fieldName = str_replace($i, "", $fieldName);
+    foreach ($VARIABLES as $category => $fields) {
+      if (gettype($fields) !== "array") continue;
 
-          if (!key_exists($i, $attributes)) {
-            $attributes[$i] = [
-              "Type" => str_replace(["Name", "Range", "Description", "Benefit"], "", $fieldName),
-              "Name" => null,
-              "Range" => null,
-              "Description" => null,
-              "Benefit" => null,
-            ];
-          }
-
-          $attributes[$i][str_replace($attributes[$i]["Type"], "", $fieldName)] = $value;
-        }
-      }
-    }
-
-    foreach ($attributes as $_ => $attribute) {
-      $this->database->query(
-        "INSERT INTO dnd_attributes (
-            monsterID,
+      $attributeCount = count(current($fields));
+      for ($i = 0; $i < $attributeCount; $i++) {
+        $this->database->query(
+          "INSERT INTO dnd_attributes (
+            monster_id,
             type,
             name,
             range,
@@ -300,13 +291,14 @@ class MonsterAPIController extends BaseController
           ) VALUES (
             $1, $2, $3, $4, $5, $6
           );",
-        $monsterID,
-        $attribute["Type"],
-        $attribute["Name"],
-        $attribute["Range"],
-        $attribute["Description"],
-        $attribute["Benefit"]
-      );
+          $monsterID,
+          $category,
+          isset($fields["name"][$i]) ? $fields["name"][$i] : null,
+          isset($fields["range"][$i]) ? $fields["range"][$i] : null,
+          isset($fields["description"][$i]) ? $fields["description"][$i] : null,
+          isset($fields["benefit"][$i]) ? $fields["benefit"][$i] : null
+        );
+      }
     }
   }
 
@@ -331,7 +323,7 @@ class MonsterAPIController extends BaseController
     }
 
     $attributes = $this->database->query(
-      "SELECT * FROM dnd_attributes WHERE monsterID = $1;",
+      "SELECT * FROM dnd_attributes WHERE monster_id = $1;",
       $monsterID
     );
 
@@ -357,7 +349,7 @@ class MonsterAPIController extends BaseController
   public function getMonsterIDs(int $userID): array
   {
     $ids = $this->database->query(
-      "SELECT id FROM dnd_monsters WHERE userID = $1;",
+      "SELECT id FROM dnd_monsters WHERE user_id = $1;",
       $userID
     );
     foreach ($ids as $index => $array) {

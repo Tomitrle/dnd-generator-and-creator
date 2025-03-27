@@ -35,7 +35,7 @@ class BaseController
 
   protected function isAuthenticated(): bool
   {
-    return isset($_SESSION["userID"]);
+    return isset($_SESSION["user_id"]);
   }
 
   protected function errorResponse(int $code, string $message): void

@@ -11,7 +11,7 @@
       <div class="modal-body">
         <div id="<?php echo $CATEGORY; ?>AddContainer">
           <?php
-          foreach ($OPTIONS as $OPTION) {
+          foreach ($OPTIONS[$TYPE] as $OPTION) {
             include '/opt/src/templates/monster-editor/attribute-modal-choice.php';
           }
           ?>

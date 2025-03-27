@@ -11,7 +11,7 @@ class AccountController extends BaseController
         }
 
         $APIController = new MonsterAPIController();
-        $MONSTER_IDS = $APIController->getMonsterIDs($_SESSION["userID"]);
+        $MONSTER_IDS = $APIController->getMonsterIDs($_SESSION["user_id"]);
         require "/opt/src/templates/account/account.php";
         exit();
 
