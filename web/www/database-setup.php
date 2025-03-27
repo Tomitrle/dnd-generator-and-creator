@@ -18,7 +18,7 @@ session_start();
 session_destroy();
 session_start();
 
-$_SESSION["userID"] = 1;
+$_SESSION["user_id"] = 1;
 
 exit();
 ?>

@@ -1,11 +1,14 @@
 <?php
-abstract class BaseController
+class BaseController
 {
   protected $database;
 
   public function __construct()
   {
-    session_start();
+    // Source: https://stackoverflow.com/questions/6249707/check-if-php-session-has-already-started
+    if (session_status() === PHP_SESSION_NONE)
+      session_start();
+
     $this->database = new Database();
 
     if (!isset($GLOBALS['src']))
@@ -14,8 +17,6 @@ abstract class BaseController
     if (!isset($_SESSION["messages"]))
       $this->resetMessages();
   }
-
-  abstract public function run();
 
   protected function resetMessages(): void
   {
@@ -34,7 +35,7 @@ abstract class BaseController
 
   protected function isAuthenticated(): bool
   {
-    return isset($_SESSION["userID"]);
+    return isset($_SESSION["user_id"]);
   }
 
   protected function errorResponse(int $code, string $message): void

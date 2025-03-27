@@ -4,8 +4,8 @@
   </div>
 
   <div class="col-sm-6 text-sm-start">
-    <button type="button" class="btn btn-secondary">View</button>
-    <a role="button" class="btn btn-warning" href="/monster-editor.php?databaseID=<?php echo $ID; ?>">Edit</a>
-    <button type="button" class="btn btn-danger">Delete</button>
+    <a type="button" class="btn btn-secondary" href="/monster-api.php?command=view&monster_id=<?php echo $ID; ?>" target="_blank">View</a>
+    <a role="button" class="btn btn-warning" href="/monster-editor.php?monster_id=<?php echo $ID; ?>">Edit</a>
+    <a type="button" class="btn btn-danger" href="/monster-api.php?command=delete&monster_id=<?php echo $ID; ?>">Delete</a>
   </div>
 </div>

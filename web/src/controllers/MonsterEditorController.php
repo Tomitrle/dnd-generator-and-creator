@@ -5,6 +5,9 @@
  * https://stackoverflow.com/questions/7605480/str-replace-for-multiple-items
  */
 
+// MARK: TODO
+// Make export depend on save
+
 class MonsterEditorController extends BaseController
 {
   /**
@@ -13,30 +16,33 @@ class MonsterEditorController extends BaseController
    * Hopefully, this should help prevent SQL injection.
    */
   const REGEX = "/\A[\w\s\-\?\,\.\!\&\(\)]+\z/";
+  private MonsterAPIController $apiController;
 
   public function run(): void
   {
+    $this->apiController = new MonsterAPIController();
+
     switch ($_SERVER["REQUEST_METHOD"]) {
       case "GET":
-        switch (empty($_GET["databaseID"])) {
+        switch (empty($_GET["monster_id"])) {
           case false:
             if (!$this->isAuthenticated())
               $this->errorResponse(401, "You must be logged in to edit this resource.");
 
-            if (!$this->checkPermissions($_GET["databaseID"], $_SESSION["userID"]))
+            if (!$this->apiController->checkPermissions($_GET["monster_id"], $_SESSION["user_id"]))
               $this->errorResponse(403, "You do not have permission to edit this resource.");
 
             // MARK: TODO
             // Populate fields with PHP requires
-            // Make sure "databaseID" is added as a hidden input
+            // Make sure "monster_id" is added as a hidden input
 
             //             $monster = $this->database->query(
             //               "SELECT * FROM dnd_monsters WHERE id = $1;",
-            //               $_GET["databaseID"]
+            //               $_GET["monster_id"]
             //             );
             //             $attributes = $this->database->query(
-            //               "SELECT * FROM dnd_attributes WHERE monsterID = $1;",
-            //               $_GET["databaseID"]
+            //               "SELECT * FROM dnd_attributes WHERE monster_id = $1;",
+            //               $_GET["monster_id"]
             //             );
             //
             //             print_r($monster);
@@ -49,10 +55,6 @@ class MonsterEditorController extends BaseController
 
           case true:
             if ($this->isAuthenticated()) {
-              // MARK: TODO
-              // Turn disabled inputs into readonly inputs
-              // Include values like ability modifier as inputs
-
               // LOAD REGULAR PAGE
               require "/opt/src/templates/monster-editor/monster-editor.php";
               $this->resetMessages();
@@ -82,18 +84,18 @@ class MonsterEditorController extends BaseController
         if ($output !== true)
           $this->errorResponse(400, "Your request to edit this resource was invalid or malformed. $output");
 
-        switch (empty($_GET["databaseID"])) {
+        switch (empty($_GET["monster_id"])) {
           case false:
-            if (!$this->checkPermissions($_GET["databaseID"], $_SESSION["userID"]))
+            if (!$this->apiController->checkPermissions($_GET["monster_id"], $_SESSION["user_id"]))
               $this->errorResponse(403, "You do not have permission to edit this resource");
 
-            $this->updateMonster($_GET["databaseID"]);
-            // header("Location: monster-editor.php?databaseID={$_GET["databaseID"]}");
+            $this->apiController->updateMonster($_GET["monster_id"], $_POST);
+            // header("Location: monster-editor.php?monster_id={$_GET["monster_id"]}");
             exit();
 
           case true:
-            $monsterID = $this->addMonster();
-            // header("Location: monster-editor.php?databaseID=$monsterID");
+            $monsterID = $this->apiController->createMonster($_POST);
+            // header("Location: monster-editor.php?monster_id=$monsterID");
             exit();
         }
 
@@ -102,94 +104,44 @@ class MonsterEditorController extends BaseController
     }
   }
 
-  // Checks whether the given monster is owned by the given user.
-  protected function checkPermissions(int $monsterID, int $userID): bool
-  {
-    $result = $this->database->query(
-      "SELECT * FROM dnd_monsters WHERE (id, userID) = ($1, $2);",
-      $monsterID,
-      $userID,
-    );
-
-    return !empty($result);
-  }
-
   /**
    * Checks whether the form inputs are valid.
    * Returns true on success and an error message on failure.
    */
   protected function formValidation(): bool | string
   {
+    $fieldOptions = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options.json"), true);
+
     $requiredFields = [
       "regex" => [
         "name" => self::REGEX,
       ],
 
       "options" => [
-        "size" => [
-          "Tiny",
-          "Small",
-          "Medium",
-          "Large",
-          "Huge",
-          "Gargantuan"
-        ],
-        "type" => [
-          "Aberration",
-          "Beast",
-          "Celestial",
-          "Construct",
-          "Dragon",
-          "Elemental",
-          "Fey",
-          "Fiend",
-          "Giant",
-          "Humanoid",
-          "Monstrosity",
-          "Ooze",
-          "Plant",
-          "Undead",
-          "Other",
-        ],
-        "alignment" => [
-          "Lawful Good",
-          "Neutral Good",
-          "Chaotic Good",
-          "Lawful Neutral",
-          "True Neutral",
-          "Chaotic Neutral",
-          "Lawful Evil",
-          "Neutral Evil",
-          "Chaotic Evil",
-        ],
-        "armor" => [
-          "None",
-          "Padded",
-          "Leather",
-          "Studded Leather",
-          "Hide",
-          "Chain Shirt",
-          "Scale Mail",
-          "Spiked Armor",
-          "Breastplate",
-          "Halfplate",
-          "Ring Mail",
-          "Chain Mail",
-          "Splint",
-          "Plate",
-          "Natural Armor",
-          "Other",
-        ],
+        "size" => $fieldOptions["size"],
+        "type" => $fieldOptions["type"],
+        "alignment" => $fieldOptions["alignment"],
+        "armor" => array_column($fieldOptions["armor"], "name")
       ],
 
       "range" => [
-        "speedRange" => [0, 1000, 5],
-        "strengthScore" => [1, 30, 1],
-        "dexterityScore" => [1, 30, 1],
-        "constitutionScore" => [1, 30, 1],
-        "intelligenceScore" => [1, 30, 1],
-        "wisdomScore" => [1, 30, 1],
-        "charismaScore" => [1, 30, 1],
+        "armor_class" => [0, 30, 1],
+        "hit_dice" => [0, 1000, 1],
+        "health" => [0, 1000, 1],
+
+        "strength_score" => [1, 30, 1],
+        "dexterity_score" => [1, 30, 1],
+        "constitution_score" => [1, 30, 1],
+        "intelligence_score" => [1, 30, 1],
+        "wisdom_score" => [1, 30, 1],
+        "charisma_score" => [1, 30, 1],
+
+        "strength_modifier" => [-5, 10, 1],
+        "dexterity_modifier" => [-5, 10, 1],
+        "constitution_modifier" => [-5, 10, 1],
+        "intelligence_modifier" => [-5, 10, 1],
+        "wisdom_modifier" => [-5, 10, 1],
+        "charisma_modifier" => [-5, 10, 1],
       ],
 
       "boolean" => [],
@@ -203,9 +155,6 @@ class MonsterEditorController extends BaseController
       ],
 
       "range" => [
-        "hitDice" => [0, 1000, 1],
-        "health" => [0, 1000, 1],
-        "armorClass" => [0, 30, 1],
         "telepathy" => [0, 1000, 5],
         "challengeRatingSelect" => [0, 30, 1, ["1/8", "1/4", "1/2"]],
         "estimatedChallengeRating" => [0, 30, 1, ["1/8", "1/4", "1/2"]],
@@ -213,53 +162,48 @@ class MonsterEditorController extends BaseController
 
       "boolean" => [
         "shield" => null,
-        "strengthSavingThrow" => null,
-        "dexteritySavingThrow" => null,
-        "constitutionSavingThrow" => null,
-        "intelligenceSavingThrow" => null,
-        "wisdomSavingThrow" => null,
-        "charismaSavingThrow" => null,
+
+        "strength_saving_throw" => null,
+        "dexterity_saving_throw" => null,
+        "constitution_saving_throw" => null,
+        "intelligence_saving_throw" => null,
+        "wisdom_saving_throw" => null,
+        "charisma_saving_throw" => null,
+
         "blind" => null,
       ],
     ];
 
     $attributeFields = [
       "regex" => [
-        "speedName" => self::REGEX,
-        "skillProficiencyName" => self::REGEX,
-        "skillExpertiseName" => self::REGEX,
-        "damageVulnerabilityName" => self::REGEX,
-        "damageResistanceName" => self::REGEX,
-        "damageImmunityName" => self::REGEX,
-        "conditionImmunityName" => self::REGEX,
-        "senseName" => self::REGEX,
-        "languageName" => self::REGEX,
-        "abilityName" => self::REGEX,
-        "abilityDescription" => self::REGEX,
-        "actionName" => self::REGEX,
-        "actionDescription" => self::REGEX,
-        "bonusActionName" => self::REGEX,
-        "bonusActionDescription" => self::REGEX,
-        "reactionName" => self::REGEX,
-        "reactionDescription" => self::REGEX,
-        "legendaryAbilityName" => self::REGEX,
-        "legendaryAbilityDescription" => self::REGEX,
+        "name" => self::REGEX,
+        "description" => self::REGEX,
       ],
 
       "options" => [],
 
       "range" => [
-        "speedRange" => [0, 1000, 5],
-        "senseRange" => [0, 1000, 5],
-        "abilityBenefit" => [-1, 2, 1],
-        "actionBenefit" => [-1, 2, 1],
-        "bonusActionBenefit" => [-1, 2, 1],
-        "reactionBenefit" => [-1, 2, 1],
-        "legendaryAbilityBenefit" => [-1, 2, 1],
+        "range" => [0, 1000, 5],
+        "benefit" => [-1, 2, 1],
       ],
 
       "boolean" => [],
     ];
+
+        // "speed" => self::REGEX,
+        // "skillProficiency" => self::REGEX,
+        // "skillExpertise" => self::REGEX,
+        // "damageVulnerability" => self::REGEX,
+        // "damageResistance" => self::REGEX,
+        // "damageImmunity" => self::REGEX,
+        // "conditionImmunity" => self::REGEX,
+        // "sense" => self::REGEX,
+        // "language" => self::REGEX,
+        // "ability" => self::REGEX,
+        // "action" => self::REGEX,
+        // "bonusAction" => self::REGEX,
+        // "reaction" => self::REGEX,
+        // "legendaryAbility" => self::REGEX,
 
     /**
      * Values are checked in one of four ways: regex, options, boolean, or range.
@@ -274,8 +218,8 @@ class MonsterEditorController extends BaseController
      */
     try {
       // REQUIRED FIELDS
-      foreach ($requiredFields as $type => $field) {
-        foreach ($field as $fieldName => $conditions) {
+      foreach ($requiredFields as $type => $fields) {
+        foreach ($fields as $fieldName => $conditions) {
           if (!isset($_POST[$fieldName]) || $_POST[$fieldName] === "")
             return "'$fieldName' was required but not provided.";
 
@@ -289,8 +233,8 @@ class MonsterEditorController extends BaseController
       }
 
       // OPTIONAL FIELDS
-      foreach ($optionalFields as $type => $field) {
-        foreach ($field as $fieldName => $conditions) {
+      foreach ($optionalFields as $type => $fields) {
+        foreach ($fields as $fieldName => $conditions) {
           if ($type === 'boolean')
             $_POST[$fieldName] = isset($_POST[$fieldName]) ? 'true' : 'false';
 
@@ -306,33 +250,31 @@ class MonsterEditorController extends BaseController
       }
 
       // ATTRIBUTE FIELDS
-      foreach ($attributeFields as $type => $field) {
-        foreach ($field as $fieldRoot => $conditions) {
-          foreach ($_POST as $fieldName => $value) {
-            if (!strpos($fieldName, $fieldRoot))
-              continue;
+      foreach ($_POST as $category => $categoryFields) {
+        if (gettype($categoryFields) !== "array") continue;
+        $attributeCount = count(current($categoryFields));
 
-            if ($type === 'boolean')
-              $_POST[$fieldName] = isset($_POST[$fieldName]) ? 'true' : 'false';
+        foreach ($categoryFields as $fieldName => $attributes) {
+          if (count($attributes) !== $attributeCount)
+            return "A different number of items for each property of attribute '$category' is invalid.";
 
-            if (!isset($_POST[$fieldName]) || $_POST[$fieldName] === "")
-              return "Value for '$fieldName' was not provided.";
+          foreach ($attributes as $index => $value) {
+            foreach ($attributeFields as $type => $fields) {
+              if (!in_array($fieldName, $fields)) continue;
 
-            $output = $this->validate($type, $conditions, $value);
-            if ($output !== true)
-              return "Value for '$fieldName' is invalid: $output.";
+              if ($type === 'boolean')
+                $_POST[$category][$fieldName][$index] = isset($value) ? 'true' : 'false';
+
+              if (!isset($value) || $value === "")
+                return "Value for '$fieldName' was not provided.";
+
+              $output = $this->validate($type, $fields[$fieldName], $value);
+              if ($output !== true)
+                return "Value for attribute $category #$index's property '$fieldName' is invalid: $output.";
+            }
           }
         }
       }
-
-      // CHECK FOR DEPENDENCIES ON OTHER INPUTS
-      if ($_POST["armor"] === "Natural Armor" || $_POST["armor"] === "Other") {
-        if (empty($_POST["armorClass"]))
-          return "Value for 'armorClass' must be set when 'Natural Armor' or 'Other' is selected.";
-      }
-
-      if (empty($_POST["health"]) && empty($_POST["hitDice"]))
-        return "At least one of the following must be set: 'hitDice', 'health'.";
 
     // CATCH ERRORS
     } catch (ValueError) {
@@ -374,239 +316,5 @@ class MonsterEditorController extends BaseController
     }
 
     return true;
-  }
-
-  // Creates records in the database from $_POST and returns the new monster's ID.
-  private function addMonster(): int
-  {
-    $monsterID = $this->database->query(
-      "INSERT INTO dnd_monsters (
-        userID,
-        name,
-        size,
-        type,
-        alignment,
-        armor,
-        shield,
-        armorClass,
-        hitDice,
-        health,
-        speedRange,
-        strength,
-        dexterity,
-        constitution,
-        intelligence,
-        wisdom,
-        charmisma,
-        strengthSavingThrow,
-        dexteritySavingThrow,
-        constitutionSavingThrow,
-        intelligenceSavingThrow,
-        wisdomSavingThrow,
-        charmismaSavingThrow,
-        blind,
-        telepathy,
-        challenge
-      ) VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10,
-        $11, $12, $13, $14, $15, $16, $17, $18, $19, $20,
-        $21, $22, $23, $24, $25, $26
-      ) RETURNING id;",
-      $_SESSION["userID"],
-      $_POST["name"],
-      $_POST["size"],
-      $_POST["type"],
-      $_POST["alignment"],
-      $_POST["armor"],
-      $_POST["shield"],
-      $_POST["armorClass"],
-      $_POST["hitDice"],
-      $_POST["health"],
-      $_POST["speedRange"],
-      $_POST["strengthScore"],
-      $_POST["dexterityScore"],
-      $_POST["constitutionScore"],
-      $_POST["intelligenceScore"],
-      $_POST["wisdomScore"],
-      $_POST["charismaScore"],
-      $_POST["strengthSavingThrow"],
-      $_POST["dexteritySavingThrow"],
-      $_POST["constitutionSavingThrow"],
-      $_POST["intelligenceSavingThrow"],
-      $_POST["wisdomSavingThrow"],
-      $_POST["charismaSavingThrow"],
-      $_POST["blind"],
-      $_POST["telepathy"],
-      $_POST["challengeRadio"] === "custom" ? $_POST["challengeRatingSelect"] : $_POST["estimatedChallengeRating"]
-    )[0]["id"];
-
-    /**
-     * Each attribute value is passed separately, requiring some re-construction.
-     * Each attribute has a name, and may include a range, description, and/or benefit value.
-     * In addition, each attribute ends with a unique ID value.
-     *
-     * This implementation is VERY INEFFICIENT.
-     */
-    $attributes = [];
-    for ($i = 1; $i < $_POST["IDCounter"]; $i++) {
-      foreach ($_POST as $fieldName => $value) {
-        if (str_ends_with($fieldName, $i)) {
-          $fieldName = str_replace($i, "", $fieldName);
-
-          if (!key_exists($i, $attributes)) {
-            $attributes[$i] = [
-              "Type" => str_replace(["Name", "Range", "Description", "Benefit"], "", $fieldName),
-              "Name" => null,
-              "Range" => null,
-              "Description" => null,
-              "Benefit" => null,
-            ];
-          }
-
-          $attributes[$i][str_replace($attributes[$i]["Type"], "", $fieldName)] = $value;
-        }
-      }
-    }
-
-    foreach ($attributes as $_ => $attribute) {
-      $this->database->query(
-        "INSERT INTO dnd_attributes (
-            monsterID,
-            type,
-            name,
-            range,
-            description,
-            benefit
-          ) VALUES (
-            $1, $2, $3, $4, $5, $6
-          );",
-        $monsterID,
-        $attribute["Type"],
-        $attribute["Name"],
-        $attribute["Range"],
-        $attribute["Description"],
-        $attribute["Benefit"]
-      );
-    }
-
-    return $monsterID;
-  }
-
-  // Updates records in the database from $_POST.
-  private function updateMonster(int $monsterID): void
-  {
-    $this->database->query(
-      "UPDATE dnd_monsters * SET (
-        name,
-        size,
-        type,
-        alignment,
-        armor,
-        shield,
-        armorClass,
-        hitDice,
-        health,
-        speedRange,
-        strength,
-        dexterity,
-        constitution,
-        intelligence,
-        wisdom,
-        charmisma,
-        strengthSavingThrow,
-        dexteritySavingThrow,
-        constitutionSavingThrow,
-        intelligenceSavingThrow,
-        wisdomSavingThrow,
-        charmismaSavingThrow,
-        blind,
-        telepathy,
-        challenge
-      ) = (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10,
-        $11, $12, $13, $14, $15, $16, $17, $18, $19, $20,
-        $21, $22, $23, $24, $25
-      ) WHERE id = $26;",
-      $_POST["name"],
-      $_POST["size"],
-      $_POST["type"],
-      $_POST["alignment"],
-      $_POST["armor"],
-      $_POST["shield"],
-      $_POST["armorClass"],
-      $_POST["hitDice"],
-      $_POST["health"],
-      $_POST["speedRange"],
-      $_POST["strengthScore"],
-      $_POST["dexterityScore"],
-      $_POST["constitutionScore"],
-      $_POST["intelligenceScore"],
-      $_POST["wisdomScore"],
-      $_POST["charismaScore"],
-      $_POST["strengthSavingThrow"],
-      $_POST["dexteritySavingThrow"],
-      $_POST["constitutionSavingThrow"],
-      $_POST["intelligenceSavingThrow"],
-      $_POST["wisdomSavingThrow"],
-      $_POST["charismaSavingThrow"],
-      $_POST["blind"],
-      $_POST["telepathy"],
-      $_POST["challengeRadio"] === "custom" ? $_POST["challengeRatingSelect"] : $_POST["estimatedChallengeRating"],
-      $monsterID
-    );
-
-    // Probably inefficient.
-    $this->database->query(
-      "DELETE FROM dnd_attributes WHERE monsterID = $1;", $monsterID
-    );
-
-    /**
-     * Each attribute value is passed separately, requiring some re-construction.
-     * Each attribute has a name, and may include a range, description, and/or benefit value.
-     * In addition, each attribute ends with a unique ID value.
-     *
-     * This implementation is VERY INEFFICIENT.
-     */
-    $attributes = [];
-    for ($i = 1; $i < $_POST["IDCounter"]; $i++) {
-      foreach ($_POST as $fieldName => $value) {
-        if (str_ends_with($fieldName, $i)) {
-          $fieldName = str_replace($i, "", $fieldName);
-
-          if (!key_exists($i, $attributes)) {
-            $attributes[$i] = [
-              "Type" => str_replace(["Name", "Range", "Description", "Benefit"], "", $fieldName),
-              "Name" => null,
-              "Range" => null,
-              "Description" => null,
-              "Benefit" => null,
-            ];
-          }
-
-          $attributes[$i][str_replace($attributes[$i]["Type"], "", $fieldName)] = $value;
-        }
-      }
-    }
-
-    foreach ($attributes as $_ => $attribute) {
-      $this->database->query(
-        "INSERT INTO dnd_attributes (
-            monsterID,
-            type,
-            name,
-            range,
-            description,
-            benefit
-          ) VALUES (
-            $1, $2, $3, $4, $5, $6
-          );",
-        $monsterID,
-        $attribute["Type"],
-        $attribute["Name"],
-        $attribute["Range"],
-        $attribute["Description"],
-        $attribute["Benefit"]
-      );
-    }
   }
 }

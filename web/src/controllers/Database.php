@@ -23,45 +23,54 @@ class Database
 
     public function createTables() : void
     {
-        $result = pg_query($this->connection, "CREATE TABLE IF NOT EXISTS dnd_users (
+        pg_query($this->connection, "CREATE TABLE IF NOT EXISTS dnd_users (
             id              SERIAL PRIMARY KEY,
             username        TEXT,
             password        TEXT
             );");
 
-        $result = pg_query($this->connection, "CREATE TABLE IF NOT EXISTS dnd_monsters (
+        pg_query($this->connection, "CREATE TABLE IF NOT EXISTS dnd_monsters (
             id              SERIAL PRIMARY KEY,
-            userID          INT REFERENCES dnd_users(id) ON DELETE CASCADE,
+            user_id          INT REFERENCES dnd_users(id) ON DELETE CASCADE,
             name            TEXT,
             size            TEXT,
             type            TEXT,
             alignment       TEXT,
             armor           TEXT,
             shield          BOOLEAN,
-            armorClass      INT,
-            hitDice         INT,
+            armor_class      INT,
+            hit_dice         INT,
             health          INT,
-            speedRange      INT,
-            strength        INT,
-            dexterity       INT,
-            constitution    INT,
-            intelligence    INT,
-            wisdom          INT,
-            charmisma       INT,
-            strengthSavingThrow        BOOLEAN,
-            dexteritySavingThrow       BOOLEAN,
-            constitutionSavingThrow    BOOLEAN,
-            intelligenceSavingThrow    BOOLEAN,
-            wisdomSavingThrow          BOOLEAN,
-            charmismaSavingThrow       BOOLEAN,
+
+            strength_score        INT,
+            dexterity_score       INT,
+            constitution_score    INT,
+            intelligence_score    INT,
+            wisdom_score          INT,
+            charmisma_score       INT,
+
+            strength_modifier        INT,
+            dexterity_modifier       INT,
+            constitution_modifier    INT,
+            intelligence_modifier    INT,
+            wisdom_modifier          INT,
+            charmisma_modifier       INT,
+
+            strength_saving_throw        BOOLEAN,
+            dexterity_saving_throw       BOOLEAN,
+            constitution_saving_throw    BOOLEAN,
+            intelligence_saving_throw    BOOLEAN,
+            wisdom_saving_throw          BOOLEAN,
+            charmisma_saving_throw       BOOLEAN,
+
             blind           BOOLEAN,
             telepathy       INT,
             challenge       TEXT
             );");
 
-        $result = pg_query($this->connection, "CREATE TABLE IF NOT EXISTS dnd_attributes (
+        pg_query($this->connection, "CREATE TABLE IF NOT EXISTS dnd_attributes (
             id              SERIAL PRIMARY KEY,
-            monsterID       INT REFERENCES dnd_monsters(id) ON DELETE CASCADE,
+            monster_id       INT REFERENCES dnd_monsters(id) ON DELETE CASCADE,
             type            TEXT,
             name            TEXT,
             range           INT,

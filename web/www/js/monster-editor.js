@@ -48,10 +48,11 @@ function modifier(score) {
 }
 
 function updateAbilityModifier(event) {
-    console.log(event.target.id.replace("Score", "Modifier"));
-    var abilityModifier = document.getElementById(event.target.id.replace("Score", "Modifier"));
+    var abilityModifier = document.getElementById(event.target.id.replace("Score", "Modifier"))
+    var abilityModifierLabel = document.getElementById(event.target.id.replace("Score", "ModifierLabel"));
     var value = modifier(event.target.value);
-    abilityModifier.innerHTML = String(value);
+    abilityModifier.value = value;
+    abilityModifierLabel.innerHTML = String(value);
 }
 
 function setupAbilityUpdates() {
@@ -92,17 +93,19 @@ function updateArmorClass() {
      * The automatic update is not performed when the user has selected manual entry.
      */
     if (armor.value === "Natural Armor" || armor.value === "Other") {
+        console.log(armor.value);
+
         armorClass.setAttribute("aria-required", "true");
-        armorClass.setAttribute("aria-disabled", "false");
+        armorClass.setAttribute("aria-readonly", "false");
         armorClass.required = true;
-        armorClass.disabled = false;
+        armorClass.removeAttribute("readonly");
         return;
     }
 
     armorClass.setAttribute("aria-required", "false");
-    armorClass.setAttribute("aria-disabled", "true");
+    armorClass.setAttribute("aria-readonly", "true");
     armorClass.required = false;
-    armorClass.disabled = true;
+    armorClass.setAttribute("readonly", true);
 
     /**
      * Calculates the update to the monster's armor class
@@ -137,25 +140,25 @@ dexterity.addEventListener("input", updateArmorClass);
 function updateHealthPoints() {
     if (customHP.checked) {
         health.setAttribute("aria-required", "true");
-        health.setAttribute("aria-disabled", "false");
+        health.setAttribute("aria-readonly", "false");
         health.required = true;
-        health.disabled = false;
+        health.removeAttribute("readonly");
 
         hitDice.setAttribute("aria-required", "false");
-        hitDice.setAttribute("aria-disabled", "true");
+        hitDice.setAttribute("aria-readonly", "true");
         hitDice.required = false;
-        hitDice.disabled = true;
+        hitDice.setAttribute("readonly", true);
         return;
     }
     health.setAttribute("aria-required", "false");
-    health.setAttribute("aria-disabled", "true");
+    health.setAttribute("aria-readonly", "true");
     health.required = false;
-    health.disabled = true;
+    health.setAttribute("readonly", true);
 
     hitDice.setAttribute("aria-required", "true");
-    hitDice.setAttribute("aria-disabled", "false");
+    hitDice.setAttribute("aria-readonly", "false");
     hitDice.required = true;
-    hitDice.disabled = false;
+    hitDice.removeAttribute("readonly", true);
 
     var HP = Number(modifier(constitution.value));
 
@@ -303,8 +306,8 @@ function addSelectedAttribute(self) {
                         <label class=\"form-label\" for=\"" + category + ID + "\" style=\"margin-bottom:0;\">" + attributeName + "</label>\
                     </div>\
                     <div class=\"col-sm-9 col-11 mb-1 d-flex justify-content-sm-center align-items-center\">\
-                        <input id=\"" + category + "Name" + ID + "\" name=\"" + category + "Name" + ID + "\" type=\"hidden\" value=\"" + attributeName + "\">\
-                        <input id=\"" + category + "Range" + ID + "\" name=\"" + category + "Range" + ID + "\" class=\"form-control\" type=\"number\" min=\"0\" step=\"5\" placeholder=\"0 ft\" aria-required=\"true\" required>\
+                        <input id=\"" + category + "Name" + ID + "\" name=\"" + category + "[name][]\" type=\"hidden\" value=\"" + attributeName + "\">\
+                        <input id=\"" + category + "Range" + ID + "\" name=\"" + category + "[range][]\" class=\"form-control\" type=\"number\" min=\"0\" step=\"5\" placeholder=\"0 ft\" aria-required=\"true\" required>\
                     </div>\
                     <div class=\"col-1 mb-1 d-flex justify-content-start align-items-center gx-0\">\
                         <button type=\"button\" class=\"btn-close\" aria-label=\"Delete\" data-action=\"delete\"></button>\
@@ -321,8 +324,8 @@ function addSelectedAttribute(self) {
                 "<div class=\"row mb-1\" onclick=\"deleteSelf(event, this)\">\
                     <div class= \"col-6 d-flex align-items-center text-wrap text-break\" >" + attributeName + "</div >\
                     <div class=\"col-5 text-wrap text-break\">\
-                        <input id=\"" + category + "Name" + ID + "\" name=\"" + category + "Name" + ID + "\" type=\"hidden\" value=\"" + attributeName + "\">\
-                        <input id=\""  + category + "Range" + ID + "\" name=\"" + category + "Range" + ID + "\" class=\"form-control\" type=\"number\" min=\"0\" max=\"1000\" step=\"5\" placeholder=\"0 ft\" aria-required=\"true\" required>\
+                        <input id=\"" + category + "Name" + ID + "\" name=\"" + category + "[name][]\" type=\"hidden\" value=\"" + attributeName + "\">\
+                        <input id=\""  + category + "Range" + ID + "\" name=\"" + category + "[range][]\" class=\"form-control\" type=\"number\" min=\"0\" max=\"1000\" step=\"5\" placeholder=\"0 ft\" aria-required=\"true\" required>\
                     </div>\
                     <div class=\"col-1 gx-0 d-flex align-items-center\">\
                         <button type=\"button\" class=\"btn-close\" aria-label=\"Delete\" data-action=\"delete\"></button>\
@@ -344,16 +347,16 @@ function addSelectedAttribute(self) {
                     <div class=\"row mb-1\">\
                         <label class=\"form-label\" for=\"" + category + "Name" + ID + "\">Name</label>\
                         <div class=\"col-10\">\
-                            <input id=\"" + category + "Name" + ID + "\" name=\"" + category + "Name" + ID + "\" class=\"form-control\" type=\"text\" pattern=\"[\\w\\s]+\" value=\"" + attributeName + "\" aria-required=\"true\" required>\
+                            <input id=\"" + category + "Name" + ID + "\" name=\"" + category + "[name][]\" class=\"form-control\" type=\"text\" pattern=\"[\\w\\s]+\" value=\"" + attributeName + "\" aria-required=\"true\" required>\
                         </div>\
                         <div class=\"col-2 gx-0 d-flex align-items-center justify-content-center\">\
                             <button type=\"button\" class=\"btn-close\" aria-label=\"Delete\" data-action=\"delete\"></button>\
                         </div>\
                     </div>\
                     <label class=\"form-label\" for=\"" + category + "Description" + ID + "\">Description</label>\
-                    <textarea id=\"" + category + "Description" + ID + "\" name=\"" + category + "Description" + ID + "\" class=\"form-control\" rows=\"4\" aria-required=\"true\" required></textarea>\
+                    <textarea id=\"" + category + "Description" + ID + "\" name=\"" + category + "[description][]\" class=\"form-control\" rows=\"4\" aria-required=\"true\" required></textarea>\
                     <label class=\"form-label\" for=\"" + category + "Benefit" + ID + "\">Power Level:</label><strong id=\"" + category + "BenefitLabel" + ID + "\" class=\"ms-1\">Neutral</strong>\
-                    <input id=\"" + category + "Benefit" + ID + "\" name=\"" + category + "Benefit" + ID + "\" class=\"form-range\" type=\"range\" min=\"-1\" max=\"2\" value=\"0\" oninput=\"updateSliderLabel(event)\">\
+                    <input id=\"" + category + "Benefit" + ID + "\" name=\"" + category + "[benefit][]\" class=\"form-range\" type=\"range\" min=\"-1\" max=\"2\" value=\"0\" oninput=\"updateSliderLabel(event)\">\
                 </div>"
             );
             break;
@@ -362,7 +365,7 @@ function addSelectedAttribute(self) {
             // basic.php
             selectedAttribute = createElement(
                 "<div class=\"row mb-1\" onclick=\"deleteSelf(event, this)\">\
-                    <input id=\"" + category + "Name" + ID + "\" name=\"" + category + "Name" + ID + "\" type=\"hidden\" value=\"" + attributeName + "\">\
+                    <input id=\"" + category + "Name" + ID + "\" name=\"" + category + "[name][]\" type=\"hidden\" value=\"" + attributeName + "\">\
                     <div class=\"col-11 d-flex align-items-center text-wrap text-break\">" + attributeName + "</div>\
                     <div class=\"col-1 gx-0 d-flex align-items-center\">\
                         <button type=\"button\" class=\"btn-close\" aria-label=\"Delete\" data-action=\"delete\"></button>\
@@ -393,7 +396,6 @@ function createElement(htmlFragment) {
     }
     return fragment;
 }
-
 
 // MARK: UPDATE CR
 // TODO: Implement automatic CR updates
