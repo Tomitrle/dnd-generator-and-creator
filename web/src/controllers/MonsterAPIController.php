@@ -38,7 +38,7 @@ class MonsterAPIController extends BaseController
                 $this->deleteMonster($_GET["monster_id"]);
                 return;
 
-              // VIEW THE REQUESTED MONSTER
+                // VIEW THE REQUESTED MONSTER
               case "view":
               default:
                 if (!isset($_GET["format"]))
@@ -306,7 +306,8 @@ class MonsterAPIController extends BaseController
   public function deleteMonster(int $monsterID): void
   {
     $this->database->query(
-      "DELETE FROM dnd_monsters WHERE id = $1;", $monsterID
+      "DELETE FROM dnd_monsters WHERE id = $1;",
+      $monsterID
     );
   }
 
@@ -346,16 +347,20 @@ class MonsterAPIController extends BaseController
     return $monster;
   }
 
-  public function getMonsterIDs(int $userID): array
+  public function getMonsters(int $userID): array
   {
-    $ids = $this->database->query(
-      "SELECT id FROM dnd_monsters WHERE user_id = $1;",
-      $userID
+    $monsters = array_column(
+      $this->database->query(
+        "SELECT (id, name) FROM dnd_monsters WHERE user_id = $1;",
+        $userID
+      ),
+      "row"
     );
-    foreach ($ids as $index => $array) {
-      $ids[$index] = $array["id"];
+
+    foreach ($monsters as $key => $monster) {
+      $monsters[$key] = explode(",", trim($monster, "()"));
     }
 
-  return $ids;
+    return $monsters;
   }
 }

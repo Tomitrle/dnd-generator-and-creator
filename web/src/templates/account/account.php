@@ -27,7 +27,7 @@ $SCRIPTS = [];
 
     <div class="d-flex flex-column mx-auto">
       <?php
-      foreach($MONSTER_IDS as $ID) {
+      foreach($MONSTERS as $MONSTER) {
         require '/opt/src/templates/account/monster.php';
       }
       ?>
