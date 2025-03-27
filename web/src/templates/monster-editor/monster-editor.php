@@ -6,6 +6,7 @@
  * https://getbootstrap.com/docs/5.0/forms/validation/
  * https://stackoverflow.com/questions/3518002/how-can-i-set-the-default-value-for-an-html-select-element
  * https://stackoverflow.com/questions/13766015/is-it-possible-to-configure-a-required-field-to-ignore-white-space
+ * https://stackoverflow.com/questions/20184670/html-php-form-input-as-array
  */
 
 $TITLE = "Monster Editor";
