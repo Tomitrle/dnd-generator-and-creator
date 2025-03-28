@@ -33,7 +33,7 @@ $SCRIPTS = [];
       ?>
     </div>
 
-    <a role="button" class="btn btn-success mt-1" href="/monster-editor.php">New</a>
+    <a class="btn btn-success mt-1" href="monster-editor.php">New</a>
   </section>
 
   <?php require '/opt/src/templates/footer.php'; ?>

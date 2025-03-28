@@ -1,6 +1,6 @@
 <div class="row mb-1" onclick="deleteSelf(event, this)">
   <div class="col-6 d-flex align-items-center text-wrap text-break">
-    <label class="form-label" for="senseName<?php echo $UNIQUE_ID; ?>" style="margin-bottom:0;"><?php echo $ATTRIBUTE["name"]; ?></label>
+    <label class="form-label" for="senseRange<?php echo $UNIQUE_ID; ?>" style="margin-bottom:0;"><?php echo $ATTRIBUTE["name"]; ?></label>
   </div>
   <div class="col-5 text-wrap text-break">
     <input id="senseName<?php echo $UNIQUE_ID; ?>" name="sense[name][]" type="hidden" value="<?php echo $ATTRIBUTE["name"]; ?>">

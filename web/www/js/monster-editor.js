@@ -94,11 +94,9 @@ function updateArmorClass() {
      * The automatic update is not performed when the user has selected manual entry.
      */
     if (armor.value === "Natural Armor" || armor.value === "Other") {
-        armorClass.setAttribute("aria-readonly", "false");
         armorClass.removeAttribute("readonly");
         return;
     }
-    armorClass.setAttribute("aria-readonly", "true");
     armorClass.setAttribute("readonly", true);
 
     /**
@@ -133,17 +131,11 @@ dexterity.addEventListener("input", updateArmorClass);
 
 function updateHealthPoints() {
     if (customHP.checked) {
-        health.setAttribute("aria-readonly", "false");
         health.removeAttribute("readonly");
-
-        hitDice.setAttribute("aria-readonly", "true");
         hitDice.setAttribute("readonly", true);
         return;
     }
-    health.setAttribute("aria-readonly", "true");
     health.setAttribute("readonly", true);
-
-    hitDice.setAttribute("aria-readonly", "false");
     hitDice.removeAttribute("readonly", true);
 
     var HP = Number(modifier(constitution.value));
@@ -256,7 +248,7 @@ function updateAttributeChoices(self) {
 
     // Disable the options that are already in the form
     for (var selectedAttribute of document.getElementById(category + "Container").children) {
-        var attributeChoice = document.getElementById(category + "Add" + selectedAttribute.querySelector('input').value);
+        var attributeChoice = document.getElementById(category + "Add" + selectedAttribute.querySelector('input').value.replace(" ", ""));
         hideChoice(attributeChoice);
     }
 }
@@ -301,7 +293,7 @@ function addSelectedAttribute(self) {
                 </div>"
             );
 
-            hideChoice(document.getElementById(category + "Add" + attributeName));
+            hideChoice(document.getElementById(category + "Add" + attributeName.replace(" ", "")));
             break;
 
         case "sense":
@@ -321,7 +313,7 @@ function addSelectedAttribute(self) {
                 </div>"
             );
 
-            hideChoice(document.getElementById(category + "Add" + attributeName));
+            hideChoice(document.getElementById(category + "Add" + attributeName.replace(" ", "")));
             break;
 
         case "ability":
@@ -363,7 +355,7 @@ function addSelectedAttribute(self) {
                 </div>"
             );
 
-            hideChoice(document.getElementById(category + "Add" + attributeName));
+            hideChoice(document.getElementById(category + "Add" + attributeName.replace(" ", "")));
             break;
     }
 

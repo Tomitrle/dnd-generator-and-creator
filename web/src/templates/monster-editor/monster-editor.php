@@ -40,7 +40,7 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
       <h2>General Information</h2>
       <div class="col-sm-6 mb-2">
         <label class="form-label" for="name">Name</label>
-        <input id="name" name="name" class="form-control" type="text" pattern="[\w\s]+" value="<?php echo (isset($MONSTER["name"])) ? $MONSTER["name"] : ""; ?>"" aria-required=" true" required>
+        <input id="name" name="name" class="form-control" type="text" pattern="[\w\s]+" value="<?php echo (isset($MONSTER["name"])) ? $MONSTER["name"] : ""; ?>" aria-required="true" required>
       </div>
 
       <div class="col-sm-6 mb-2">
@@ -109,7 +109,7 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
 
       <div class="col-sm-6 mb-2">
         <label class="form-label" for="armorClass">Armor Class (AC)</label>
-        <input id="armorClass" name="armor_class" class="form-control" type="number" min="0" max="30" value="<?php echo (isset($MONSTER["armor_class"])) ? $MONSTER["armor_class"] : ""; ?>" aria-describedby="armorClassHelpLabel" aria-required="true" required aria-readonly="true" readonly>
+        <input id="armorClass" name="armor_class" class="form-control" type="number" min="0" max="30" value="<?php echo (isset($MONSTER["armor_class"])) ? $MONSTER["armor_class"] : ""; ?>" aria-describedby="armorClassHelpLabel" aria-required="true" required readonly>
         <div id="armorClassHelpLabel" class="form-text">
           Armor class updates automatically. For manual control, select <i>Natural Armor</i> or <i>Other</i>. <br>
         </div>
@@ -128,7 +128,7 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
 
       <div class="col-sm-6 mb-2">
         <label class="form-label" for="health">Health Points (HP)</label>
-        <input id="health" name="health" class="form-control" type="number" min="1" value="<?php echo (isset($MONSTER["health"])) ? $MONSTER["health"] : ""; ?>" aria-describedby="healthHelpLabel" aria-required="true" required aria-readonly="true" readonly>
+        <input id="health" name="health" class="form-control" type="number" min="1" value="<?php echo (isset($MONSTER["health"])) ? $MONSTER["health"] : ""; ?>" aria-describedby="healthHelpLabel" aria-required="true" required readonly>
         <div id="healthHelpLabel" class="form-text">
           Health points are calculated automatically. For manual control, select <i>Custom Health</i>. <br>
         </div>
@@ -513,7 +513,7 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
     </section>
 
     <div class="d-flex justify-content-center mt-4">
-      <a class="btn btn-secondary me-2" type="button" href="monster-api.php?command=view&monster_id=<?php echo (isset($_GET["monster_id"])) ? $_GET["monster_id"] : ""; ?>" target="_blank" style=" min-width:100px; font-size:x-large;">Export</a>
+      <!-- <a class="btn btn-secondary me-2" type="button" href="monster-api.php?command=view&monster_id=<?php // echo (isset($_GET["monster_id"])) ? $_GET["monster_id"] : ""; ?>" target="_blank" style=" min-width:100px; font-size:x-large;">Export</a> -->
       <button id="saveButton" class="btn btn-success ms-2" type="submit" style="min-width:100px; font-size:x-large;">Save</button>
     </div>
 

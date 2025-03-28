@@ -1,6 +1,6 @@
 <div class="row" onclick="deleteSelf(event, this)">
   <div class="col-sm-2 mb-1 d-flex justify-content-sm-center align-items-center text-center">
-    <label class="form-label" for="speedName<?php echo $UNIQUE_ID; ?>" style="margin-bottom:0;"><?php echo $ATTRIBUTE["name"]; ?></label>
+    <label class="form-label" for="speedRange<?php echo $UNIQUE_ID; ?>" style="margin-bottom:0;"><?php echo $ATTRIBUTE["name"]; ?></label>
   </div>
   <div class="col-sm-9 col-11 mb-1 d-flex justify-content-sm-center align-items-center">
     <input id="speedName<?php echo $UNIQUE_ID; ?>" name="speed[name][]" type="hidden" value="<?php echo $ATTRIBUTE["name"]; ?>">

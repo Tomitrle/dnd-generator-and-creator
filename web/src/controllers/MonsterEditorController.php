@@ -5,9 +5,6 @@
  * https://stackoverflow.com/questions/7605480/str-replace-for-multiple-items
  */
 
-// MARK: TODO
-// Make export depend on save
-
 class MonsterEditorController extends BaseController
 {
   /**
@@ -30,10 +27,6 @@ class MonsterEditorController extends BaseController
 
             if (!$APIController->checkPermissions($_GET["monster_id"], $_SESSION["user_id"]))
               $this->errorResponse(403, "You do not have permission to edit this resource.");
-
-            // MARK: TODO
-            // Populate fields with PHP requires
-            // Make sure "monster_id" is added as a hidden input
 
             $MONSTER = $APIController->getMonsterAsArray($_GET["monster_id"]);
             require "/opt/src/templates/monster-editor/monster-editor.php";
