@@ -35,35 +35,50 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
 
   <?php require '/opt/src/templates/alerts.php'; ?>
 
-  <form class="container needs-validation" action="monster-editor.php?monster_id=<?php if (isset($_GET["monster_id"])) echo $_GET["monster_id"]; ?>" method="post" novalidate>
+  <form class="container needs-validation" action="monster-editor.php<?php echo (isset($_GET["monster_id"])) ? "?monster_id=" . $_GET["monster_id"] : ""; ?>" method="post" novalidate>
     <section class="row">
       <h2>General Information</h2>
       <div class="col-sm-6 mb-2">
         <label class="form-label" for="name">Name</label>
-        <input id="name" name="name" class="form-control" type="text" pattern="[\w\s]+" aria-required="true" required>
+        <input id="name" name="name" class="form-control" type="text" pattern="[\w\s]+" value="<?php echo (isset($MONSTER["name"])) ? $MONSTER["name"] : ""; ?>"" aria-required=" true" required>
       </div>
 
       <div class="col-sm-6 mb-2">
         <label class="form-label" for="size">Size</label>
         <select id="size" name="size" class="form-select" aria-required="true" required>
-          <option selected disabled hidden>Select an option...</option>
-          <?php foreach ($OPTIONS["size"] as $option) echo "<option>$option</option>\n"; ?>
+          <option <?php echo (isset($MONSTER["size"])) ? "" : "selected"; ?> disabled hidden value="">Select an option...</option>
+          <?php
+          foreach ($OPTIONS["size"] as $option) {
+            $selected = (isset($MONSTER["size"]) && $MONSTER["size"] === $option) ? "selected" : "";
+            echo "<option $selected>$option</option>\n";
+          }
+          ?>
         </select>
       </div>
 
       <div class="col-sm-6 mb-2">
         <label class="form-label" for="type">Type</label>
         <select id="type" name="type" class="form-select" aria-required="true" required>
-          <option selected disabled hidden>Select an option...</option>
-          <?php foreach ($OPTIONS["type"] as $option) echo "<option>$option</option>\n"; ?>
+          <option <?php echo (isset($MONSTER["type"])) ? "" : "selected"; ?> disabled hidden value="">Select an option...</option>
+          <?php
+          foreach ($OPTIONS["type"] as $option) {
+            $selected = (isset($MONSTER["type"]) && $MONSTER["type"] === $option) ? "selected" : "";
+            echo "<option $selected>$option</option>\n";
+          }
+          ?>
         </select>
       </div>
 
       <div class="col-sm-6 mb-2">
         <label class="form-label" for="alignment">Alignment</label>
         <select id="alignment" name="alignment" class="form-select" aria-required="true" required>
-          <option selected disabled hidden>Select an option...</option>
-          <?php foreach ($OPTIONS["alignment"] as $option) echo "<option>$option</option>\n"; ?>
+          <option <?php echo (isset($MONSTER["alignment"])) ? "" : "selected"; ?> disabled hidden value="">Select an option...</option>
+          <?php
+          foreach ($OPTIONS["alignment"] as $option) {
+            $selected = (isset($MONSTER["alignment"]) && $MONSTER["alignment"] === $option) ? "selected" : "";
+            echo "<option $selected>$option</option>\n";
+          }
+          ?>
         </select>
       </div>
     </section>
@@ -75,12 +90,17 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
       <div class="col-sm-6 mb-2">
         <label class="form-label" for="armor">Armor</label>
         <select id="armor" name="armor" class="form-select" aria-required="true" required>
-          <option selected disabled hidden>Select an option...</option>
-          <?php foreach ($OPTIONS["armor"] as $option) echo "<option data-ac=\"{$option["ac"]}\" data-type=\"{$option["type"]}\">{$option["name"]}</option>\n"; ?>
+          <option <?php echo (isset($MONSTER["armor"])) ? "" : "selected"; ?> disabled hidden value="">Select an option...</option>
+          <?php
+          foreach ($OPTIONS["armor"] as $option) {
+            $selected = (isset($MONSTER["armor"]) && $MONSTER["armor"] === $option["name"]) ? "selected" : "";
+            echo "<option data-ac=\"{$option["ac"]}\" data-type=\"{$option["type"]}\" $selected>{$option["name"]}</option>\n";
+          }
+          ?>
         </select>
 
         <div class="form-check mt-1">
-          <input id="shield" name="shield" class="form-check-input" type="checkbox">
+          <input id="shield" name="shield" class="form-check-input" type="checkbox" <?php if (isset($MONSTER["shield"]) && $MONSTER["shield"] == "t") echo "checked"; ?>>
           <label class="form-check-label" for="shield">
             Shield
           </label>
@@ -89,7 +109,7 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
 
       <div class="col-sm-6 mb-2">
         <label class="form-label" for="armorClass">Armor Class (AC)</label>
-        <input id="armorClass" name="armor_class" class="form-control" type="number" min="0" max="30" aria-describedby="armorClassHelpLabel" aria-readonly="true" readonly>
+        <input id="armorClass" name="armor_class" class="form-control" type="number" min="0" max="30" value="<?php echo (isset($MONSTER["armor_class"])) ? $MONSTER["armor_class"] : ""; ?>" aria-describedby="armorClassHelpLabel" aria-required="true" required aria-readonly="true" readonly>
         <div id="armorClassHelpLabel" class="form-text">
           Armor class updates automatically. For manual control, select <i>Natural Armor</i> or <i>Other</i>. <br>
         </div>
@@ -97,7 +117,7 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
 
       <div class="col-sm-6 mb-2">
         <label class="form-label" for="hitDice">Hit Dice</label>
-        <input id="hitDice" name="hit_dice" class="form-control" type="number" min="0" max="1000" aria-describedby="healthHelpLabel" aria-required="true" required>
+        <input id="hitDice" name="hit_dice" class="form-control" type="number" min="0" max="1000" value="<?php echo (isset($MONSTER["hit_dice"])) ? $MONSTER["hit_dice"] : ""; ?>" aria-describedby="healthHelpLabel" aria-required="true" required>
         <div class="form-check mt-1">
           <input id="customHP" class="form-check-input" type="checkbox">
           <label class="form-check-label" for="customHP">
@@ -108,7 +128,7 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
 
       <div class="col-sm-6 mb-2">
         <label class="form-label" for="health">Health Points (HP)</label>
-        <input id="health" name="health" class="form-control" type="number" min="1" value="1" aria-describedby="healthHelpLabel" aria-readonly="true" readonly>
+        <input id="health" name="health" class="form-control" type="number" min="1" value="<?php echo (isset($MONSTER["health"])) ? $MONSTER["health"] : ""; ?>" aria-describedby="healthHelpLabel" aria-required="true" required aria-readonly="true" readonly>
         <div id="healthHelpLabel" class="form-text">
           Health points are calculated automatically. For manual control, select <i>Custom Health</i>. <br>
         </div>
@@ -124,7 +144,15 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
       $CATEGORY = "speed";
       ?>
 
-      <div id="<?php echo $CATEGORY; ?>Container"></div>
+      <div id="<?php echo $CATEGORY; ?>Container">
+        <?php
+        if (isset($MONSTER[$CATEGORY])) {
+          foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
+            require '/opt/src/templates/monster-editor/attributes/speed.php';
+          }
+        }
+        ?>
+      </div>
       <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
     </section>
     <hr>
@@ -162,7 +190,15 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
         $CATEGORY = "skillProficiency";
         ?>
 
-        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
+        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column">
+          <?php
+          if (isset($MONSTER[$CATEGORY])) {
+            foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
+              require '/opt/src/templates/monster-editor/attributes/basic.php';
+            }
+          }
+          ?>
+        </div>
         <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
       </section>
 
@@ -174,7 +210,15 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
         $CATEGORY = "skillExpertise";
         ?>
 
-        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
+        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column">
+          <?php
+          if (isset($MONSTER[$CATEGORY])) {
+            foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
+              require '/opt/src/templates/monster-editor/attributes/basic.php';
+            }
+          }
+          ?>
+        </div>
         <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
       </section>
 
@@ -186,7 +230,15 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
         $CATEGORY = "damageVulnerability";
         ?>
 
-        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
+        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column">
+          <?php
+          if (isset($MONSTER[$CATEGORY])) {
+            foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
+              require '/opt/src/templates/monster-editor/attributes/basic.php';
+            }
+          }
+          ?>
+        </div>
         <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
       </section>
 
@@ -198,7 +250,15 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
         $CATEGORY = "damageResistance";
         ?>
 
-        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
+        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column">
+          <?php
+          if (isset($MONSTER[$CATEGORY])) {
+            foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
+              require '/opt/src/templates/monster-editor/attributes/basic.php';
+            }
+          }
+          ?>
+        </div>
         <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
       </section>
 
@@ -210,7 +270,15 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
         $CATEGORY = "damageImmunity";
         ?>
 
-        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
+        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column">
+          <?php
+          if (isset($MONSTER[$CATEGORY])) {
+            foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
+              require '/opt/src/templates/monster-editor/attributes/basic.php';
+            }
+          }
+          ?>
+        </div>
         <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
       </section>
 
@@ -222,7 +290,15 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
         $CATEGORY = "conditionImmunity";
         ?>
 
-        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
+        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column">
+          <?php
+          if (isset($MONSTER[$CATEGORY])) {
+            foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
+              require '/opt/src/templates/monster-editor/attributes/basic.php';
+            }
+          }
+          ?>
+        </div>
         <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
       </section>
     </section>
@@ -240,11 +316,19 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
         ?>
 
         <div class="text-center mb-1">
-          <input id="blind" name="blind" class="form-check-input" type="checkbox">
+          <input id="blind" name="blind" class="form-check-input" type="checkbox" <?php if (isset($MONSTER["blind"]) && $MONSTER["blind"] == "t") echo "checked"; ?>>
           <label class="form-check-label" for="blind">Blind</label>
         </div>
 
-        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
+        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column">
+          <?php
+          if (isset($MONSTER[$CATEGORY])) {
+            foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
+              require '/opt/src/templates/monster-editor/attributes/sense.php';
+            }
+          }
+          ?>
+        </div>
         <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
       </section>
 
@@ -261,11 +345,19 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
             <label class="form-label" for="telepathy" style="margin-bottom:0;">Telepathy</label>
           </div>
           <div class="col-sm-6">
-            <input id="telepathy" name="telepathy" class="form-control" type="number" min="0" step="5" placeholder="0 ft">
+            <input id="telepathy" name="telepathy" class="form-control" type="number" min="0" step="5" placeholder="0 ft" value="<?php echo (isset($MONSTER["telepathy"])) ? $MONSTER["telepathy"] : ""; ?>">
           </div>
         </div>
 
-        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column"></div>
+        <div id="<?php echo $CATEGORY; ?>Container" class="d-flex flex-column">
+          <?php
+          if (isset($MONSTER[$CATEGORY])) {
+            foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
+              require '/opt/src/templates/monster-editor/attributes/basic.php';
+            }
+          }
+          ?>
+        </div>
         <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
       </section>
     </section>
@@ -279,7 +371,15 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
       $CATEGORY = "ability";
       ?>
 
-      <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3"></div>
+      <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3">
+        <?php
+        if (isset($MONSTER[$CATEGORY])) {
+          foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
+            require '/opt/src/templates/monster-editor/attributes/ability.php';
+          }
+        }
+        ?>
+      </div>
       <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
     </section>
     <hr>
@@ -292,7 +392,15 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
       $CATEGORY = "action";
       ?>
 
-      <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3"></div>
+      <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3">
+        <?php
+        if (isset($MONSTER[$CATEGORY])) {
+          foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
+            require '/opt/src/templates/monster-editor/attributes/ability.php';
+          }
+        }
+        ?>
+      </div>
       <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
     </section>
     <hr>
@@ -305,7 +413,15 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
       $CATEGORY = "bonusAction";
       ?>
 
-      <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3"></div>
+      <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3">
+        <?php
+        if (isset($MONSTER[$CATEGORY])) {
+          foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
+            require '/opt/src/templates/monster-editor/attributes/ability.php';
+          }
+        }
+        ?>
+      </div>
       <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
     </section>
     <hr>
@@ -318,7 +434,15 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
       $CATEGORY = "reaction";
       ?>
 
-      <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3"></div>
+      <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3">
+        <?php
+        if (isset($MONSTER[$CATEGORY])) {
+          foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
+            require '/opt/src/templates/monster-editor/attributes/ability.php';
+          }
+        }
+        ?>
+      </div>
       <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
     </section>
     <hr>
@@ -332,12 +456,20 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
       ?>
 
       <div class="text-center mb-1">
-        <input id="legendaryCheckbox" name="legendaryCheckbox" class="form-check-input" type="checkbox" style="border-width:1px; border-color:darkgray;">
+        <input id="legendaryCheckbox" name="legendaryCheckbox" class="form-check-input" type="checkbox" style="border-width:1px; border-color:darkgray;" <?php if (isset($MONSTER["legendaryFeature"])) echo "checked"; ?>>
         <label class="form-check-label" for="legendaryCheckbox"><strong>Legendary Monster</strong></label>
       </div>
 
-      <div id="legendaryBlock" style="display:none">
-        <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3"></div>
+      <div id="legendaryBlock" style="display:<?php echo isset($MONSTER["legendaryFeature"]) ? "block" : "none" ?>">
+        <div id="<?php echo $CATEGORY; ?>Container" class="row gx-sm-5 gy-sm-3">
+          <?php
+          if (isset($MONSTER[$CATEGORY])) {
+            foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
+              require '/opt/src/templates/monster-editor/attributes/ability.php';
+            }
+          }
+          ?>
+        </div>
         <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
       </div>
     </section>
@@ -353,8 +485,8 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
             <label class="btn btn-outline-success" for="estimatedChallengeRadio">Estimated Challenge Rating</label>
           </div>
 
-          <input type="hidden" id="estimatedChallengeRating" name="estimatedChallengeRating" value="1">
-          <p class="mb-0" style="font-size:x-large;">Challenge <span>1: 200XP</span></p>
+          <input type="hidden" id="estimatedChallengeRating" name="estimatedChallengeRating" value="<?php echo (isset($MONSTER["challenge"])) ? $MONSTER["challenge"] : "0"; ?>">
+          <p class="mb-0" style="font-size:x-large;"><?php echo (isset($MONSTER["challenge"])) ? $MONSTER["challenge"] : "0"; ?></span></p>
         </div>
       </div>
 
@@ -368,11 +500,11 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
           <select id="challengeRatingSelect" name="challengeRatingSelect" class="form-select w-50 mx-auto" aria-label="Custom challenge rating">
             <?php
             foreach ($OPTIONS["challenge"] as $option) {
-              if ($option["name"] === 0) {
-                echo "<option value=\"{$option["value"]}\" selected>{$option["name"]}</option>\n";
-              } else {
-                echo "<option value=\"{$option["value"]}\">{$option["name"]}</option>\n";
-              }
+              $selected = (
+                (isset($MONSTER["challenge"]) && $MONSTER["challenge"] == $option["value"]) ||
+                (!isset($MONSTER["challenge"]) && $option["value"] == 0)
+              ) ? "selected" : "";
+              echo "<option value=\"{$option["value"]}\" $selected>{$option["name"]}</option>\n";
             }
             ?>
           </select>
@@ -381,7 +513,7 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
     </section>
 
     <div class="d-flex justify-content-center mt-4">
-      <a class="btn btn-secondary me-2" type="button" href="monster-api.php?command=view&monster_id=<?php if (isset($_GET["monster_id"])) echo $_GET["monster_id"]; ?>" target="_blank" style=" min-width:100px; font-size:x-large;">Export</a>
+      <a class="btn btn-secondary me-2" type="button" href="monster-api.php?command=view&monster_id=<?php echo (isset($_GET["monster_id"])) ? $_GET["monster_id"] : ""; ?>" target="_blank" style=" min-width:100px; font-size:x-large;">Export</a>
       <button id="saveButton" class="btn btn-success ms-2" type="submit" style="min-width:100px; font-size:x-large;">Save</button>
     </div>
 

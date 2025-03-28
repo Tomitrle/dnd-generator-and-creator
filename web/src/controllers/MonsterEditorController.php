@@ -16,11 +16,10 @@ class MonsterEditorController extends BaseController
    * Hopefully, this should help prevent SQL injection.
    */
   const REGEX = "/\A[\w\s\-\?\,\.\!\&\(\)]+\z/";
-  private MonsterAPIController $apiController;
 
   public function run(): void
   {
-    $this->apiController = new MonsterAPIController();
+    $APIController = new MonsterAPIController();
 
     switch ($_SERVER["REQUEST_METHOD"]) {
       case "GET":
@@ -29,49 +28,24 @@ class MonsterEditorController extends BaseController
             if (!$this->isAuthenticated())
               $this->errorResponse(401, "You must be logged in to edit this resource.");
 
-            if (!$this->apiController->checkPermissions($_GET["monster_id"], $_SESSION["user_id"]))
+            if (!$APIController->checkPermissions($_GET["monster_id"], $_SESSION["user_id"]))
               $this->errorResponse(403, "You do not have permission to edit this resource.");
 
             // MARK: TODO
             // Populate fields with PHP requires
             // Make sure "monster_id" is added as a hidden input
 
-            //             $monster = $this->database->query(
-            //               "SELECT * FROM dnd_monsters WHERE id = $1;",
-            //               $_GET["monster_id"]
-            //             );
-            //             $attributes = $this->database->query(
-            //               "SELECT * FROM dnd_attributes WHERE monster_id = $1;",
-            //               $_GET["monster_id"]
-            //             );
-            //
-            //             print_r($monster);
-            //             print_r($attributes);
-            //             exit();
-
+            $MONSTER = $APIController->getMonsterAsArray($_GET["monster_id"]);
             require "/opt/src/templates/monster-editor/monster-editor.php";
             $this->resetMessages();
             exit();
 
           case true:
-            if ($this->isAuthenticated()) {
-              // LOAD REGULAR PAGE
-              require "/opt/src/templates/monster-editor/monster-editor.php";
-              $this->resetMessages();
-              exit();
-            }
+            if (!$this->isAuthenticated())
+              $this->errorResponse(401, "You must be logged in to edit this resource.");
 
-            // LOAD PAGE WITHOUT SAVE OPTION
-            $this->addMessage("warning", "Your progress may not be saved. To save your progress, please log in.");
+            // LOAD REGULAR PAGE
             require "/opt/src/templates/monster-editor/monster-editor.php";
-
-            // MARK: TODO
-            // Handle this better so it meets validation guidelines
-            echo "
-            <script>
-              document.getElementById(\"saveButton\").remove();
-            </script>
-            ";
             $this->resetMessages();
             exit();
         }
@@ -86,16 +60,16 @@ class MonsterEditorController extends BaseController
 
         switch (empty($_GET["monster_id"])) {
           case false:
-            if (!$this->apiController->checkPermissions($_GET["monster_id"], $_SESSION["user_id"]))
+            if (!$APIController->checkPermissions($_GET["monster_id"], $_SESSION["user_id"]))
               $this->errorResponse(403, "You do not have permission to edit this resource");
 
-            $this->apiController->updateMonster($_GET["monster_id"], $_POST);
-            // header("Location: monster-editor.php?monster_id={$_GET["monster_id"]}");
+            $APIController->updateMonster($_GET["monster_id"], $_POST);
+            header("Location: monster-editor.php?monster_id={$_GET["monster_id"]}");
             exit();
 
           case true:
-            $monsterID = $this->apiController->createMonster($_POST);
-            // header("Location: monster-editor.php?monster_id=$monsterID");
+            $monsterID = $APIController->createMonster($_POST);
+            header("Location: monster-editor.php?monster_id=$monsterID");
             exit();
         }
 
