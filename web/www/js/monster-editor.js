@@ -94,18 +94,9 @@ function updateArmorClass() {
      * The automatic update is not performed when the user has selected manual entry.
      */
     if (armor.value === "Natural Armor" || armor.value === "Other") {
-        console.log(armor.value);
-
-        armorClass.setAttribute("aria-required", "true");
-        armorClass.setAttribute("aria-readonly", "false");
-        armorClass.required = true;
         armorClass.removeAttribute("readonly");
         return;
     }
-
-    armorClass.setAttribute("aria-required", "false");
-    armorClass.setAttribute("aria-readonly", "true");
-    armorClass.required = false;
     armorClass.setAttribute("readonly", true);
 
     /**
@@ -140,25 +131,11 @@ dexterity.addEventListener("input", updateArmorClass);
 
 function updateHealthPoints() {
     if (customHP.checked) {
-        health.setAttribute("aria-required", "true");
-        health.setAttribute("aria-readonly", "false");
-        health.required = true;
         health.removeAttribute("readonly");
-
-        hitDice.setAttribute("aria-required", "false");
-        hitDice.setAttribute("aria-readonly", "true");
-        hitDice.required = false;
         hitDice.setAttribute("readonly", true);
         return;
     }
-    health.setAttribute("aria-required", "false");
-    health.setAttribute("aria-readonly", "true");
-    health.required = false;
     health.setAttribute("readonly", true);
-
-    hitDice.setAttribute("aria-required", "true");
-    hitDice.setAttribute("aria-readonly", "false");
-    hitDice.required = true;
     hitDice.removeAttribute("readonly", true);
 
     var HP = Number(modifier(constitution.value));
@@ -271,7 +248,7 @@ function updateAttributeChoices(self) {
 
     // Disable the options that are already in the form
     for (var selectedAttribute of document.getElementById(category + "Container").children) {
-        var attributeChoice = document.getElementById(category + "Add" + selectedAttribute.querySelector('input').value);
+        var attributeChoice = document.getElementById(category + "Add" + selectedAttribute.querySelector('input').value.replace(" ", ""));
         hideChoice(attributeChoice);
     }
 }
@@ -316,14 +293,16 @@ function addSelectedAttribute(self) {
                 </div>"
             );
 
-            hideChoice(document.getElementById(category + "Add" + attributeName));
+            hideChoice(document.getElementById(category + "Add" + attributeName.replace(" ", "")));
             break;
 
         case "sense":
             // sense.php
             selectedAttribute = createElement(
                 "<div class=\"row mb-1\" onclick=\"deleteSelf(event, this)\">\
-                    <div class= \"col-6 d-flex align-items-center text-wrap text-break\" >" + attributeName + "</div >\
+                    <div class= \"col-6 d-flex align-items-center text-wrap text-break\">\
+                        <label class=\"form-label\" for=\"senseName" + category + "Name" + ID + "\" style=\"margin-bottom: 0;\">" + attributeName + "</label>\
+                    </div>\
                     <div class=\"col-5 text-wrap text-break\">\
                         <input id=\"" + category + "Name" + ID + "\" name=\"" + category + "[name][]\" type=\"hidden\" value=\"" + attributeName + "\">\
                         <input id=\""  + category + "Range" + ID + "\" name=\"" + category + "[range][]\" class=\"form-control\" type=\"number\" min=\"0\" max=\"1000\" step=\"5\" placeholder=\"0 ft\" aria-required=\"true\" required>\
@@ -334,14 +313,14 @@ function addSelectedAttribute(self) {
                 </div>"
             );
 
-            hideChoice(document.getElementById(category + "Add" + attributeName));
+            hideChoice(document.getElementById(category + "Add" + attributeName.replace(" ", "")));
             break;
 
         case "ability":
         case "action":
         case "bonusAction":
         case "reaction":
-        case "legendaryAbility":
+        case "legendaryFeature":
             // ability.php
             selectedAttribute = createElement(
                 "<div class=\"col-sm-6 col-lg-4\" onclick=\"deleteSelf(event, this)\">\
@@ -355,7 +334,7 @@ function addSelectedAttribute(self) {
                         </div>\
                     </div>\
                     <label class=\"form-label\" for=\"" + category + "Description" + ID + "\">Description</label>\
-                    <textarea id=\"" + category + "Description" + ID + "\" name=\"" + category + "[description][]\" class=\"form-control\" rows=\"4\" aria-required=\"true\" required></textarea>\
+                    <textarea id=\"" + category + "Description" + ID + "\" name=\"" + category + "[description][]\" class=\"form-control\" rows=\"5\" aria-required=\"true\" required></textarea>\
                     <label class=\"form-label\" for=\"" + category + "Benefit" + ID + "\">Power Level:</label><strong id=\"" + category + "BenefitLabel" + ID + "\" class=\"ms-1\">Neutral</strong>\
                     <input id=\"" + category + "Benefit" + ID + "\" name=\"" + category + "[benefit][]\" class=\"form-range\" type=\"range\" min=\"-1\" max=\"2\" value=\"0\" oninput=\"updateSliderLabel(event)\">\
                 </div>"
@@ -367,14 +346,16 @@ function addSelectedAttribute(self) {
             selectedAttribute = createElement(
                 "<div class=\"row mb-1\" onclick=\"deleteSelf(event, this)\">\
                     <input id=\"" + category + "Name" + ID + "\" name=\"" + category + "[name][]\" type=\"hidden\" value=\"" + attributeName + "\">\
-                    <div class=\"col-11 d-flex align-items-center text-wrap text-break\">" + attributeName + "</div>\
+                    <div class= \"col-11 d-flex align-items-center text-wrap text-break\">\
+                        <label class=\"form-label\" for=\"senseName" + category + "Name" + ID + "\" style=\"margin-bottom: 0;\">" + attributeName + "</label>\
+                    </div>\
                     <div class=\"col-1 gx-0 d-flex align-items-center\">\
                         <button type=\"button\" class=\"btn-close\" aria-label=\"Delete\" data-action=\"delete\"></button>\
                     </div>\
                 </div>"
             );
 
-            hideChoice(document.getElementById(category + "Add" + attributeName));
+            hideChoice(document.getElementById(category + "Add" + attributeName.replace(" ", "")));
             break;
     }
 

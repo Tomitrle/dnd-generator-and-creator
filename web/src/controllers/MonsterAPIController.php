@@ -3,6 +3,7 @@
 /**
  * Sources:
  * https://stackoverflow.com/questions/4064444/returning-json-from-a-php-script
+ * https://www.php.net/manual/en/function.uasort.php
  */
 
 class MonsterAPIController extends BaseController
@@ -38,7 +39,7 @@ class MonsterAPIController extends BaseController
                 $this->deleteMonster($_GET["monster_id"]);
                 return;
 
-              // VIEW THE REQUESTED MONSTER
+                // VIEW THE REQUESTED MONSTER
               case "view":
               default:
                 if (!isset($_GET["format"]))
@@ -78,7 +79,6 @@ class MonsterAPIController extends BaseController
   // MARK: CREATE
   public function createMonster(array $VARIABLES): int
   {
-    print_r($VARIABLES);
     $monsterID = $this->database->query(
       "INSERT INTO dnd_monsters (
         user_id,
@@ -230,7 +230,7 @@ class MonsterAPIController extends BaseController
       ) = (
         $1, $2, $3, $4, $5, $6, $7, $8, $9, $10,
         $11, $12, $13, $14, $15, $16, $17, $18, $19, $20,
-        $21, $22, $23, $24, $25, $26, $27, $28, $29, $30,
+        $21, $22, $23, $24, $25, $26, $27, $28, $29, $30
       ) WHERE id = $31;",
       $VARIABLES["name"],
       $VARIABLES["size"],
@@ -306,7 +306,8 @@ class MonsterAPIController extends BaseController
   public function deleteMonster(int $monsterID): void
   {
     $this->database->query(
-      "DELETE FROM dnd_monsters WHERE id = $1;", $monsterID
+      "DELETE FROM dnd_monsters WHERE id = $1;",
+      $monsterID
     );
   }
 
@@ -319,7 +320,7 @@ class MonsterAPIController extends BaseController
     )[0];
 
     foreach ($monster as $key => $value) {
-      if ($key === "id" || $key === "userid") unset($monster[$key]);
+      if ($key === "id" || $key === "user_id") unset($monster[$key]);
     }
 
     $attributes = $this->database->query(
@@ -329,7 +330,7 @@ class MonsterAPIController extends BaseController
 
     foreach ($attributes as $attributeKey => $attribute) {
       foreach ($attribute as $valueKey => $value) {
-        if ($value === null || $valueKey === "id" || $valueKey === "monsterid") unset($attributes[$attributeKey][$valueKey]);
+        if ($value === null || $valueKey === "id" || $valueKey === "monster_id") unset($attributes[$attributeKey][$valueKey]);
       }
     }
 
@@ -346,16 +347,25 @@ class MonsterAPIController extends BaseController
     return $monster;
   }
 
-  public function getMonsterIDs(int $userID): array
+  public function getMonsters(int $userID): array
   {
-    $ids = $this->database->query(
-      "SELECT id FROM dnd_monsters WHERE user_id = $1;",
-      $userID
+    $monsters = array_column(
+      $this->database->query(
+        "SELECT (id, name) FROM dnd_monsters WHERE user_id = $1;",
+        $userID
+      ),
+      "row"
     );
-    foreach ($ids as $index => $array) {
-      $ids[$index] = $array["id"];
+
+    foreach (array_keys($monsters) as $i) {
+      $monsters[$i] = explode(",", trim($monsters[$i], "()"));
+      foreach (array_keys($monsters[$i]) as $j) {
+        $monsters[$i][$j] = trim($monsters[$i][$j], "\"");
+      }
     }
 
-  return $ids;
+    uasort($monsters, function($a, $b) {if ($a[0] == $b[0]) return 0; return $a[0] < $b[0] ? -1 : 1;});
+
+    return $monsters;
   }
 }
