@@ -1,4 +1,4 @@
-<!-- Source: https://getbootstrap.com/docs/5.3/components/navbar/-->
+<?php // Source: https://getbootstrap.com/docs/5.3/components/navbar/ ?>
 <nav class="navbar navbar-expand-sm">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">Home</a>

@@ -5,13 +5,13 @@
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 id="<?php echo $CATEGORY; ?>ModalLabel" class="modal-title fs-5">Add <?php echo ucfirst(preg_replace("/(?<![A-Z])[A-Z]/", ' $0', $CATEGORY)); ?></h1>
+        <h4 id="<?php echo $CATEGORY; ?>ModalLabel" class="modal-title fs-5">Add <?php echo ucfirst(preg_replace("/(?<![A-Z])[A-Z]/", ' $0', $CATEGORY)); ?></h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div id=<?php echo $CATEGORY . "AddContainer"; ?>>
+        <div id="<?php echo $CATEGORY; ?>AddContainer">
           <?php
-          foreach ($OPTIONS as $OPTION) {
+          foreach ($OPTIONS[$TYPE] as $OPTION) {
             include '/opt/src/templates/monster-editor/attribute-modal-choice.php';
           }
           ?>

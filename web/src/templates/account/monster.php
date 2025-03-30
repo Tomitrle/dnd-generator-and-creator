@@ -1,11 +1,11 @@
 <div class="row my-2">
   <div class="col-sm-6 text-sm-end" style="font-size:x-large;">
-    Custom Monster
+    <?php echo $MONSTER[1]; ?>
   </div>
 
   <div class="col-sm-6 text-sm-start">
-    <button type="button" class="btn btn-secondary">View</button>
-    <a role="button" class="btn btn-warning" href="/monster-editor.php?databaseID=<?php echo $ID; ?>">Edit</a>
-    <button type="button" class="btn btn-danger">Delete</button>
+    <a class="btn btn-secondary" href="monster-api.php?command=view&monster_id=<?php echo $MONSTER[0]; ?>" target="_blank" aria-label="View <?php echo $MONSTER[1]; ?>">View</a>
+    <a class="btn btn-warning" href="monster-editor.php?monster_id=<?php echo $MONSTER[0]; ?>" aria-label="Edit <?php echo $MONSTER[1]; ?>">Edit</a>
+    <a class="btn btn-danger" href="monster-api.php?command=delete&monster_id=<?php echo $MONSTER[0]; ?>" aria-label="Delete <?php echo $MONSTER[1]; ?>">Delete</a>
   </div>
 </div>

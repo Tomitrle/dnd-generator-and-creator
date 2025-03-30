@@ -8,6 +8,5 @@ spl_autoload_register(function ($classname) {
   require "/opt/src/controllers/$classname.php";
 });
 
-$controller = new MonsterEditorController();
+$controller = new MonsterAPIController();
 $controller->run();
-?>

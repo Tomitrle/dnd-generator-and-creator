@@ -27,13 +27,13 @@ $SCRIPTS = [];
 
     <div class="d-flex flex-column mx-auto">
       <?php
-      foreach($MONSTER_IDS as $ID) {
+      foreach($MONSTERS as $MONSTER) {
         require '/opt/src/templates/account/monster.php';
       }
       ?>
     </div>
 
-    <a role="button" class="btn btn-success mt-1" href="/monster-editor.php">New</a>
+    <a class="btn btn-success mt-1" href="monster-editor.php">New</a>
   </section>
 
   <?php require '/opt/src/templates/footer.php'; ?>
