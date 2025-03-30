@@ -1,13 +1,11 @@
 <?php
-class EncounterGeneratorController
+class EncounterGeneratorController extends BaseController
 {
-    private $db;
     private $difficulty_xp;
     private $monster_multiplier;
 
     public function __construct($input) {
-        session_start();
-        $this->db = new Database();
+        parent::__construct();
         $this->input = $input;
         $this->loadDifficultyXP();
         $this->loadMonsterMultiplier();
@@ -28,11 +26,13 @@ class EncounterGeneratorController
         }
     }
 
-    public function loadDifficultyXP() {
+    public function loadDifficultyXP(): void
+    {
         $this->difficulty_xp = json_decode(file_get_contents("/opt/src/encounter-generator/difficulty_xp.JSON"), true);
     }
 
-    public function loadMonsterMultiplier() {
+    public function loadMonsterMultiplier(): void
+    {
         $this->monster_multiplier = json_decode(file_get_contents("/opt/src/encounter-generator/monster_multiplier.JSON"), true);
     }
 
@@ -68,17 +68,58 @@ class EncounterGeneratorController
             }
             $_SESSION["difficulty"] = $difficulty;
         }
-        if (isset($_POST["types"]) && !empty($_POST["types"])) {
+        // types can be empty
+        if (isset($_POST["types"])) {
             $types = $_POST["types"];
             $_SESSION["types"] = $types;
         }
         if (isset($_POST["min_cr"]) && !empty($_POST["min_cr"])) {
-            $min_cr = $_POST["min_cr"];
+            $min_cr = (int)$_POST["min_cr"];
             $_SESSION["min_cr"] = $min_cr;
         }
         if (isset($_POST["max_cr"]) && !empty($_POST["max_cr"])) {
-            $max_cr = $_POST["max_cr"];
+            $max_cr = (int)$_POST["max_cr"];
             $_SESSION["max_cr"] = $max_cr;
+        }
+        if ($min_cr > $max_cr) {
+            $message = "Error: the minimum CR cannot be greater than the maximum CR.";
+        } else {
+            $valid_monsters = [];
+            // if types is empty, the monsters are only restricted by CR
+            if (empty($types)) {
+                // appending here instead of setting because valid_monsters uses appending if types isn't empty,
+                // so the code that adds random monsters assumes that it is a 2d array
+                $valid_monsters[] = $this->database->query("select * from dnd_monsters where cr >= $1 and cr <= $2;", $min_cr, $max_cr);
+            } else {
+                foreach ($types as $type) {
+                    $result = $this->database->query("select * from dnd_monsters where cr >= $1 and cr <= $2 and type = $3;", $min_cr, $max_cr, $type);
+                    $valid_monsters[] = $result;
+                }
+            }
+            $encounter = [];
+            $encounter_xp = 0;
+            $xp_modifier = 1;
+            while ($xp_modifier * $encounter_xp < $difficulty) {
+                // add a random monster to the encounter
+                $rand_type = array_rand($valid_monsters);
+                $rand_monster = array_rand($valid_monsters[$rand_type]);
+                $monster = $valid_monsters[$rand_type][$rand_monster];
+                $encounter[] = $monster;
+                $encounter_xp += $monster["xp"];
+                // get xp_modifier based on the number of monsters in the encounter
+                if (count($encounter) > 15) {
+                    $xp_modifier = $this->monster_multiplier["15"];
+                } else {
+                    $xp_modifier = $this->monster_multiplier[(string)count($encounter)];
+                }
+                // if adding the current monster make it so the encounter goes over the selected difficulty, such as from easy to medium, do not add that monster
+                // TODO: check to see if it is impossible to add any monster without going up over difficulty
+                if ($_POST["difficulty"] != "3" && $_POST["difficulty"] != "4") {
+                    if ($xp_modifier * $encounter_xp > (int)$party_size * $this->difficulty_xp[$party_level][(int)$_POST["difficulty"] + 1]) {
+                        array_pop($encounter);
+                    }
+                }
+            }
         }
     }
 }

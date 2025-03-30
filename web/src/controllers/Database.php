@@ -41,6 +41,8 @@ class Database
             armor_class      INT,
             hit_dice         INT,
             health          INT,
+            cr              INT,
+            xp              INT,
 
             strength_score        INT,
             dexterity_score       INT,
