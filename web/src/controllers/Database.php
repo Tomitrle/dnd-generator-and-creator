@@ -41,8 +41,6 @@ class Database
             armor_class      INT,
             hit_dice         INT,
             health          INT,
-            cr              INT,
-            xp              INT,
 
             strength_score        INT,
             dexterity_score       INT,
@@ -78,6 +76,47 @@ class Database
             range           INT,
             description     TEXT,
             benefit         INT
+            );");
+
+        pg_query($this->connection, "CREATE TABLE IF NOT EXISTS dnd_existing_monsters (
+            id              SERIAL PRIMARY KEY,
+            user_id          INT REFERENCES dnd_users(id) ON DELETE CASCADE,
+            name            TEXT,
+            size            TEXT,
+            type            TEXT,
+            alignment       TEXT,
+            armor           TEXT,
+            shield          BOOLEAN,
+            armor_class      INT,
+            hit_dice         INT,
+            health          INT,
+            cr              INT,
+            xp              INT,
+
+            strength_score        INT,
+            dexterity_score       INT,
+            constitution_score    INT,
+            intelligence_score    INT,
+            wisdom_score          INT,
+            charmisma_score       INT,
+
+            strength_modifier        INT,
+            dexterity_modifier       INT,
+            constitution_modifier    INT,
+            intelligence_modifier    INT,
+            wisdom_modifier          INT,
+            charmisma_modifier       INT,
+
+            strength_saving_throw        BOOLEAN,
+            dexterity_saving_throw       BOOLEAN,
+            constitution_saving_throw    BOOLEAN,
+            intelligence_saving_throw    BOOLEAN,
+            wisdom_saving_throw          BOOLEAN,
+            charmisma_saving_throw       BOOLEAN,
+
+            blind           BOOLEAN,
+            telepathy       INT,
+            challenge       TEXT
             );");
     }
 
