@@ -17,11 +17,14 @@ class LoginController extends BaseController
             case "login":
                 $this->login();
                 break;
+            case "show_create_account":
+                $this->show_create_account();
+                break;
             case "create_account":
                 $this->create_account();
                 break;
             default:
-                require "/opt/src/templates/login.php";
+                require "/opt/src/templates/login/login.php";
                 $this->resetMessages();
                 break;
         }
@@ -36,18 +39,24 @@ class LoginController extends BaseController
             $results = $this->database->query("select * from dnd_users where username = $1;", $username);
             if (empty($results)) {
                 $this->addMessage("warning", "There is no user with that username.");
-                require "/opt/src/templates/login.php";
+                require "/opt/src/templates/login/login.php";
                 $this->resetMessages();
             } else if (!password_verify($_POST["password"], $results[0]["password"])) {
                 $this->addMessage("warning", "Incorrect username or password.");
-                require "/opt/src/templates/login.php";
+                require "/opt/src/templates/login/login.php";
                 $this->resetMessages();
             } else {
-                $_SESSION["user_id"] = $results[0]['user_id'];
-                require "/opt/src/templates/account.php";
+                $_SESSION["user_id"] = $results[0]["id"];
+                require "/opt/src/templates/account/account.php";
                 $this->resetMessages();
             }
         }
+    }
+
+    private function show_create_account(): void
+    {
+        require "/opt/src/templates/login/create-account.php";
+        $this->resetMessages();
     }
 
     private function create_account(): void
@@ -59,12 +68,12 @@ class LoginController extends BaseController
             $results = $this->database->query("select * from dnd_users where username = $1;", $username);
             if (!empty($results)) {
                 $this->addMessage("warning", "There is already a user with that username.");
-                require "/opt/src/templates/login.php";
+                require "/opt/src/templates/login/login.php";
                 $this->resetMessages();
             } else {
                 $result = $this->database->query("insert into dnd_users (username, password) values ($1, $2);", $username, password_hash($_POST["password"], PASSWORD_DEFAULT));
                 $this->addMessage("success", "Account successfully created.");
-                require "/opt/src/templates/login.php";
+                require "/opt/src/templates/login/login.php";
                 $this->resetMessages();
             }
         }
