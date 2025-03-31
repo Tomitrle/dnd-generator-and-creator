@@ -142,7 +142,7 @@ class EncounterGeneratorController extends BaseController
                     // n/a if difficulty is already deadly or custom
                     // TODO: check to see if it is impossible to add any monster without going up over difficulty
                     if ($_POST["difficulty"] != "4" && $_POST["difficulty"] != "5") {
-                        if ($xp_modifier * $encounter_xp > (int)$party_size * $this->difficulty_xp[$party_level][(int)$_POST["difficulty"] + 1]) {
+                        if ($xp_modifier * $encounter_xp > (int)$party_size * $this->difficulty_xp[$party_level][(int)$_POST["difficulty"]]) {
                             array_pop($encounter);
                         }
                     }
