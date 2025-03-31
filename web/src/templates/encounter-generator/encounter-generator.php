@@ -80,7 +80,7 @@ $SCRIPTS = ["js/encounter-generator.js"];
 
     <!-- Source: https://getbootstrap.com/docs/5.3/forms/overview/ -->
     <!-- Source: https://getbootstrap.com/docs/5.0/forms/validation/ -->
-    <form action="?command=generate" method="post" novalidate class="container needs-validation">
+    <form action="?command=generate" method="post" class="container">
         <section class="row">
             <h2>Party Information</h2>
             <p>Please select the number of player characters and the level of the player characters below. These values will be used when calculating the relative difficulty of the generated encounter, which is selected in the next section.</p>
@@ -105,7 +105,7 @@ $SCRIPTS = ["js/encounter-generator.js"];
             </div>
             <div id="customSizeDiv" class="col-sm-12 mb-2" style="display: none;">
                 <label for="customPartySize" class="form-label">Custom Size</label>
-                <input type="text" name="custom_party_size" pattern="^[1-9][0-9]*" class="form-control" id="customPartySize" aria-required="true" required>
+                <input type="text" name="custom_party_size" pattern="^[1-9][0-9]*" class="form-control" id="customPartySize" aria-required="true">
             </div>
             <div class="col-sm-12 mb-2">
                 <label for="partyLevel" class="form-label">Party Level</label>
@@ -155,16 +155,16 @@ $SCRIPTS = ["js/encounter-generator.js"];
                 <label for="difficulty" class="form-label">Relative Difficulty</label>
                 <select id="difficulty" name="difficulty" class="form-select" aria-required="true" onchange="customDiffCheck(this);" required>
                     <option selected disabled hidden value="">Select an option...</option>
-                    <option value="0">Easy</option>
-                    <option value="1">Medium</option>
-                    <option value="2">Hard</option>
-                    <option value="3">Deadly</option>
-                    <option value="4" id="customDiff">Custom</option>
+                    <option value="1">Easy</option>
+                    <option value="2">Medium</option>
+                    <option value="3">Hard</option>
+                    <option value="4">Deadly</option>
+                    <option value="5" id="customDiff">Custom</option>
                 </select>
             </div>
             <div id="customDiffDiv" class="col-sm-12 mb-2" style="display: none;">
                 <label for="customXP" class="form-label">Custom XP Amount</label>
-                <input type="text" name="custom_xp" pattern="^[1-9][0-9]*" class="form-control" id="customXP" aria-required="true" required>
+                <input type="text" name="custom_xp" pattern="^[1-9][0-9]*" class="form-control" id="customXP" aria-required="true">
             </div>
         </section>
         <hr>
@@ -275,11 +275,11 @@ $SCRIPTS = ["js/encounter-generator.js"];
         <hr>
         <div class="d-flex justify-content-center mt-4">
             <button type="button" class="btn btn-secondary me-2" style="min-width:100px; font-size:x-large;">Add Monster</button>
-            <button type="submit" class="btn btn-success ms-2" style="min-width:100px; font-size:x-large;">Generate</button>
+            <input type="submit" class="btn btn-success ms-2" style="min-width:100px; font-size:x-large;" value="Generate">
         </div>
     </form>
-
-    <?php require '/opt/src/templates/encounter-generator/encounter.php'; ?>
+    <hr>
+    <?php require "/opt/src/templates/encounter-generator/encounter.php"; ?>
 
     <?php require '/opt/src/templates/footer.php'; ?>
     <?php require '/opt/src/templates/javascript.php'; ?>

@@ -19,6 +19,7 @@ class Database
         pg_query($this->connection, "DROP TABLE IF EXISTS dnd_users CASCADE;");
         pg_query($this->connection, "DROP TABLE IF EXISTS dnd_monsters CASCADE;");
         pg_query($this->connection, "DROP TABLE IF EXISTS dnd_attributes CASCADE;");
+        pg_query($this->connection, "DROP TABLE IF EXISTS dnd_base_monsters CASCADE;");
     }
 
     public function createTables() : void

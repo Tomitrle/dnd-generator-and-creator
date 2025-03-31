@@ -1,14 +1,10 @@
-<?php
-if (!empty($encounter)) {
-    echo '<div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Generated Encounter</h5>
-            </div>
-            <ul class="list-group list-group-flush">';
-    foreach ($encounter as $encounter_monster) {
-        echo '<li class="list-group-item">' . $encounter_monster["name"] . '</li>';
+<div class="container">
+    <?php
+    if (!empty($encounter)) {
+        echo '<h1>Your Encounter</h1>';
     }
-    echo '</ul>
-    </div>';
-}
-?>
+    foreach ($encounter as $encounter_monster) {
+        echo '<h2>' . $encounter_monster["name"] . ', CR ' . $encounter_monster["cr"] . ' ' . $encounter_monster["type"] . ', ' . $encounter_monster["xp"] . ' XP' . '</h2><br>';
+    }
+    ?>
+</div>
