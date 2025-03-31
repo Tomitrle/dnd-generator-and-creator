@@ -78,9 +78,8 @@ class Database
             benefit         INT
             );");
 
-        pg_query($this->connection, "CREATE TABLE IF NOT EXISTS dnd_existing_monsters (
+        pg_query($this->connection, "CREATE TABLE IF NOT EXISTS dnd_base_monsters (
             id              SERIAL PRIMARY KEY,
-            user_id          INT REFERENCES dnd_users(id) ON DELETE CASCADE,
             name            TEXT,
             size            TEXT,
             type            TEXT,
@@ -90,7 +89,7 @@ class Database
             armor_class      INT,
             hit_dice         INT,
             health          INT,
-            cr              INT,
+            cr              FLOAT,
             xp              INT,
 
             strength_score        INT,

@@ -9,12 +9,12 @@ class LoginController extends BaseController
 
     public function run(): void
     {
-        $command = "welcome";
+        $command = "initial";
         if (isset($this->input["command"]))
             $command = $this->input["command"];
 
         switch($command) {
-            case "welcome":
+            case "initial":
                 require "/opt/src/templates/login/login.php";
                 $this->resetMessages();
                 break;

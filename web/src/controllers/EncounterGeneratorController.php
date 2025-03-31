@@ -13,12 +13,12 @@ class EncounterGeneratorController extends BaseController
 
     public function run(): void
     {
-        $command = "welcome";
+        $command = "initial";
         if (isset($this->input["command"]))
             $command = $this->input["command"];
 
         switch($command) {
-            case "welcome":
+            case "initial":
                 $encounter = [];
                 require "/opt/src/templates/encounter-generator/encounter-generator.php";
                 $this->resetMessages();
@@ -88,10 +88,10 @@ class EncounterGeneratorController extends BaseController
             if (empty($types)) {
                 // appending here instead of setting because valid_monsters uses appending if types isn't empty,
                 // so the code that adds random monsters assumes that it is a 2d array
-                $valid_monsters[] = $this->database->query("select * from dnd_existing_monsters where cr >= $1 and cr <= $2;", $min_cr, $max_cr);
+                $valid_monsters[] = $this->database->query("select * from dnd_base_monsters where cr >= $1 and cr <= $2;", $min_cr, $max_cr);
             } else {
                 foreach ($types as $type) {
-                    $result = $this->database->query("select * from dnd_existing_monsters where cr >= $1 and cr <= $2 and type = $3;", $min_cr, $max_cr, $type);
+                    $result = $this->database->query("select * from dnd_base_monsters where cr >= $1 and cr <= $2 and type = $3;", $min_cr, $max_cr, $type);
                     $valid_monsters[] = $result;
                 }
             }
