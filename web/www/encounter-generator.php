@@ -6,6 +6,6 @@ spl_autoload_register(function ($classname) {
     include "/opt/src/controllers/$classname.php";
 });
 
-$controller = new EncounterGeneratorController();
+$controller = new EncounterGeneratorController($_GET);
 $controller->run();
 ?>

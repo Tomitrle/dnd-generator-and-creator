@@ -2,6 +2,11 @@
 
 class LoginController extends BaseController
 {
+    public function __construct($input) {
+        parent::__construct();
+        $this->input = $input;
+    }
+
     public function run(): void
     {
         $command = "";
