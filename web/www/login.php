@@ -34,68 +34,30 @@ $SCRIPTS = [];
     <script src="https://cdn.jsdelivr.net/npm/less"></script>
 </head>
 <body>
-    <!-- TODO: Update link hrefs -->
-    <!-- https://getbootstrap.com/docs/5.3/components/navbar/-->
-    <nav class="navbar navbar-expand-sm">
-        <div class="container-fluid">
-
-            <a class="navbar-brand" href=".">Home</a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav container-fluid">
-                    <a class="nav-link" href="encounter-generator.php">+ Encounter</a>
-                    <a class="nav-link" href="monster-editor.php">+ Monster</a>
-
-                    <a class="nav-link ms-auto" href="#">About</a>
-                    <a class="nav-link" href="account.php">Account</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
+    <?php require '/opt/src/templates/navbar.php'; ?>
+    <?php require '/opt/src/templates/alerts.php'; ?>
 
     <h1>D&D Encounter Generator and Monster Creator</h1>
     <h3>Login to create and save custom monsters!</h3>
     <div class="row my-3">
         <p class="px-5">Welcome to the D&D Encounter Generator and Monster Creator!<br> This is the login page, however, you do NOT have to login to use the encounter generator unless you want an encounter with a custom monster. The accounts for this website enable users to create and edit custom monsters that will be saved to their account and can then be exported and/or used in the encounters. We hope you enjoy!</p>
     </div>
-    <form class="container">
+    <form action="?command=login" method="post">
         <div class="row mb-3">
             <label for="inputUsername" class="form-label">Username</label>
-            <input type="text" class="form-control" id="inputUsername">
+            <input type="text" name="username" class="form-control" id="inputUsername">
         </div>
         <div class="row mb-3">
             <label for="inputPassword" class="form-label">Password</label>
-            <input type="password" class="form-control" id="inputPassword">
+            <input type="password" name="password" class="form-control" id="inputPassword">
         </div>
         <div class="d-flex justify-content-center mt-4">
-            <button type="button" class="btn btn-secondary me-2" style="min-width:100px; font-size:x-large;">Create Account</button>
+            <a href="?command=create_account" class="btn btn-secondary me-2" style="min-width:100px; font-size:x-large;">Create Account</a>
             <button type="submit" class="btn btn-success ms-2" style="min-width:100px; font-size:x-large;">Login</button>
         </div>
     </form>
 
-<div class="container">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <p class="col-md-4 mb-0 text-body-secondary">&copy; 2025 Brennen Muller & Tommy Le</p>
-
-        <ul class="nav col-md-4 justify-content-end">
-            <li class="nav-item"><a href="." class="nav-link px-2 text-body-secondary">Home</a></li>
-
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Account</a></li>
-        </ul>
-    </footer>
-</div>
-
-<!-- BOOTSTRAP JAVASCRIPT -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-
+    <?php require '/opt/src/templates/footer.php'; ?>
+    <?php require '/opt/src/templates/javascript.php'; ?>
 </body>
 </html>

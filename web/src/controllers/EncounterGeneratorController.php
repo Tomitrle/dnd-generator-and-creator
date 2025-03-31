@@ -82,7 +82,9 @@ class EncounterGeneratorController extends BaseController
             $_SESSION["max_cr"] = $max_cr;
         }
         if ($min_cr > $max_cr) {
-            $message = "Error: the minimum CR cannot be greater than the maximum CR.";
+            // not entirely sure if this is how the alerts are meant to work
+            $this->addMessage("danger","Error: the minimum CR cannot be greater than the maximum CR.");
+            include "/opt/src/templates/alerts.php";
         } else {
             $valid_monsters = [];
             // if types is empty, the monsters are only restricted by CR
