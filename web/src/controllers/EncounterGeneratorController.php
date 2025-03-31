@@ -22,7 +22,8 @@ class EncounterGeneratorController extends BaseController
                 $this->generate();
                 break;
             default:
-                require "opt/src/templates/encounter_generator.php";
+                $encounter = [];
+                require "/opt/src/templates/encounter-generator/encounter-generator.php";
                 $this->resetMessages();
                 break;
         }
@@ -30,12 +31,12 @@ class EncounterGeneratorController extends BaseController
 
     public function loadDifficultyXP(): void
     {
-        $this->difficulty_xp = json_decode(file_get_contents("/opt/src/encounter-generator/difficulty_xp.JSON"), true);
+        $this->difficulty_xp = json_decode(file_get_contents("/opt/src/templates/encounter-generator/difficulty-xp.JSON"), true);
     }
 
     public function loadMonsterMultiplier(): void
     {
-        $this->monster_multiplier = json_decode(file_get_contents("/opt/src/encounter-generator/monster_multiplier.JSON"), true);
+        $this->monster_multiplier = json_decode(file_get_contents("/opt/src/templates/encounter-generator/monster-multiplier.JSON"), true);
     }
 
     private function generate(): void
@@ -122,7 +123,7 @@ class EncounterGeneratorController extends BaseController
                     }
                 }
             }
-            require "opt/src/templates/encounter_generator.php";
+            require "/opt/src/templates/encounter-generator/encounter-generator.php";
             $this->resetMessages();
         }
     }

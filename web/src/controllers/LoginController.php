@@ -21,7 +21,7 @@ class LoginController extends BaseController
                 $this->create_account();
                 break;
             default:
-                require "/opt/src/templates/account.php";
+                require "/opt/src/templates/login.php";
                 $this->resetMessages();
                 break;
         }

@@ -9,7 +9,7 @@
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav container-fluid">
-        <a class="nav-link" href="#">+ Encounter</a>
+        <a class="nav-link" href="/encounter-generator.php">+ Encounter</a>
         <a class="nav-link" href="/monster-editor.php">+ Monster</a>
 
         <a class="nav-link ms-sm-auto" href="#">About</a>
