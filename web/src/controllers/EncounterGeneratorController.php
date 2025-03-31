@@ -22,6 +22,8 @@ class EncounterGeneratorController extends BaseController
                 $this->generate();
                 break;
             default:
+                require "opt/src/templates/encounter_generator.php";
+                $this->resetMessages();
                 break;
         }
     }
@@ -82,9 +84,7 @@ class EncounterGeneratorController extends BaseController
             $_SESSION["max_cr"] = $max_cr;
         }
         if ($min_cr > $max_cr) {
-            // not entirely sure if this is how the alerts are meant to work
             $this->addMessage("danger","Error: the minimum CR cannot be greater than the maximum CR.");
-            include "/opt/src/templates/alerts.php";
         } else {
             $valid_monsters = [];
             // if types is empty, the monsters are only restricted by CR
@@ -122,6 +122,8 @@ class EncounterGeneratorController extends BaseController
                     }
                 }
             }
+            require "opt/src/templates/encounter_generator.php";
+            $this->resetMessages();
         }
     }
 }

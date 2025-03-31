@@ -21,6 +21,8 @@ class LoginController extends BaseController
                 $this->create_account();
                 break;
             default:
+                require "/opt/src/templates/account.php";
+                $this->resetMessages();
                 break;
         }
     }
@@ -34,15 +36,15 @@ class LoginController extends BaseController
             $results = $this->database->query("select * from dnd_users where username = $1;", $username);
             if (empty($results)) {
                 $this->addMessage("warning", "There is no user with that username.");
-                include "/opt/src/templates/login.php";
+                require "/opt/src/templates/login.php";
                 $this->resetMessages();
             } else if (!password_verify($_POST["password"], $results[0]["password"])) {
                 $this->addMessage("warning", "Incorrect username or password.");
-                include "/opt/src/templates/login.php";
+                require "/opt/src/templates/login.php";
                 $this->resetMessages();
             } else {
                 $_SESSION["user_id"] = $results[0]['user_id'];
-                include "/opt/src/templates/account.php";
+                require "/opt/src/templates/account.php";
                 $this->resetMessages();
             }
         }
@@ -57,12 +59,12 @@ class LoginController extends BaseController
             $results = $this->database->query("select * from dnd_users where username = $1;", $username);
             if (!empty($results)) {
                 $this->addMessage("warning", "There is already a user with that username.");
-                include "/opt/src/templates/login.php";
+                require "/opt/src/templates/login.php";
                 $this->resetMessages();
             } else {
                 $result = $this->database->query("insert into dnd_users (username, password) values ($1, $2);", $username, password_hash($_POST["password"], PASSWORD_DEFAULT));
                 $this->addMessage("success", "Account successfully created.");
-                include "/opt/src/templates/login.php";
+                require "/opt/src/templates/login.php";
                 $this->resetMessages();
             }
         }

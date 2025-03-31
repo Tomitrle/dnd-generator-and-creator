@@ -290,6 +290,8 @@ $SCRIPTS = ["js/encounter-generator.js"];
         </div>
     </form>
 
+    <?php require '/opt/src/templates/encounter-generator/encounter.php'; ?>
+
     <?php require '/opt/src/templates/footer.php'; ?>
     <?php require '/opt/src/templates/javascript.php'; ?>
 </body>
