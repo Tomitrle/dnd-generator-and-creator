@@ -12,8 +12,8 @@ $database = new Database();
 $database->dropTables();
 $database->createTables();
 
-$database->query("INSERT INTO dnd_users (username, password) VALUES ('Brennen', 'admin');");
-$database->query("INSERT INTO dnd_base_monsters (name, type, cr, xp) VALUES ($1, $2, $3', $4);", "Tommy", "humanoid", 1/8, 25);
+$database->query("INSERT INTO dnd_users (username, password) VALUES ($1, $2);", "Brennen", password_hash("admin", PASSWORD_DEFAULT));
+$database->query("INSERT INTO dnd_base_monsters (name, type, cr, xp) VALUES ($1, $2, $3, $4);", "Tommy", "humanoid", 1/8, 25);
 
 session_start();
 session_destroy();
