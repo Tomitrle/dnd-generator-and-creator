@@ -13,18 +13,20 @@ class EncounterGeneratorController extends BaseController
 
     public function run(): void
     {
-        $command = "";
+        $command = "welcome";
         if (isset($this->input["command"]))
             $command = $this->input["command"];
 
         switch($command) {
+            case "welcome":
+                $encounter = [];
+                require "/opt/src/templates/encounter-generator/encounter-generator.php";
+                $this->resetMessages();
+                break;
             case "generate":
                 $this->generate();
                 break;
             default:
-                $encounter = [];
-                require "/opt/src/templates/encounter-generator/encounter-generator.php";
-                $this->resetMessages();
                 break;
         }
     }
@@ -55,11 +57,9 @@ class EncounterGeneratorController extends BaseController
             } else {
                 $party_size = $_POST["party_size"];
             }
-            $_SESSION["party_size"] = $party_size;
         }
         if (isset($_POST["party_level"]) && !empty($_POST["party_level"])) {
             $party_level = $_POST["party_level"];
-            $_SESSION["party_level"] = $party_level;
         }
         if (isset($_POST["difficulty"]) && !empty($_POST["difficulty"])) {
             if ($_POST["difficulty"] == "4") {
@@ -69,20 +69,16 @@ class EncounterGeneratorController extends BaseController
             } else {
                 $difficulty = (int)$party_size * $this->difficulty_xp[$party_level][(int)$_POST["difficulty"]];
             }
-            $_SESSION["difficulty"] = $difficulty;
         }
         // types can be empty
         if (isset($_POST["types"])) {
             $types = $_POST["types"];
-            $_SESSION["types"] = $types;
         }
         if (isset($_POST["min_cr"]) && !empty($_POST["min_cr"])) {
             $min_cr = (int)$_POST["min_cr"];
-            $_SESSION["min_cr"] = $min_cr;
         }
         if (isset($_POST["max_cr"]) && !empty($_POST["max_cr"])) {
             $max_cr = (int)$_POST["max_cr"];
-            $_SESSION["max_cr"] = $max_cr;
         }
         if ($min_cr > $max_cr) {
             $this->addMessage("danger","Error: the minimum CR cannot be greater than the maximum CR.");
@@ -99,27 +95,31 @@ class EncounterGeneratorController extends BaseController
                     $valid_monsters[] = $result;
                 }
             }
-            $encounter = [];
-            $encounter_xp = 0;
-            $xp_modifier = 1;
-            while ($xp_modifier * $encounter_xp < $difficulty) {
-                // add a random monster to the encounter
-                $rand_type = array_rand($valid_monsters);
-                $rand_monster = array_rand($valid_monsters[$rand_type]);
-                $monster = $valid_monsters[$rand_type][$rand_monster];
-                $encounter[] = $monster;
-                $encounter_xp += $monster["xp"];
-                // get xp_modifier based on the number of monsters in the encounter
-                if (count($encounter) > 15) {
-                    $xp_modifier = $this->monster_multiplier["15"];
-                } else {
-                    $xp_modifier = $this->monster_multiplier[(string)count($encounter)];
-                }
-                // if adding the current monster make it so the encounter goes over the selected difficulty, such as from easy to medium, do not add that monster
-                // TODO: check to see if it is impossible to add any monster without going up over difficulty
-                if ($_POST["difficulty"] != "3" && $_POST["difficulty"] != "4") {
-                    if ($xp_modifier * $encounter_xp > (int)$party_size * $this->difficulty_xp[$party_level][(int)$_POST["difficulty"] + 1]) {
-                        array_pop($encounter);
+            if (empty($valid_monsters)) {
+                $this->addMessage("Error: no monsters meet the required specifications. Please broaden your search.");
+            } else {
+                $encounter = [];
+                $encounter_xp = 0;
+                $xp_modifier = 1;
+                while ($xp_modifier * $encounter_xp < $difficulty) {
+                    // add a random monster to the encounter
+                    $rand_type = array_rand($valid_monsters);
+                    $rand_monster = array_rand($valid_monsters[$rand_type]);
+                    $monster = $valid_monsters[$rand_type][$rand_monster];
+                    $encounter[] = $monster;
+                    $encounter_xp += $monster["xp"];
+                    // get xp_modifier based on the number of monsters in the encounter
+                    if (count($encounter) > 15) {
+                        $xp_modifier = $this->monster_multiplier["15"];
+                    } else {
+                        $xp_modifier = $this->monster_multiplier[(string)count($encounter)];
+                    }
+                    // if adding the current monster make it so the encounter goes over the selected difficulty, such as from easy to medium, do not add that monster
+                    // TODO: check to see if it is impossible to add any monster without going up over difficulty
+                    if ($_POST["difficulty"] != "3" && $_POST["difficulty"] != "4") {
+                        if ($xp_modifier * $encounter_xp > (int)$party_size * $this->difficulty_xp[$party_level][(int)$_POST["difficulty"] + 1]) {
+                            array_pop($encounter);
+                        }
                     }
                 }
             }

@@ -9,11 +9,15 @@ class LoginController extends BaseController
 
     public function run(): void
     {
-        $command = "";
+        $command = "welcome";
         if (isset($this->input["command"]))
             $command = $this->input["command"];
 
         switch($command) {
+            case "welcome":
+                require "/opt/src/templates/login/login.php";
+                $this->resetMessages();
+                break;
             case "login":
                 $this->login();
                 break;
@@ -24,8 +28,6 @@ class LoginController extends BaseController
                 $this->create_account();
                 break;
             default:
-                require "/opt/src/templates/login/login.php";
-                $this->resetMessages();
                 break;
         }
     }
