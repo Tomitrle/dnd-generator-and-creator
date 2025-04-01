@@ -16,7 +16,6 @@
         <a class="nav-link" href="/account.php">Account</a>
           <?php
           if (isset($_SESSION["user_id"])) {
-              unset($_SESSION["user_id"]);
               echo '<a class="nav-link" href="/login.php">Logout</a>';
           }
           ?>

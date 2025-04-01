@@ -15,6 +15,9 @@ class LoginController extends BaseController
 
         switch($command) {
             case "initial":
+                if (isset($_SESSION["user_id"])) {
+                    unset($_SESSION["user_id"]);
+                }
                 require "/opt/src/templates/login/login.php";
                 $this->resetMessages();
                 break;
