@@ -26,6 +26,7 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
 <?php require '/opt/src/templates/head.php'; ?>
 
 <body>
+  <?php require '/opt/src/templates/javascript.php'; ?>
   <?php require '/opt/src/templates/navbar.php'; ?>
 
   <header class="container">
@@ -513,7 +514,8 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
     </section>
 
     <div class="d-flex justify-content-center mt-4">
-      <!-- <a class="btn btn-secondary me-2" type="button" href="monster-api.php?command=view&monster_id=<?php // echo (isset($_GET["monster_id"])) ? $_GET["monster_id"] : ""; ?>" target="_blank" style=" min-width:100px; font-size:x-large;">Export</a> -->
+      <!-- <a class="btn btn-secondary me-2" type="button" href="monster-api.php?command=view&monster_id=<?php // echo (isset($_GET["monster_id"])) ? $_GET["monster_id"] : "";
+                                                                                                          ?>" target="_blank" style=" min-width:100px; font-size:x-large;">Export</a> -->
       <button id="saveButton" class="btn btn-success ms-2" type="submit" style="min-width:100px; font-size:x-large;">Save</button>
     </div>
 
@@ -521,7 +523,6 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
   </form>
 
   <?php require '/opt/src/templates/footer.php'; ?>
-  <?php require '/opt/src/templates/javascript.php'; ?>
 </body>
 
 </html>

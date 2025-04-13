@@ -27,41 +27,37 @@ $SCRIPTS = ["js/encounter-generator.js"];
     <meta property="og:type" content="website">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link href="styles/main.less" rel="stylesheet/less" type="text/css">
     <link href="styles/encounter-generator.less" rel="stylesheet/less" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/less"></script>
     <!-- Source: https://stackoverflow.com/questions/16712941/display-div-if-a-specific-select-option-value-is-selected -->
-    <script>function customSizeCheck(nameSelect)
-        {
+    <script>
+        function customSizeCheck(nameSelect) {
             console.log(nameSelect);
-            if(nameSelect){
+            if (nameSelect) {
                 customOptionValue = document.getElementById("customSize").value;
-                if(customOptionValue === nameSelect.value){
+                if (customOptionValue === nameSelect.value) {
                     document.getElementById("customSizeDiv").style.display = "block";
-                }
-                else{
+                } else {
                     document.getElementById("customSizeDiv").style.display = "none";
                 }
-            }
-            else{
+            } else {
                 document.getElementById("customSizeDiv").style.display = "none";
             }
         }
     </script>
-    <script>function customDiffCheck(nameSelect)
-        {
+    <script>
+        function customDiffCheck(nameSelect) {
             console.log(nameSelect);
-            if(nameSelect){
+            if (nameSelect) {
                 customOptionValue = document.getElementById("customDiff").value;
-                if(customOptionValue === nameSelect.value){
+                if (customOptionValue === nameSelect.value) {
                     document.getElementById("customDiffDiv").style.display = "block";
-                }
-                else{
+                } else {
                     document.getElementById("customDiffDiv").style.display = "none";
                 }
-            }
-            else{
+            } else {
                 document.getElementById("customDiffDiv").style.display = "none";
             }
         }
@@ -69,6 +65,7 @@ $SCRIPTS = ["js/encounter-generator.js"];
 </head>
 
 <body>
+    <?php require '/opt/src/templates/javascript.php'; ?>
     <?php require '/opt/src/templates/navbar.php'; ?>
 
     <header class="container text-center">
@@ -141,7 +138,7 @@ $SCRIPTS = ["js/encounter-generator.js"];
                 <p>From <a href="https://www.dndbeyond.com/sources/dnd/basic-rules-2014/building-combat-encounters">D&D Beyond's Basic Rules (2014), Chapter 13: Building Combat Encounters</a>:<br>
                     <!-- https://stackoverflow.com/questions/4530957/html-code-to-indent-without-using-blockquote-so-there-is-no-space-on-the-next-l -->
                     <span style="padding-left: 20px; display:block">
-                    There are four categories of encounter difficulty.<br>
+                        There are four categories of encounter difficulty.<br>
                         <strong style="font-style: italic">Easy</strong>. An easy encounter doesn’t tax the characters’ resources or put them in serious peril. They might lose a few hit points, but victory is pretty much guaranteed.<br>
 
                         <strong style="font-style: italic">Medium</strong>. A medium encounter usually has one or two scary moments for the players, but the characters should emerge victorious with no casualties. One or more of them might need to use healing resources.<br>
@@ -282,6 +279,5 @@ $SCRIPTS = ["js/encounter-generator.js"];
     <?php require "/opt/src/templates/encounter-generator/encounter.php"; ?>
 
     <?php require '/opt/src/templates/footer.php'; ?>
-    <?php require '/opt/src/templates/javascript.php'; ?>
 </body>
 </html>

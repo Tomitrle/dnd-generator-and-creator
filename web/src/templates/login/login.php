@@ -1,4 +1,4 @@
-<?php 
+<?php
 $TITLE = "Login";
 $AUTHOR = "Tommy Le";
 $DESCRIPTION = "Login to the Dungeons & Dragons Generator and Creator.";
@@ -12,6 +12,7 @@ $SCRIPTS = [];
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,12 +29,14 @@ $SCRIPTS = [];
     <meta property="og:type" content="website">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link href="styles/main.less" rel="stylesheet/less" type="text/css">
     <link href="styles/login.less" rel="stylesheet/less" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/less"></script>
 </head>
+
 <body>
+    <?php require '/opt/src/templates/javascript.php'; ?>
     <?php require '/opt/src/templates/navbar.php'; ?>
     <?php require '/opt/src/templates/alerts.php'; ?>
 
@@ -58,6 +61,6 @@ $SCRIPTS = [];
     </form>
 
     <?php require '/opt/src/templates/footer.php'; ?>
-    <?php require '/opt/src/templates/javascript.php'; ?>
 </body>
+
 </html>

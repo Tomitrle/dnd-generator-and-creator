@@ -8,7 +8,6 @@
  * https://www.fwait.com/how-to-add-and-remove-readonly-attribute-in-javascript/
 */
 
-
 // MARK: FORM VALIDATION
 // https://getbootstrap.com/docs/5.0/forms/validation/
 (function () {
@@ -29,7 +28,6 @@
         })
 })()
 
-
 // MARK: DELETE SELF
 function deleteSelf(event, self) {
     if (event.target.getAttribute('data-action') === "delete") {
@@ -37,13 +35,11 @@ function deleteSelf(event, self) {
     }
 }
 
-
 /**
  * MARK: ABILITY SCORES
  * Converts and updates ability modifiers into ability scores.
  * Automatic updates are handled with EventListeners.
  */
-
 function modifier(score) {
     return Math.floor((Number(score) - 10) / 2);
 }
@@ -64,7 +60,6 @@ function setupAbilityUpdates() {
 }
 
 setupAbilityUpdates();
-
 
 /**
  * MARK: AC & HP
@@ -366,7 +361,6 @@ function uniqueID() {
     return document.getElementById("IDCounter").value++;
 }
 
-// https://stackoverflow.com/questions/3662821/how-to-correctly-use-innerhtml-to-create-an-element-with-possible-children-fro
 function createElement(htmlFragment) {
     var fragment = document.createDocumentFragment();
 

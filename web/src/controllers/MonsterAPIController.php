@@ -39,7 +39,7 @@ class MonsterAPIController extends BaseController
                 $this->deleteMonster($_GET["monster_id"]);
                 return;
 
-                // VIEW THE REQUESTED MONSTER
+              // VIEW THE REQUESTED MONSTER
               case "view":
               default:
                 if (!isset($_GET["format"]))

@@ -157,21 +157,6 @@ class MonsterEditorController extends BaseController
       "boolean" => [],
     ];
 
-        // "speed" => self::REGEX,
-        // "skillProficiency" => self::REGEX,
-        // "skillExpertise" => self::REGEX,
-        // "damageVulnerability" => self::REGEX,
-        // "damageResistance" => self::REGEX,
-        // "damageImmunity" => self::REGEX,
-        // "conditionImmunity" => self::REGEX,
-        // "sense" => self::REGEX,
-        // "language" => self::REGEX,
-        // "ability" => self::REGEX,
-        // "action" => self::REGEX,
-        // "bonusAction" => self::REGEX,
-        // "reaction" => self::REGEX,
-        // "legendaryAbility" => self::REGEX,
-
     /**
      * Values are checked in one of four ways: regex, options, boolean, or range.
      * The fields for each validation type are stored as associative arrays (field => constraints).
