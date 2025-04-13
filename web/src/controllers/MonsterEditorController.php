@@ -22,8 +22,11 @@ class MonsterEditorController extends BaseController
       case "GET":
         switch (empty($_GET["monster_id"])) {
           case false:
-            if (!$this->isAuthenticated())
-              $this->errorResponse(401, "You must be logged in to edit this resource.");
+            if (!$this->isAuthenticated()) {
+              // $this->errorResponse(401, "You must be logged in to edit this resource.");
+              header("Location: login.php");
+              exit();
+            }
 
             if (!$APIController->checkPermissions($_GET["monster_id"], $_SESSION["user_id"]))
               $this->errorResponse(403, "You do not have permission to edit this resource.");
@@ -34,8 +37,11 @@ class MonsterEditorController extends BaseController
             exit();
 
           case true:
-            if (!$this->isAuthenticated())
-              $this->errorResponse(401, "You must be logged in to edit this resource.");
+            if (!$this->isAuthenticated()) {
+              // $this->errorResponse(401, "You must be logged in to edit this resource.");
+              header("Location: login.php");
+              exit();
+            }
 
             // LOAD REGULAR PAGE
             require "/opt/src/templates/monster-editor/monster-editor.php";
@@ -44,8 +50,11 @@ class MonsterEditorController extends BaseController
         }
 
       case "POST":
-        if (!$this->isAuthenticated())
-          $this->errorResponse(401, "You must be logged in to edit this resource.");
+        if (!$this->isAuthenticated()) {
+          // $this->errorResponse(401, "You must be logged in to edit this resource.");
+          header("Location: login.php");
+          exit();
+        }
 
         $output = $this->formValidation();
         if ($output !== true)

@@ -2,6 +2,8 @@
 
 class LoginController extends BaseController
 {
+    private $input;
+
     public function __construct($input) {
         parent::__construct();
         $this->input = $input;
@@ -52,8 +54,8 @@ class LoginController extends BaseController
                 $this->resetMessages();
             } else {
                 $_SESSION["user_id"] = $results[0]["id"];
-                require "/opt/src/templates/account/account.php";
-                $this->resetMessages();
+                header("Location: account.php");
+                exit();
             }
         }
     }
