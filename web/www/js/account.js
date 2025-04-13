@@ -1,6 +1,5 @@
 async function deleteMonster(ID) {
     let container = document.getElementById("monsterContainer" + ID);
-
     container.classList.add("d-none");
 
     let response = await fetch("http://localhost:8080/monster-api.php?command=delete&monster_id=" + ID);

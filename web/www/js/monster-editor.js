@@ -35,6 +35,11 @@ function deleteSelf(event, self) {
     }
 }
 
+function setupEventHandlers() {
+    document.getElementById("dexterityScore").addEventListener("input", updateArmorClass);
+    document.getElementById("constitutionScore").addEventListener("input", updateHealthPoints);
+}
+
 /**
  * MARK: ABILITY SCORES
  * Converts and updates ability modifiers into ability scores.
@@ -45,21 +50,12 @@ function modifier(score) {
 }
 
 function updateAbilityModifier(event) {
-    var abilityModifier = document.getElementById(event.target.id.replace("Score", "Modifier"))
-    var abilityModifierLabel = document.getElementById(event.target.id.replace("Score", "ModifierLabel"));
-    var value = modifier(event.target.value);
+    let abilityModifier = document.getElementById(event.target.id.replace("Score", "Modifier"))
+    let abilityModifierLabel = document.getElementById(event.target.id.replace("Score", "ModifierLabel"));
+    let value = modifier(event.target.value);
     abilityModifier.value = value;
     abilityModifierLabel.innerHTML = String(value);
 }
-
-function setupAbilityUpdates() {
-    for (var ability of new Array("strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma")) {
-        var abilityScore = document.getElementById(ability + "Score");
-        abilityScore.addEventListener("input", updateAbilityModifier);
-    }
-}
-
-setupAbilityUpdates();
 
 /**
  * MARK: AC & HP
@@ -71,19 +67,14 @@ setupAbilityUpdates();
  * https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript
  * https://stackoverflow.com/questions/12328144/how-do-i-access-custom-html-attributes-in-javascript
  */
-var armor = document.getElementById("armor");
-var shield = document.getElementById("shield");
-var armorClass = document.getElementById("armorClass");
-
-var size = document.getElementById("size");
-var hitDice = document.getElementById("hitDice");
-var customHP = document.getElementById("customHP");
-var health = document.getElementById("health");
-
-var dexterity = document.getElementById("dexterityScore");
-var constitution = document.getElementById("constitutionScore");
 
 function updateArmorClass() {
+    let armor = document.getElementById("armor");
+    let shield = document.getElementById("shield");
+    let armorClass = document.getElementById("armorClass");
+
+    let dexterity = document.getElementById("dexterityScore");
+
     /**
      * Enables and disables element(s) as necessary.
      * The automatic update is not performed when the user has selected manual entry.
@@ -97,7 +88,7 @@ function updateArmorClass() {
     /**
      * Calculates the update to the monster's armor class
      */
-    var AC = Number(armor.options[armor.selectedIndex].getAttribute('data-ac'));
+    let AC = Number(armor.options[armor.selectedIndex].getAttribute('data-ac'));
 
     switch (armor.options[armor.selectedIndex].getAttribute('data-type')) {
         case "light":
@@ -120,11 +111,14 @@ function updateArmorClass() {
     armorClass.value = AC;
 }
 
-armor.addEventListener("change", updateArmorClass);
-shield.addEventListener("change", updateArmorClass);
-dexterity.addEventListener("input", updateArmorClass);
-
 function updateHealthPoints() {
+    let size = document.getElementById("size");
+    let hitDice = document.getElementById("hitDice");
+    let customHP = document.getElementById("customHP");
+    let health = document.getElementById("health");
+
+    let constitution = document.getElementById("constitutionScore");
+
     if (customHP.checked) {
         health.removeAttribute("readonly");
         hitDice.setAttribute("readonly", true);
@@ -133,7 +127,7 @@ function updateHealthPoints() {
     health.setAttribute("readonly", true);
     hitDice.removeAttribute("readonly", true);
 
-    var HP = Number(modifier(constitution.value));
+    let HP = Number(modifier(constitution.value));
 
     switch (size.value) {
         case "Tiny": // d4
@@ -171,16 +165,10 @@ function updateHealthPoints() {
     health.value = HP;
 }
 
-size.addEventListener("change", updateHealthPoints);
-hitDice.addEventListener("input", updateHealthPoints);
-customHP.addEventListener("change", updateHealthPoints);
-constitution.addEventListener("input", updateHealthPoints);
-
-
 // MARK: BENEFIT SLIDER
 // https://stackoverflow.com/questions/62707474/how-to-assign-labels-on-a-range-slider
 function updateSliderLabel(event) {
-    var label = document.getElementById(event.target.id.replace("Benefit", "BenefitLabel"));
+    let label = document.getElementById(event.target.id.replace("Benefit", "BenefitLabel"));
 
     switch (event.target.value) {
         case "-1":
@@ -200,14 +188,13 @@ function updateSliderLabel(event) {
     }
 }
 
-var legendaryBlock = document.getElementById("legendaryBlock");
-var legendaryCheckbox = document.getElementById("legendaryCheckbox")
-
-
 // MARK: TOGGLE LEGENDARY
 // https://stackoverflow.com/questions/26325278/how-can-i-get-all-descendant-elements-for-parent-container
 function legendaryToggle() {
-    var inputs = legendaryBlock.querySelectorAll("input, textarea");
+    let legendaryBlock = document.getElementById("legendaryBlock");
+    let legendaryCheckbox = document.getElementById("legendaryCheckbox");
+
+    let inputs = legendaryBlock.querySelectorAll("input, textarea");
 
     if (legendaryCheckbox.checked) {
         legendaryBlock.style.display = 'block';
@@ -229,21 +216,18 @@ function legendaryToggle() {
     }
 }
 
-legendaryCheckbox.addEventListener("change", legendaryToggle);
-
-
 // MARK: UPDATE ATTRIBUTES
 function updateAttributeChoices(self) {
     const category = self.getAttribute('data-category');
 
     // Make all the options visible
-    for (var attributeChoice of document.getElementById(category + "AddContainer").children) {
+    for (let attributeChoice of document.getElementById(category + "AddContainer").children) {
         showChoice(attributeChoice);
     }
 
     // Disable the options that are already in the form
-    for (var selectedAttribute of document.getElementById(category + "Container").children) {
-        var attributeChoice = document.getElementById(category + "Add" + selectedAttribute.querySelector('input').value.replace(" ", ""));
+    for (let selectedAttribute of document.getElementById(category + "Container").children) {
+        let attributeChoice = document.getElementById(category + "Add" + selectedAttribute.querySelector('input').value.replace(" ", ""));
         hideChoice(attributeChoice);
     }
 }
@@ -268,7 +252,7 @@ function addSelectedAttribute(self) {
     const attributeName = self.getAttribute('data-attribute');
     const ID = uniqueID();
 
-    var selectedAttribute;
+    let selectedAttribute;
 
     switch (category) {
         case "speed":
@@ -362,9 +346,9 @@ function uniqueID() {
 }
 
 function createElement(htmlFragment) {
-    var fragment = document.createDocumentFragment();
+    let fragment = document.createDocumentFragment();
 
-    var element = document.createElement('div');
+    let element = document.createElement('div');
     element.innerHTML = htmlFragment;
 
     while (element.childNodes[0]) {
