@@ -6,27 +6,78 @@
  * https://stackoverflow.com/questions/16404327/how-to-pass-event-as-argument-to-an-inline-event-handler-in-javascript
  * https://stackoverflow.com/questions/5898656/check-if-an-element-contains-a-class-in-javascript
  * https://www.fwait.com/how-to-add-and-remove-readonly-attribute-in-javascript/
+ * https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+ * https://stackoverflow.com/questions/3547035/getting-html-form-values
+ * https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Sending_forms_through_JavaScript
 */
 
-// MARK: FORM VALIDATION
+// MARK: FORM
 // https://getbootstrap.com/docs/5.0/forms/validation/
-(function () {
+function clearFormValidation() {
+    var forms = document.querySelectorAll('.needs-validation');
+
+    Array.prototype.slice.call(forms).forEach((form) => form.classList.remove('was-validated'));
+}
+
+function validateForm() {
+    var valid = true;
+    var forms = document.querySelectorAll('.needs-validation');
+
+    Array.prototype.slice.call(forms).forEach(
+        function (form) {
+            if (!form.checkValidity())
+                valid = false;
+
+            form.classList.add('was-validated');
+        }, false);
+
+    return valid;
+}
+
+var submissionPending = false;
+async function saveMonster(event) {
     'use strict'
 
-    var forms = document.querySelectorAll('.needs-validation')
+    event.preventDefault();
+    if (!validateForm())
+        return;
 
-    Array.prototype.slice.call(forms)
-        .forEach(function (form) {
-            form.addEventListener('submit', function (event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                }
+    if (submissionPending)
+        return;
+    submissionPending = true;
 
-                form.classList.add('was-validated')
-            }, false)
-        })
-})()
+    let saveButton = document.getElementById("saveButton");
+    saveButton.disabled = true;
+
+    let command = "update";
+    let ID = event.target.getAttribute('data-monster-id');
+    if (typeof ID === 'undefined' || ID === null || ID === "") {
+        ID = "";
+        command = "create";
+    }
+
+    let response = await fetch("http://localhost:8080/monster-api.php?command=" + command + "&monster_id=" + ID, {
+        method: "POST",
+        body: new FormData(document.getElementById("monsterForm"))
+    });
+
+    if (!response.ok) {
+        createAlert("danger", "Server Error: Unable to save the monster.");
+    }
+    else {
+        createAlert("success", "Successfully saved the monster.");
+
+        if (ID === "") {
+            let data = await response.json();
+            event.target.setAttribute('data-monster-id', data["monster_id"]);
+        }
+    }
+
+    clearFormValidation();
+    saveButton.disabled = false;
+    submissionPending = false;
+}
+
 
 // MARK: DELETE SELF
 function deleteSelf(event, self) {
@@ -341,6 +392,7 @@ function addSelectedAttribute(self) {
     document.getElementById(category + "Container").appendChild(selectedAttribute);
 }
 
+// MARK: UTILITY
 function uniqueID() {
     return document.getElementById("IDCounter").value++;
 }
@@ -355,6 +407,15 @@ function createElement(htmlFragment) {
         fragment.appendChild(element.childNodes[0]);
     }
     return fragment;
+}
+
+function createAlert(type, message) {
+    document.getElementById("alerts").appendChild(createElement(
+        "<div class=\"alert alert-" + type + " alert-dismissible\" role=\"alert\">\
+            <div>" + message + "</div>\
+        <button type =\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>\
+        </div>\n"
+    ));
 }
 
 // MARK: UPDATE CR

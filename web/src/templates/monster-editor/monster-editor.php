@@ -35,8 +35,7 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
   </header>
 
   <?php require '/opt/src/templates/alerts.php'; ?>
-
-  <form class="container needs-validation" action="monster-editor.php<?php echo (isset($_GET["monster_id"])) ? "?monster_id=" . $_GET["monster_id"] : ""; ?>" method="post" novalidate>
+  <form class="container needs-validation" id="monsterForm" novalidate data-monster-id="<?php echo (isset($_GET['monster_id'])) ? $_GET['monster_id'] : ''; ?>" onsubmit="saveMonster(event)">
     <section class="row">
       <h2>General Information</h2>
       <div class="col-sm-6 mb-2">
