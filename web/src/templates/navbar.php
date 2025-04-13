@@ -14,11 +14,11 @@
 
         <a class="nav-link ms-sm-auto" href="#">About</a>
         <a class="nav-link" href="/account.php">Account</a>
-          <?php
-          if (isset($_SESSION["user_id"])) {
-              echo '<a class="nav-link" href="/login.php">Logout</a>';
-          }
-          ?>
+        <?php
+        if (isset($_SESSION["user_id"])) {
+          echo '<a class="nav-link" href="/login.php">Logout</a>';
+        }
+        ?>
       </div>
     </div>
   </div>

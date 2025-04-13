@@ -3,13 +3,13 @@ class AccountController extends BaseController
 {
   public function run(): void
   {
+    if (!$this->isAuthenticated()) {
+      header("Location: login.php");
+      exit();
+    }
+
     switch ($_SERVER["REQUEST_METHOD"]) {
       case "GET":
-        if (!$this->isAuthenticated()) {
-          header("Location: login.php");
-          exit();
-        }
-
         $APIController = new MonsterAPIController();
         $MONSTERS = $APIController->getMonsters($_SESSION["user_id"]);
         require "/opt/src/templates/account/account.php";

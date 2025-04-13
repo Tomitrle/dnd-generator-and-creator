@@ -34,6 +34,7 @@ $SCRIPTS = [];
     <script src="https://cdn.jsdelivr.net/npm/less"></script>
 </head>
 <body>
+<?php require '/opt/src/templates/javascript.php'; ?>
 <?php require '/opt/src/templates/navbar.php'; ?>
 <?php require '/opt/src/templates/alerts.php'; ?>
 
@@ -57,6 +58,5 @@ $SCRIPTS = [];
 </form>
 
 <?php require '/opt/src/templates/footer.php'; ?>
-<?php require '/opt/src/templates/javascript.php'; ?>
 </body>
 </html>

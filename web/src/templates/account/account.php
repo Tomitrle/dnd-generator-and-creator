@@ -4,15 +4,15 @@ $AUTHOR = "Brennen Muller";
 $DESCRIPTION = "Your account and saved custom monsters";
 
 $LESS = [];
-$SCRIPTS = [];
+$SCRIPTS = ["js/account.js"];
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <?php require '/opt/src/templates/head.php'; ?>
 
 <body>
+  <?php require '/opt/src/templates/javascript.php'; ?>
   <?php require '/opt/src/templates/navbar.php'; ?>
   <header class="container p-4 text-center">
     <h1>
@@ -27,7 +27,7 @@ $SCRIPTS = [];
 
     <div class="d-flex flex-column mx-auto">
       <?php
-      foreach($MONSTERS as $MONSTER) {
+      foreach ($MONSTERS as $MONSTER) {
         require '/opt/src/templates/account/monster.php';
       }
       ?>
@@ -37,7 +37,6 @@ $SCRIPTS = [];
   </section>
 
   <?php require '/opt/src/templates/footer.php'; ?>
-  <?php require '/opt/src/templates/javascript.php'; ?>
 </body>
 
 </html>

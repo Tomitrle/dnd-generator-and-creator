@@ -25,7 +25,8 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
 <html lang="en">
 <?php require '/opt/src/templates/head.php'; ?>
 
-<body>
+<body onload="setupEventHandlers();">
+  <?php require '/opt/src/templates/javascript.php'; ?>
   <?php require '/opt/src/templates/navbar.php'; ?>
 
   <header class="container">
@@ -34,8 +35,7 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
   </header>
 
   <?php require '/opt/src/templates/alerts.php'; ?>
-
-  <form class="container needs-validation" action="monster-editor.php<?php echo (isset($_GET["monster_id"])) ? "?monster_id=" . $_GET["monster_id"] : ""; ?>" method="post" novalidate>
+  <form class="container needs-validation" id="monsterForm" novalidate data-monster-id="<?php echo (isset($_GET['monster_id'])) ? $_GET['monster_id'] : ''; ?>" onsubmit="saveMonster(event)">
     <section class="row">
       <h2>General Information</h2>
       <div class="col-sm-6 mb-2">
@@ -45,7 +45,7 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
 
       <div class="col-sm-6 mb-2">
         <label class="form-label" for="size">Size</label>
-        <select id="size" name="size" class="form-select" aria-required="true" required>
+        <select id="size" name="size" class="form-select" onchange="updateHealthPoints(event)" aria-required="true" required>
           <option <?php echo (isset($MONSTER["size"])) ? "" : "selected"; ?> disabled hidden value="">Select an option...</option>
           <?php
           foreach ($OPTIONS["size"] as $option) {
@@ -89,7 +89,7 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
 
       <div class="col-sm-6 mb-2">
         <label class="form-label" for="armor">Armor</label>
-        <select id="armor" name="armor" class="form-select" aria-required="true" required>
+        <select id="armor" name="armor" class="form-select" onchange="updateArmorClass(event);" aria-required="true" required>
           <option <?php echo (isset($MONSTER["armor"])) ? "" : "selected"; ?> disabled hidden value="">Select an option...</option>
           <?php
           foreach ($OPTIONS["armor"] as $option) {
@@ -100,7 +100,7 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
         </select>
 
         <div class="form-check mt-1">
-          <input id="shield" name="shield" class="form-check-input" type="checkbox" <?php if (isset($MONSTER["shield"]) && $MONSTER["shield"] == "t") echo "checked"; ?>>
+          <input id="shield" name="shield" class="form-check-input" type="checkbox" <?php if (isset($MONSTER["shield"]) && $MONSTER["shield"] == "t") echo "checked"; ?> onchange="updateArmorClass(event);">
           <label class="form-check-label" for="shield">
             Shield
           </label>
@@ -117,9 +117,9 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
 
       <div class="col-sm-6 mb-2">
         <label class="form-label" for="hitDice">Hit Dice</label>
-        <input id="hitDice" name="hit_dice" class="form-control" type="number" min="0" max="1000" value="<?php echo (isset($MONSTER["hit_dice"])) ? $MONSTER["hit_dice"] : ""; ?>" aria-describedby="healthHelpLabel" aria-required="true" required>
+        <input id="hitDice" name="hit_dice" class="form-control" type="number" min="0" max="1000" value="<?php echo (isset($MONSTER["hit_dice"])) ? $MONSTER["hit_dice"] : ""; ?>" aria-describedby="healthHelpLabel" oninput="updateHealthPoints(event);" aria-required="true" required>
         <div class="form-check mt-1">
-          <input id="customHP" class="form-check-input" type="checkbox">
+          <input id="customHP" class="form-check-input" type="checkbox" onchange="updateHealthPoints(event);">
           <label class="form-check-label" for="customHP">
             Custom Health
           </label>
@@ -456,7 +456,7 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
       ?>
 
       <div class="text-center mb-1">
-        <input id="legendaryCheckbox" name="legendaryCheckbox" class="form-check-input" type="checkbox" style="border-width:1px; border-color:darkgray;" <?php if (isset($MONSTER["legendaryFeature"])) echo "checked"; ?>>
+        <input id="legendaryCheckbox" name="legendaryCheckbox" class="form-check-input" type="checkbox" style="border-width:1px; border-color:darkgray;" <?php if (isset($MONSTER["legendaryFeature"])) echo "checked"; ?> onchange="legendaryToggle(event);">
         <label class="form-check-label" for="legendaryCheckbox"><strong>Legendary Monster</strong></label>
       </div>
 
@@ -513,7 +513,8 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
     </section>
 
     <div class="d-flex justify-content-center mt-4">
-      <!-- <a class="btn btn-secondary me-2" type="button" href="monster-api.php?command=view&monster_id=<?php // echo (isset($_GET["monster_id"])) ? $_GET["monster_id"] : ""; ?>" target="_blank" style=" min-width:100px; font-size:x-large;">Export</a> -->
+      <!-- <a class="btn btn-secondary me-2" type="button" href="monster-api.php?command=view&monster_id=<?php // echo (isset($_GET["monster_id"])) ? $_GET["monster_id"] : "";
+                                                                                                          ?>" target="_blank" style=" min-width:100px; font-size:x-large;">Export</a> -->
       <button id="saveButton" class="btn btn-success ms-2" type="submit" style="min-width:100px; font-size:x-large;">Save</button>
     </div>
 
@@ -521,7 +522,6 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
   </form>
 
   <?php require '/opt/src/templates/footer.php'; ?>
-  <?php require '/opt/src/templates/javascript.php'; ?>
 </body>
 
 </html>

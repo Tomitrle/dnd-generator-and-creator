@@ -3,6 +3,7 @@ class EncounterGeneratorController extends BaseController
 {
     private $difficulty_xp;
     private $monster_multiplier;
+    private $input;
 
     public function __construct($input) {
         parent::__construct();

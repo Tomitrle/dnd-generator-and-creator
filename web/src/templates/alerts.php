@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" id="alerts">
   <?php
   foreach ($_SESSION["messages"] as $type => $messages) {
     foreach ($messages as $message) {
