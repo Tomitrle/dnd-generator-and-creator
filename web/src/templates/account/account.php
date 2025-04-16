@@ -4,7 +4,7 @@ $AUTHOR = "Brennen Muller";
 $DESCRIPTION = "Your account and saved custom monsters";
 
 $LESS = [];
-$SCRIPTS = ["js/account.js"];
+$SCRIPTS = ["js/account.js", "https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.0/jspdf.umd.min.js"];
 ?>
 
 <!DOCTYPE html>
