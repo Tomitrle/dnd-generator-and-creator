@@ -160,6 +160,7 @@ function updateArmorClass() {
     if (shield.checked) AC += 2;
 
     armorClass.value = AC;
+    updateCR();
 }
 
 function updateHealthPoints() {
@@ -214,6 +215,7 @@ function updateHealthPoints() {
     HP = Math.floor(HP);
 
     health.value = HP;
+    updateCR();
 }
 
 // MARK: BENEFIT SLIDER
@@ -419,4 +421,62 @@ function createAlert(type, message) {
 }
 
 // MARK: UPDATE CR
-// TODO: Implement automatic CR updates
+/**
+
+
+
+ * This function is definitely sub-optimal. It works though!
+
+
+ * Based roughly on https://iadndmn.neocities.org/CRcalc
+
+
+ */
+
+
+function updateCR() {
+    let armorClass = Number(document.getElementById("armorClass").value);
+    let armorClassCR = 0;
+    if (armorClass < 13)
+        armorClassCR = 0;
+    else if (armorClass == 18)
+        armorClassCR = 15;
+    else if (armorClass > 19)
+        armorClassCR = 25;
+    else
+        armorClassCR = Math.floor((20 / 6) * (armorClass - 13));
+
+    let health = Number(document.getElementById("health").value);
+    let healthCR = 0;
+    if (health <= 70)
+        healthCR = 0;
+    else if (health > 800)
+        healthCR = 30;
+    else if (health <= 355)
+        healthCR = Math.floor((1 / 15) * (health - 70)) + 1;
+    else
+        healthCR = Math.floor((1 / 45) * (health - 355)) + 20;
+
+    let abilityCR = 0;
+    $("input[type='range']").each(function () {
+        abilityCR += Number($(this)[0].value);
+    });
+
+    let abilityScoreBonus = 0;
+    $("input[id*='Modifier']").each(function () {
+        abilityScoreBonus += Number($(this)[0].value);
+    })
+    abilityScoreBonus = Math.floor(abilityScoreBonus / 6);
+    abilityScoreBonus += 3;
+
+    let abilityScoreCR;
+    if (abilityScoreBonus < 3)
+        abilityScoreCR = 0;
+    else if (abilityScoreBonus > 14)
+        abilityScoreCR = 30;
+    else
+        abilityScoreCR = Math.floor(abilityScoreBonus * (11 / 30));
+
+    $("#estimatedChallengeRating")[0].value = Math.floor((armorClassCR + healthCR + abilityCR + abilityScoreCR) / 4);
+    $("#estimatedChallengeLabel")[0].textContent = Math.floor((armorClassCR + healthCR + abilityCR + abilityScoreCR) / 4);
+}

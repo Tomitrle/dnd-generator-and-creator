@@ -8,7 +8,7 @@
   </div>
 
   <div class="   col-8   col-sm-5">
-    <input id="<?php echo $CATEGORY; ?>Score" name="<?php echo $CATEGORY; ?>_score" class="form-control text-center" type="number" min="1" max="30" value="<?php echo (isset($MONSTER[$CATEGORY . "_score"])) ? $MONSTER[$CATEGORY . "_score"] : "10"; ?>" oninput="updateAbilityModifier(event);" aria-required="true" required>
+    <input id="<?php echo $CATEGORY; ?>Score" name="<?php echo $CATEGORY; ?>_score" class="form-control text-center" type="number" min="1" max="30" value="<?php echo (isset($MONSTER[$CATEGORY . "_score"])) ? $MONSTER[$CATEGORY . "_score"] : "10"; ?>" oninput="updateAbilityModifier(event); updateCR();" aria-required="true" required>
   </div>
 
   <input id="<?php echo $CATEGORY; ?>Modifier" name="<?php echo $CATEGORY; ?>_modifier" type="hidden" value="<?php echo (isset($MONSTER[$CATEGORY . "_modifier"])) ? $MONSTER[$CATEGORY . "_modifier"] : "0"; ?>">

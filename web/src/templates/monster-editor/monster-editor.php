@@ -24,8 +24,11 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
 <!DOCTYPE html>
 <html lang="en">
 <?php require '/opt/src/templates/head.php'; ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"
+  integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<body onload="setupEventHandlers();">
+<body onload="setupEventHandlers(); updateCR();">
   <?php require '/opt/src/templates/javascript.php'; ?>
   <?php require '/opt/src/templates/navbar.php'; ?>
 
@@ -109,7 +112,7 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
 
       <div class="col-sm-6 mb-2">
         <label class="form-label" for="armorClass">Armor Class (AC)</label>
-        <input id="armorClass" name="armor_class" class="form-control" type="number" min="0" max="30" value="<?php echo (isset($MONSTER["armor_class"])) ? $MONSTER["armor_class"] : ""; ?>" aria-describedby="armorClassHelpLabel" aria-required="true" required readonly>
+        <input id="armorClass" name="armor_class" class="form-control" type="number" min="0" max="30" value="<?php echo (isset($MONSTER["armor_class"])) ? $MONSTER["armor_class"] : ""; ?>" oninput="updateCR();" aria-describedby=" armorClassHelpLabel" aria-required="true" required readonly>
         <div id="armorClassHelpLabel" class="form-text">
           Armor class updates automatically. For manual control, select <i>Natural Armor</i> or <i>Other</i>. <br>
         </div>
@@ -128,7 +131,7 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
 
       <div class="col-sm-6 mb-2">
         <label class="form-label" for="health">Health Points (HP)</label>
-        <input id="health" name="health" class="form-control" type="number" min="1" value="<?php echo (isset($MONSTER["health"])) ? $MONSTER["health"] : ""; ?>" aria-describedby="healthHelpLabel" aria-required="true" required readonly>
+        <input id="health" name="health" class="form-control" type="number" min="1" value="<?php echo (isset($MONSTER["health"])) ? $MONSTER["health"] : ""; ?>" oninput="updateCR();" aria-describedby=" healthHelpLabel" aria-required="true" required readonly>
         <div id="healthHelpLabel" class="form-text">
           Health points are calculated automatically. For manual control, select <i>Custom Health</i>. <br>
         </div>
@@ -486,7 +489,7 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
           </div>
 
           <input type="hidden" id="estimatedChallengeRating" name="estimatedChallengeRating" value="<?php echo (isset($MONSTER["challenge"])) ? $MONSTER["challenge"] : "0"; ?>">
-          <p class="mb-0" style="font-size:x-large;"><?php echo (isset($MONSTER["challenge"])) ? $MONSTER["challenge"] : "0"; ?></span></p>
+          <p class="mb-0" id="estimatedChallengeLabel" style="font-size:x-large;"><?php echo (isset($MONSTER["challenge"])) ? $MONSTER["challenge"] : "0"; ?></span></p>
         </div>
       </div>
 
