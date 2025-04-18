@@ -33,32 +33,38 @@ $SCRIPTS = ["js/encounter-generator.js"];
     <script src="https://cdn.jsdelivr.net/npm/less"></script>
     <!-- Source: https://stackoverflow.com/questions/16712941/display-div-if-a-specific-select-option-value-is-selected -->
     <script>
-        function customSizeCheck(nameSelect) {
-            console.log(nameSelect);
-            if (nameSelect) {
-                customOptionValue = document.getElementById("customSize").value;
-                if (customOptionValue === nameSelect.value) {
-                    document.getElementById("customSizeDiv").style.display = "block";
+        function customSizeCheck(sizeSelect) {
+            let customSizeDiv = document.getElementById("customSizeDiv");
+            if (sizeSelect) {
+                let customOptionValue = document.getElementById("customSize").value;
+                if (customOptionValue === sizeSelect.value) {
+                    customSizeDiv.style.display = "block";
+                    customSizeDiv.innerHTML = "<label for=\"customPartySize\" class=\"form-label\">Custom Size</label><input type=\"text\" name=\"custom_party_size\" pattern=\"^[1-9][0-9]*\" class=\"form-control\" id=\"customPartySize\" aria-required=\"true\" required>";
                 } else {
-                    document.getElementById("customSizeDiv").style.display = "none";
+                    customSizeDiv.style.display = "none";
+                    customSizeDiv.innerHTML = "";
                 }
             } else {
-                document.getElementById("customSizeDiv").style.display = "none";
+                customSizeDiv.style.display = "none";
+                customSizeDiv.innerHTML = "";
             }
         }
     </script>
     <script>
-        function customDiffCheck(nameSelect) {
-            console.log(nameSelect);
-            if (nameSelect) {
-                customOptionValue = document.getElementById("customDiff").value;
-                if (customOptionValue === nameSelect.value) {
-                    document.getElementById("customDiffDiv").style.display = "block";
+        function customDiffCheck(diffSelect) {
+            let customDiffDiv = document.getElementById("customDiffDiv");
+            if (diffSelect) {
+                let customOptionValue = document.getElementById("customDiff").value;
+                if (customOptionValue === diffSelect.value) {
+                    customDiffDiv.style.display = "block";
+                    customDiffDiv.innerHTML = "<label for=\"customXP\" class=\"form-label\">Custom XP Amount</label> <input type=\"text\" name=\"custom_xp\" pattern=\"^[1-9][0-9]*\" class=\"form-control\" id=\"customXP\" aria-required=\"true\" required>";
                 } else {
-                    document.getElementById("customDiffDiv").style.display = "none";
+                   customDiffDiv.style.display = "none";
+                   customDiffDiv.innerHTML = "";
                 }
             } else {
-                document.getElementById("customDiffDiv").style.display = "none";
+                customDiffDiv.style.display = "none";
+                customDiffDiv.innerHTML = "";
             }
         }
     </script>
@@ -101,8 +107,6 @@ $SCRIPTS = ["js/encounter-generator.js"];
                 </select>
             </div>
             <div id="customSizeDiv" class="col-sm-12 mb-2" style="display: none;">
-                <label for="customPartySize" class="form-label">Custom Size</label>
-                <input type="text" name="custom_party_size" pattern="^[1-9][0-9]*" class="form-control" id="customPartySize" aria-required="true">
             </div>
             <div class="col-sm-12 mb-2">
                 <label for="partyLevel" class="form-label">Party Level</label>
@@ -160,8 +164,6 @@ $SCRIPTS = ["js/encounter-generator.js"];
                 </select>
             </div>
             <div id="customDiffDiv" class="col-sm-12 mb-2" style="display: none;">
-                <label for="customXP" class="form-label">Custom XP Amount</label>
-                <input type="text" name="custom_xp" pattern="^[1-9][0-9]*" class="form-control" id="customXP" aria-required="true">
             </div>
         </section>
         <hr>
