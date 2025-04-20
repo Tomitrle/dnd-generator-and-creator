@@ -34,12 +34,12 @@ class EncounterGeneratorController extends BaseController
 
     public function loadDifficultyXP(): void
     {
-        $this->difficulty_xp = json_decode(file_get_contents("{$GLOBALS['src']}/templates/encounter-generator/difficulty-xp.JSON"), true);
+        $this->difficulty_xp = json_decode(file_get_contents("{$GLOBALS['src']}/templates/encounter-generator/difficulty-xp.json"), true);
     }
 
     public function loadMonsterMultiplier(): void
     {
-        $this->monster_multiplier = json_decode(file_get_contents("{$GLOBALS['src']}/templates/encounter-generator/monster-multiplier.JSON"), true);
+        $this->monster_multiplier = json_decode(file_get_contents("{$GLOBALS['src']}/templates/encounter-generator/monster-multiplier.json"), true);
     }
 
     private function generate(): void

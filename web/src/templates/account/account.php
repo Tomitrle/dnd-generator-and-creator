@@ -9,7 +9,7 @@ $SCRIPTS = ["js/account.js", "https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.0
 
 <!DOCTYPE html>
 <html lang="en">
-<?php require "{$GLOBALS['src']}/emplates/head.php"; ?>
+<?php require "{$GLOBALS['src']}/templates/head.php"; ?>
 
 <body>
   <?php require "{$GLOBALS['src']}/templates/javascript.php"; ?>

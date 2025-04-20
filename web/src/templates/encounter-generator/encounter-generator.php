@@ -49,6 +49,7 @@ $SCRIPTS = ["js/encounter-generator.js"];
                 customSizeDiv.innerHTML = "";
             }
         }
+
         function customDiffCheck(diffSelect) {
             let customDiffDiv = document.getElementById("customDiffDiv");
             if (diffSelect) {
@@ -57,14 +58,15 @@ $SCRIPTS = ["js/encounter-generator.js"];
                     customDiffDiv.style.display = "block";
                     customDiffDiv.innerHTML = "<label for=\"customXP\" class=\"form-label\">Custom XP Amount</label> <input type=\"text\" name=\"custom_xp\" pattern=\"^[1-9][0-9]*\" class=\"form-control\" id=\"customXP\" aria-required=\"true\" required>";
                 } else {
-                   customDiffDiv.style.display = "none";
-                   customDiffDiv.innerHTML = "";
+                    customDiffDiv.style.display = "none";
+                    customDiffDiv.innerHTML = "";
                 }
             } else {
                 customDiffDiv.style.display = "none";
                 customDiffDiv.innerHTML = "";
             }
         }
+
         function addMonster() {
             addMonsterDiv = document.getElementById("addMonsterDiv");
             addMonsterDiv.style.display = "block";
@@ -290,7 +292,7 @@ $SCRIPTS = ["js/encounter-generator.js"];
         </div>
         <hr>
         <div class="d-flex justify-content-center mt-4">
-            <input type="button" class="btn btn-secondary ms-2" style="min-width:100px; font-size:x-large;" value="Add Monster" onclick="addMonster();"/>
+            <input type="button" class="btn btn-secondary ms-2" style="min-width:100px; font-size:x-large;" value="Add Monster" onclick="addMonster();" />
             <input type="submit" class="btn btn-success ms-2" style="min-width:100px; font-size:x-large;" value="Generate">
         </div>
     </form>
@@ -299,4 +301,5 @@ $SCRIPTS = ["js/encounter-generator.js"];
 
     <?php require "{$GLOBALS['src']}/templates/footer.php"; ?>
 </body>
+
 </html>
