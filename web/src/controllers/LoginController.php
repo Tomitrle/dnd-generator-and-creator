@@ -47,7 +47,7 @@ class LoginController extends BaseController
                 $this->resetMessages();
             } else {
                 $_SESSION["user_id"] = $results[0]["id"];
-                header("Location: account.php");
+                header("Location: /sem9bd/account.php");
                 exit();
             }
         } else {

@@ -9,10 +9,10 @@
     </a> -->
 
     <ul class="nav col-md-4 justify-content-end">
-      <li class="nav-item"><a href="/" class="nav-link px-2 text-body-secondary">Home</a></li>
+      <li class="nav-item"><a href="/sem9bd/" class="nav-link px-2 text-body-secondary">Home</a></li>
       <!-- Should the new encounter / monster links appear here? -->
       <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
-      <li class="nav-item"><a href="/account.php" class="nav-link px-2 text-body-secondary">Account</a></li>
+      <li class="nav-item"><a href="/sem9bd/account.php" class="nav-link px-2 text-body-secondary">Account</a></li>
     </ul>
   </footer>
 </div>

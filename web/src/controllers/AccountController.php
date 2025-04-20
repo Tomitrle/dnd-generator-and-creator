@@ -4,7 +4,7 @@ class AccountController extends BaseController
   public function run(): void
   {
     if (!$this->isAuthenticated()) {
-      header("Location: login.php");
+      header("Location: /sem9bd/login.php");
       exit();
     }
 

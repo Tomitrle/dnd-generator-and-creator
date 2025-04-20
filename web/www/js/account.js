@@ -9,8 +9,8 @@ async function deleteMonster(ID) {
     let container = document.getElementById("monsterContainer" + ID);
     container.classList.add("d-none");
 
-    let response = await fetch("http://localhost:8080/monster-api.php?command=delete&monster_id=" + ID);
-    // let response = await fetch("https://cs4640.cs.virginia.edu/sem9bd/monster-api.php?command=delete&monster_id=" + ID);
+    // let response = await fetch("http://localhost:8080/monster-api.php?command=delete&monster_id=" + ID);
+    let response = await fetch("https://cs4640.cs.virginia.edu/sem9bd/monster-api.php?command=delete&monster_id=" + ID);
 
     if (response.ok) {
         container.remove();
@@ -66,8 +66,8 @@ async function printMonsterSummary(ID) {
     // <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.0/jspdf.umd.min.js"></script>
     response = new Promise(resolve => {
         var ajax = new XMLHttpRequest();
-        ajax.open("GET", "http://localhost:8080/monster-api.php?command=viwe&format=json&monster_id=" + ID, true);
-        // ajax.open("GET", "https://cs4640.cs.virginia.edu/sem9bd/monster-api.php?command=viwe&format=json&monster_id=" + ID, true);
+        // ajax.open("GET", "http://localhost:8080/monster-api.php?command=viwe&format=json&monster_id=" + ID, true);
+        ajax.open("GET", "https://cs4640.cs.virginia.edu/sem9bd/monster-api.php?command=viwe&format=json&monster_id=" + ID, true);
         ajax.responseType = "json";
         ajax.send(null);
 

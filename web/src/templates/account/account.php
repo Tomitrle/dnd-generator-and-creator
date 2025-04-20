@@ -33,7 +33,7 @@ $SCRIPTS = ["js/account.js", "https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.0
       ?>
     </div>
 
-    <a class="btn btn-success mt-1" href="monster-editor.php">New</a>
+    <a class="btn btn-success mt-1" href="/sem9bd/monster-editor.php">New</a>
   </section>
 
   <?php require "{$GLOBALS['src']}/templates/footer.php"; ?>

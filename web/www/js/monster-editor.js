@@ -56,7 +56,7 @@ async function saveMonster(event) {
         command = "create";
     }
 
-    let response = await fetch("http://localhost:8080/monster-api.php?command=" + command + "&monster_id=" + ID, {
+    let response = await fetch("https://cs4640.cs.virginia.edu/sem9bd/monster-api.php?command=" + command + "&monster_id=" + ID, {
         method: "POST",
         body: new FormData(document.getElementById("monsterForm"))
     });

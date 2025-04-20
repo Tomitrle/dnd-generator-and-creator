@@ -12,7 +12,7 @@ class MonsterEditorController extends BaseController
     $APIController = new MonsterAPIController();
 
     if (!$this->isAuthenticated()) {
-      header("Location: login.php");
+      header("Location: /sem9bd/login.php");
       exit();
     }
 
