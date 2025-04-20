@@ -49,8 +49,6 @@ $SCRIPTS = ["js/encounter-generator.js"];
                 customSizeDiv.innerHTML = "";
             }
         }
-    </script>
-    <script>
         function customDiffCheck(diffSelect) {
             let customDiffDiv = document.getElementById("customDiffDiv");
             if (diffSelect) {
@@ -273,7 +271,6 @@ $SCRIPTS = ["js/encounter-generator.js"];
         </section>
         <hr>
         <div class="d-flex justify-content-center mt-4">
-            <button type="button" class="btn btn-secondary me-2" style="min-width:100px; font-size:x-large;">Add Monster</button>
             <input type="submit" class="btn btn-success ms-2" style="min-width:100px; font-size:x-large;" value="Generate">
         </div>
     </form>

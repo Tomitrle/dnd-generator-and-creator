@@ -26,9 +26,6 @@ class LoginController extends BaseController
             case "login":
                 $this->login();
                 break;
-            case "show_create_account":
-                $this->show_create_account();
-                break;
             case "create_account":
                 $this->create_account();
                 break;
@@ -58,12 +55,6 @@ class LoginController extends BaseController
             require "/opt/src/templates/login/login.php";
             $this->resetMessages();
         }
-    }
-
-    private function show_create_account(): void
-    {
-        require "/opt/src/templates/login/create-account.php";
-        $this->resetMessages();
     }
 
     private function create_account(): void
