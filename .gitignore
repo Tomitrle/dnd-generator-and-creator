@@ -1,3 +1,4 @@
 # IDE SETTINGS
 /.vscode/
 /src/controllers/Config.php
+web/src/controllers/Config.php
