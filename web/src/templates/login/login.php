@@ -33,6 +33,16 @@ $SCRIPTS = [];
     <link href="styles/main.less" rel="stylesheet/less" type="text/css">
     <link href="styles/login.less" rel="stylesheet/less" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/less"></script>
+    <script>
+        function createAccount() {
+            let loginType = document.getElementById("loginType");
+            loginType.innerHTML = "<form action=\"?command=create_account\" method=\"post\" class=\"m-4\" onsubmit=\"basicLogin();\"><div class=\"row mb-3\"><label for=\"inputUsername\" class=\"form-label\">Username</label><input type=\"text\" name=\"username\" class=\"form-control\" id=\"inputUsername\"></div><div class=\"row mb-3\"><label for=\"inputPassword\" class=\"form-label\">Password</label><input type=\"password\" name=\"password\" class=\"form-control\" id=\"inputPassword\"></div><div class=\"d-flex justify-content-center mt-4\"><button type=\"submit\" class=\"btn btn-success ms-2\" style=\"min-width:100px; font-size:x-large;\">Create Account</button></div></form>";
+        }
+        function basicLogin() {
+            let loginType = document.getElementById("loginType");
+            loginType.innerHTML = "<form action=\"?command=login\" method=\"post\" class=\"m-4\"><div class=\"row mb-3\"><label for=\"inputUsername\" class=\"form-label\">Username</label><input type=\"text\" name=\"username\" class=\"form-control\" id=\"inputUsername\"></div><div class=\"row mb-3\"><label for=\"inputPassword\" class=\"form-label\">Password</label><input type=\"password\" name=\"password\" class=\"form-control\" id=\"inputPassword\"></div><div class=\"d-flex justify-content-center mt-4\"><input type=\"button\" class=\"btn btn-secondary ms-2\" style=\"min-width:100px; font-size:x-large;\" value=\"Create Account\" onclick=\"createAccount();\"/><button type=\"submit\" class=\"btn btn-success ms-2\" style=\"min-width:100px; font-size:x-large;\">Login</button></div></form>";
+        }
+    </script>
 </head>
 
 <body>
@@ -45,20 +55,22 @@ $SCRIPTS = [];
     <div class="row my-3">
         <p class="px-5">Welcome to the D&D Encounter Generator and Monster Creator!<br> This is the login page, however, you do NOT have to login to use the encounter generator unless you want an encounter with a custom monster. The accounts for this website enable users to create and edit custom monsters that will be saved to their account and can then be exported and/or used in the encounters. We hope you enjoy!</p>
     </div>
-    <form action="?command=login" method="post" class="m-4">
-        <div class="row mb-3">
-            <label for="inputUsername" class="form-label">Username</label>
-            <input type="text" name="username" class="form-control" id="inputUsername">
-        </div>
-        <div class="row mb-3">
-            <label for="inputPassword" class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" id="inputPassword">
-        </div>
-        <div class="d-flex justify-content-center mt-4">
-            <a href="?command=show_create_account" class="btn btn-secondary me-2" style="min-width:100px; font-size:x-large;">Create Account</a>
-            <button type="submit" class="btn btn-success ms-2" style="min-width:100px; font-size:x-large;">Login</button>
-        </div>
-    </form>
+    <div class="row" id="loginType">
+        <form action="?command=login" method="post" class="m-4">
+            <div class="row mb-3">
+                <label for="inputUsername" class="form-label">Username</label>
+                <input type="text" name="username" class="form-control" id="inputUsername">
+            </div>
+            <div class="row mb-3">
+                <label for="inputPassword" class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" id="inputPassword">
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+                <input type="button" class="btn btn-secondary ms-2" style="min-width:100px; font-size:x-large;" value="Create Account" onclick="createAccount();"/>
+                <button type="submit" class="btn btn-success ms-2" style="min-width:100px; font-size:x-large;">Login</button>
+            </div>
+        </form>
+    </div>
 
     <?php require '/opt/src/templates/footer.php'; ?>
 </body>

@@ -26,9 +26,6 @@ class LoginController extends BaseController
             case "login":
                 $this->login();
                 break;
-            case "show_create_account":
-                $this->show_create_account();
-                break;
             case "create_account":
                 $this->create_account();
                 break;
@@ -44,11 +41,7 @@ class LoginController extends BaseController
             $username = $_POST["username"];
             $password = $_POST["password"];
             $results = $this->database->query("select * from dnd_users where username = $1;", $username);
-            if (empty($results)) {
-                $this->addMessage("warning", "There is no user with that username.");
-                require "/opt/src/templates/login/login.php";
-                $this->resetMessages();
-            } else if (!password_verify($_POST["password"], $results[0]["password"])) {
+            if (empty($results) || !password_verify($_POST["password"], $results[0]["password"])) {
                 $this->addMessage("warning", "Incorrect username or password.");
                 require "/opt/src/templates/login/login.php";
                 $this->resetMessages();
@@ -57,13 +50,11 @@ class LoginController extends BaseController
                 header("Location: account.php");
                 exit();
             }
+        } else {
+            $this->addMessage("warning", "Username or password cannot be empty.");
+            require "/opt/src/templates/login/login.php";
+            $this->resetMessages();
         }
-    }
-
-    private function show_create_account(): void
-    {
-        require "/opt/src/templates/login/create-account.php";
-        $this->resetMessages();
     }
 
     private function create_account(): void
@@ -83,6 +74,10 @@ class LoginController extends BaseController
                 require "/opt/src/templates/login/login.php";
                 $this->resetMessages();
             }
+        } else {
+            $this->addMessage("warning", "Username or password cannot be empty.");
+            require "/opt/src/templates/login/login.php";
+            $this->resetMessages();
         }
     }
 }
