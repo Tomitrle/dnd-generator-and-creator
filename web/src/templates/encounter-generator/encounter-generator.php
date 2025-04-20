@@ -65,6 +65,10 @@ $SCRIPTS = ["js/encounter-generator.js"];
                 customDiffDiv.innerHTML = "";
             }
         }
+        function addMonster() {
+            addMonsterDiv = document.getElementById("addMonsterDiv");
+            addMonsterDiv.style.display = "block";
+        }
     </script>
 </head>
 
@@ -269,8 +273,24 @@ $SCRIPTS = ["js/encounter-generator.js"];
                 </select>
             </div>
         </section>
+        <div class="col-sm-12 mb-2" id="addMonsterDiv" style="display: none">
+            <label>Available Monsters</label>
+            <ul style="column-count: 3; column-gap: 2rem; list-style: none;">
+                <?php
+                $available_monsters = $this->database->query("select * from dnd_base_monsters");
+                if ($this->isAuthenticated()) {
+                    $custom_monsters = $this->database->query("select * from dnd_monsters where user_id = $1", $_SESSION["user_id"]);
+                    $available_monsters = array_merge($available_monsters, $custom_monsters);
+                }
+                foreach ($available_monsters as $monster) {
+                    echo '<li><input type="checkbox" name="added_monsters[]" id=' . $monster["name"] . ' value=' . $monster["name"] . '><label for=' . $monster["name"] . '>' . $monster["name"] . '</label></li>';
+                }
+                ?>
+            </ul>
+        </div>
         <hr>
         <div class="d-flex justify-content-center mt-4">
+            <input type="button" class="btn btn-secondary ms-2" style="min-width:100px; font-size:x-large;" value="Add Monster" onclick="addMonster();"/>
             <input type="submit" class="btn btn-success ms-2" style="min-width:100px; font-size:x-large;" value="Generate">
         </div>
     </form>

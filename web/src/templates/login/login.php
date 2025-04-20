@@ -36,7 +36,7 @@ $SCRIPTS = [];
     <script>
         function createAccount() {
             let loginType = document.getElementById("loginType");
-            loginType.innerHTML = "<form action=\"?command=create_account\" method=\"post\" class=\"m-4\" onsubmit=\"basicLogin();\"><div class=\"row mb-3\"><label for=\"inputUsername\" class=\"form-label\">Username</label><input type=\"text\" name=\"username\" class=\"form-control\" id=\"inputUsername\"></div><div class=\"row mb-3\"><label for=\"inputPassword\" class=\"form-label\">Password</label><input type=\"password\" name=\"password\" class=\"form-control\" id=\"inputPassword\"></div><div class=\"d-flex justify-content-center mt-4\"><button type=\"submit\" class=\"btn btn-success ms-2\" style=\"min-width:100px; font-size:x-large;\">Create Account</button></div></form>";
+            loginType.innerHTML = "<form action=\"?command=create_account\" method=\"post\" class=\"m-4\"><div class=\"row mb-3\"><label for=\"inputUsername\" class=\"form-label\">Username</label><input type=\"text\" name=\"username\" class=\"form-control\" id=\"inputUsername\"></div><div class=\"row mb-3\"><label for=\"inputPassword\" class=\"form-label\">Password</label><input type=\"password\" name=\"password\" class=\"form-control\" id=\"inputPassword\"></div><div class=\"d-flex justify-content-center mt-4\"><button type=\"submit\" class=\"btn btn-success ms-2\" style=\"min-width:100px; font-size:x-large;\">Create Account</button></div></form>";
         }
         function basicLogin() {
             let loginType = document.getElementById("loginType");
@@ -45,7 +45,7 @@ $SCRIPTS = [];
     </script>
 </head>
 
-<body>
+<body onload="basicLogin()">
     <?php require '/opt/src/templates/javascript.php'; ?>
     <?php require '/opt/src/templates/navbar.php'; ?>
     <?php require '/opt/src/templates/alerts.php'; ?>
