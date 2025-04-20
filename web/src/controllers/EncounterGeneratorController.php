@@ -112,9 +112,9 @@ class EncounterGeneratorController extends BaseController
         $added_monsters = [];
         if (isset($_POST["added_monsters"])) {
             foreach($_POST["added_monsters"] as $monster) {
-                $result = $this->database->query("select * from dnd_base_monsters where name = $1;", $monster);
+                $result = $this->database->query("select * from dnd_base_monsters where id = $1;", $monster);
                 if (empty($result)) {
-                    $result = $this->database->query("select * from dnd_monsters where name = $1;", $monster);
+                    $result = $this->database->query("select * from dnd_monsters where id = $1;", $monster);
                 }
                 $added_monsters[] = $result[0];
             }
