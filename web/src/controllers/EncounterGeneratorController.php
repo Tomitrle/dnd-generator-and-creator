@@ -64,7 +64,7 @@ class EncounterGeneratorController extends BaseController
             $party_level = $_POST["party_level"];
         }
         if (isset($_POST["difficulty"]) && !empty($_POST["difficulty"])) {
-            if ($_POST["difficulty"] == "4") {
+            if ($_POST["difficulty"] == "5") {
                 if (isset($_POST["custom_xp"])) {
                     $difficulty = $_POST["custom_xp"];
                 }
@@ -110,13 +110,17 @@ class EncounterGeneratorController extends BaseController
             }
         }
         $added_monsters = [];
-        if (isset($_POST["added_monsters"])) {
+        if (isset($_POST["added_monsters"]) && !empty($_POST["added_monsters"])) {
             foreach($_POST["added_monsters"] as $monster) {
-                $result = $this->database->query("select * from dnd_base_monsters where id = $1;", $monster);
+                $monster_name = explode(",", $monster)[0];
+                $monster_id = explode(",", $monster)[1];
+                $result = $this->database->query("select * from dnd_base_monsters where name = $1 and id = $2;", $monster_name, $monster_id);
                 if (empty($result)) {
-                    $result = $this->database->query("select * from dnd_monsters where id = $1;", $monster);
+                    $result = $this->database->query("select * from dnd_monsters where name = $1 and id = $2", $monster_name, $monster_id);
                 }
-                $added_monsters[] = $result[0];
+                if (!empty($result)) {
+                    $added_monsters = array_merge($added_monsters, $result);
+                }
             }
         }
         if ($min_cr > $max_cr) {
