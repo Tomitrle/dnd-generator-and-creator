@@ -12,7 +12,7 @@ class AccountController extends BaseController
       case "GET":
         $APIController = new MonsterAPIController();
         $MONSTERS = $APIController->getMonsters($_SESSION["user_id"]);
-        require "/opt/src/templates/account/account.php";
+        require "{$GLOBALS['src']}/templates/account/account.php";
         exit();
 
       default:

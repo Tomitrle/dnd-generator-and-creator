@@ -22,13 +22,13 @@ class MonsterEditorController extends BaseController
           case false:
             // LOAD PRE-POPULATED PAGE
             $MONSTER = $APIController->getMonsterAsArray($_GET["monster_id"]);
-            require "/opt/src/templates/monster-editor/monster-editor.php";
+            require "{$GLOBALS['src']}/templates/monster-editor/monster-editor.php";
             $this->resetMessages();
             exit();
 
           case true:
             // LOAD REGULAR PAGE
-            require "/opt/src/templates/monster-editor/monster-editor.php";
+            require "{$GLOBALS['src']}/templates/monster-editor/monster-editor.php";
             $this->resetMessages();
             exit();
         }

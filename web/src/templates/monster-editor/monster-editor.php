@@ -23,21 +23,21 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
 
 <!DOCTYPE html>
 <html lang="en">
-<?php require '/opt/src/templates/head.php'; ?>
+<?php require "{$GLOBALS['src']}/templates/head.php"; ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"
   integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <body onload="setupEventHandlers(); updateCR();">
-  <?php require '/opt/src/templates/javascript.php'; ?>
-  <?php require '/opt/src/templates/navbar.php'; ?>
+  <?php require "{$GLOBALS['src']}/templates/javascript.php"; ?>
+  <?php require "{$GLOBALS['src']}/templates/navbar.php"; ?>
 
   <header class="container">
     <h1>Monster Editor</h1>
     <hr>
   </header>
 
-  <?php require '/opt/src/templates/alerts.php'; ?>
+  <?php require "{$GLOBALS['src']}/templates/alerts.php"; ?>
   <form class="container needs-validation" id="monsterForm" novalidate data-monster-id="<?php echo (isset($_GET['monster_id'])) ? $_GET['monster_id'] : ''; ?>" onsubmit="saveMonster(event)">
     <section class="row">
       <h2>General Information</h2>
@@ -151,12 +151,12 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
         <?php
         if (isset($MONSTER[$CATEGORY])) {
           foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
-            require '/opt/src/templates/monster-editor/attributes/speed.php';
+            require "{$GLOBALS['src']}/templates/monster-editor/attributes/speed.php";
           }
         }
         ?>
       </div>
-      <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
+      <?php require "{$GLOBALS['src']}/templates/monster-editor/attribute-modal.php"; ?>
     </section>
     <hr>
 
@@ -176,7 +176,7 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
       <?php
       // MARK: ABILITY SCORES
       foreach ($OPTIONS["ability_type"] as $CATEGORY) {
-        require '/opt/src/templates/monster-editor/attributes/ability-score.php';
+        require "{$GLOBALS['src']}/templates/monster-editor/attributes/ability-score.php";
       }
       ?>
     </section>
@@ -197,12 +197,12 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
           <?php
           if (isset($MONSTER[$CATEGORY])) {
             foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
-              require '/opt/src/templates/monster-editor/attributes/basic.php';
+              require "{$GLOBALS['src']}/templates/monster-editor/attributes/basic.php";
             }
           }
           ?>
         </div>
-        <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
+        <?php require "{$GLOBALS['src']}/templates/monster-editor/attribute-modal.php"; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -217,12 +217,12 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
           <?php
           if (isset($MONSTER[$CATEGORY])) {
             foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
-              require '/opt/src/templates/monster-editor/attributes/basic.php';
+              require "{$GLOBALS['src']}/templates/monster-editor/attributes/basic.php";
             }
           }
           ?>
         </div>
-        <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
+        <?php require "{$GLOBALS['src']}/templates/monster-editor/attribute-modal.php"; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -237,12 +237,12 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
           <?php
           if (isset($MONSTER[$CATEGORY])) {
             foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
-              require '/opt/src/templates/monster-editor/attributes/basic.php';
+              require "{$GLOBALS['src']}/templates/monster-editor/attributes/basic.php";
             }
           }
           ?>
         </div>
-        <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
+        <?php require "{$GLOBALS['src']}/templates/monster-editor/attribute-modal.php"; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -257,12 +257,12 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
           <?php
           if (isset($MONSTER[$CATEGORY])) {
             foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
-              require '/opt/src/templates/monster-editor/attributes/basic.php';
+              require "{$GLOBALS['src']}/templates/monster-editor/attributes/basic.php";
             }
           }
           ?>
         </div>
-        <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
+        <?php require "{$GLOBALS['src']}/templates/monster-editor/attribute-modal.php"; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -277,12 +277,12 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
           <?php
           if (isset($MONSTER[$CATEGORY])) {
             foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
-              require '/opt/src/templates/monster-editor/attributes/basic.php';
+              require "{$GLOBALS['src']}/templates/monster-editor/attributes/basic.php";
             }
           }
           ?>
         </div>
-        <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
+        <?php require "{$GLOBALS['src']}/templates/monster-editor/attribute-modal.php"; ?>
       </section>
 
       <section class="col-sm-6 col-lg-4">
@@ -297,12 +297,12 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
           <?php
           if (isset($MONSTER[$CATEGORY])) {
             foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
-              require '/opt/src/templates/monster-editor/attributes/basic.php';
+              require "{$GLOBALS['src']}/templates/monster-editor/attributes/basic.php";
             }
           }
           ?>
         </div>
-        <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
+        <?php require "{$GLOBALS['src']}/templates/monster-editor/attribute-modal.php"; ?>
       </section>
     </section>
     <hr>
@@ -327,12 +327,12 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
           <?php
           if (isset($MONSTER[$CATEGORY])) {
             foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
-              require '/opt/src/templates/monster-editor/attributes/sense.php';
+              require "{$GLOBALS['src']}/templates/monster-editor/attributes/sense.php";
             }
           }
           ?>
         </div>
-        <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
+        <?php require "{$GLOBALS['src']}/templates/monster-editor/attribute-modal.php"; ?>
       </section>
 
       <section class="col-sm-6">
@@ -356,12 +356,12 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
           <?php
           if (isset($MONSTER[$CATEGORY])) {
             foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
-              require '/opt/src/templates/monster-editor/attributes/basic.php';
+              require "{$GLOBALS['src']}/templates/monster-editor/attributes/basic.php";
             }
           }
           ?>
         </div>
-        <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
+        <?php require "{$GLOBALS['src']}/templates/monster-editor/attribute-modal.php"; ?>
       </section>
     </section>
     <hr>
@@ -378,12 +378,12 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
         <?php
         if (isset($MONSTER[$CATEGORY])) {
           foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
-            require '/opt/src/templates/monster-editor/attributes/ability.php';
+            require "{$GLOBALS['src']}/templates/monster-editor/attributes/ability.php";
           }
         }
         ?>
       </div>
-      <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
+      <?php require "{$GLOBALS['src']}/templates/monster-editor/attribute-modal.php"; ?>
     </section>
     <hr>
 
@@ -399,12 +399,12 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
         <?php
         if (isset($MONSTER[$CATEGORY])) {
           foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
-            require '/opt/src/templates/monster-editor/attributes/ability.php';
+            require "{$GLOBALS['src']}/templates/monster-editor/attributes/ability.php";
           }
         }
         ?>
       </div>
-      <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
+      <?php require "{$GLOBALS['src']}/templates/monster-editor/attribute-modal.php"; ?>
     </section>
     <hr>
 
@@ -420,12 +420,12 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
         <?php
         if (isset($MONSTER[$CATEGORY])) {
           foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
-            require '/opt/src/templates/monster-editor/attributes/ability.php';
+            require "{$GLOBALS['src']}/templates/monster-editor/attributes/ability.php";
           }
         }
         ?>
       </div>
-      <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
+      <?php require "{$GLOBALS['src']}/templates/monster-editor/attribute-modal.php"; ?>
     </section>
     <hr>
 
@@ -441,12 +441,12 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
         <?php
         if (isset($MONSTER[$CATEGORY])) {
           foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
-            require '/opt/src/templates/monster-editor/attributes/ability.php';
+            require "{$GLOBALS['src']}/templates/monster-editor/attributes/ability.php";
           }
         }
         ?>
       </div>
-      <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
+      <?php require "{$GLOBALS['src']}/templates/monster-editor/attribute-modal.php"; ?>
     </section>
     <hr>
 
@@ -468,12 +468,12 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
           <?php
           if (isset($MONSTER[$CATEGORY])) {
             foreach ($MONSTER[$CATEGORY] as $ATTRIBUTE) {
-              require '/opt/src/templates/monster-editor/attributes/ability.php';
+              require "{$GLOBALS['src']}/templates/monster-editor/attributes/ability.php";
             }
           }
           ?>
         </div>
-        <?php require '/opt/src/templates/monster-editor/attribute-modal.php'; ?>
+        <?php require "{$GLOBALS['src']}/templates/monster-editor/attribute-modal.php"; ?>
       </div>
     </section>
     <hr>
@@ -524,7 +524,7 @@ $OPTIONS = json_decode(file_get_contents("{$GLOBALS['src']}/data/monster-options
     <input id="IDCounter" name="IDCounter" type="hidden" value="<?php echo $UNIQUE_ID; ?>">
   </form>
 
-  <?php require '/opt/src/templates/footer.php'; ?>
+  <?php require "{$GLOBALS['src']}/templates/footer.php"; ?>
 </body>
 
 </html>

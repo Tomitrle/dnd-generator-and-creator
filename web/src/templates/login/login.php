@@ -46,9 +46,9 @@ $SCRIPTS = [];
 </head>
 
 <body onload="basicLogin()">
-    <?php require '/opt/src/templates/javascript.php'; ?>
-    <?php require '/opt/src/templates/navbar.php'; ?>
-    <?php require '/opt/src/templates/alerts.php'; ?>
+    <?php require "{$GLOBALS['src']}/templates/javascript.php"; ?>
+    <?php require "{$GLOBALS['src']}/templates/navbar.php"; ?>
+    <?php require "{$GLOBALS['src']}/templates/alerts.php"; ?>
 
     <h1>D&D Encounter Generator and Monster Creator</h1>
     <h3>Login to create and save custom monsters!</h3>
@@ -72,7 +72,7 @@ $SCRIPTS = [];
         </form>
     </div>
 
-    <?php require '/opt/src/templates/footer.php'; ?>
+    <?php require "{$GLOBALS['src']}/templates/footer.php"; ?>
 </body>
 
 </html>

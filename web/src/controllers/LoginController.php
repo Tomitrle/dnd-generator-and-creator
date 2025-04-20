@@ -20,7 +20,7 @@ class LoginController extends BaseController
                 if (isset($_SESSION["user_id"])) {
                     unset($_SESSION["user_id"]);
                 }
-                require "/opt/src/templates/login/login.php";
+                require "{$GLOBALS['src']}/templates/login/login.php";
                 $this->resetMessages();
                 break;
             case "login":
@@ -43,7 +43,7 @@ class LoginController extends BaseController
             $results = $this->database->query("select * from dnd_users where username = $1;", $username);
             if (empty($results) || !password_verify($_POST["password"], $results[0]["password"])) {
                 $this->addMessage("warning", "Incorrect username or password.");
-                require "/opt/src/templates/login/login.php";
+                require "{$GLOBALS['src']}/templates/login/login.php";
                 $this->resetMessages();
             } else {
                 $_SESSION["user_id"] = $results[0]["id"];
@@ -52,7 +52,7 @@ class LoginController extends BaseController
             }
         } else {
             $this->addMessage("warning", "Username or password cannot be empty.");
-            require "/opt/src/templates/login/login.php";
+            require "{$GLOBALS['src']}/templates/login/login.php";
             $this->resetMessages();
         }
     }
@@ -66,17 +66,17 @@ class LoginController extends BaseController
             $results = $this->database->query("select * from dnd_users where username = $1;", $username);
             if (!empty($results)) {
                 $this->addMessage("warning", "There is already a user with that username.");
-                require "/opt/src/templates/login/login.php";
+                require "{$GLOBALS['src']}/templates/login/login.php";
                 $this->resetMessages();
             } else {
                 $result = $this->database->query("insert into dnd_users (username, password) values ($1, $2);", $username, password_hash($_POST["password"], PASSWORD_DEFAULT));
                 $this->addMessage("success", "Account successfully created.");
-                require "/opt/src/templates/login/login.php";
+                require "{$GLOBALS['src']}/templates/login/login.php";
                 $this->resetMessages();
             }
         } else {
             $this->addMessage("warning", "Username or password cannot be empty.");
-            require "/opt/src/templates/login/login.php";
+            require "{$GLOBALS['src']}/templates/login/login.php";
             $this->resetMessages();
         }
     }

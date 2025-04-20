@@ -21,7 +21,7 @@ class EncounterGeneratorController extends BaseController
         switch($command) {
             case "initial":
                 $encounter = [];
-                require "/opt/src/templates/encounter-generator/encounter-generator.php";
+                require "{$GLOBALS['src']}/templates/encounter-generator/encounter-generator.php";
                 $this->resetMessages();
                 break;
             case "generate":
@@ -34,12 +34,12 @@ class EncounterGeneratorController extends BaseController
 
     public function loadDifficultyXP(): void
     {
-        $this->difficulty_xp = json_decode(file_get_contents("/opt/src/templates/encounter-generator/difficulty-xp.JSON"), true);
+        $this->difficulty_xp = json_decode(file_get_contents("{$GLOBALS['src']}/templates/encounter-generator/difficulty-xp.JSON"), true);
     }
 
     public function loadMonsterMultiplier(): void
     {
-        $this->monster_multiplier = json_decode(file_get_contents("/opt/src/templates/encounter-generator/monster-multiplier.JSON"), true);
+        $this->monster_multiplier = json_decode(file_get_contents("{$GLOBALS['src']}/templates/encounter-generator/monster-multiplier.JSON"), true);
     }
 
     private function generate(): void
@@ -160,7 +160,7 @@ class EncounterGeneratorController extends BaseController
                 $encounter = array_merge($encounter, $added_monsters);
             }
         }
-        include "/opt/src/templates/encounter-generator/encounter-generator.php";
+        require "{$GLOBALS['src']}/templates/encounter-generator/encounter-generator.php";
         $this->resetMessages();
     }
 }

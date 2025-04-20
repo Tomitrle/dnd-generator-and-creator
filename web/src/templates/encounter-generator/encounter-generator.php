@@ -73,15 +73,15 @@ $SCRIPTS = ["js/encounter-generator.js"];
 </head>
 
 <body>
-    <?php require '/opt/src/templates/javascript.php'; ?>
-    <?php require '/opt/src/templates/navbar.php'; ?>
+    <?php require "{$GLOBALS['src']}/templates/javascript.php"; ?>
+    <?php require "{$GLOBALS['src']}/templates/navbar.php"; ?>
 
     <header class="container text-center">
         <h1>Encounter Generator</h1>
         <hr>
     </header>
 
-    <?php require '/opt/src/templates/alerts.php'; ?>
+    <?php require "{$GLOBALS['src']}/templates/alerts.php"; ?>
 
     <!-- Source: https://getbootstrap.com/docs/5.3/forms/overview/ -->
     <!-- Source: https://getbootstrap.com/docs/5.0/forms/validation/ -->
@@ -295,8 +295,8 @@ $SCRIPTS = ["js/encounter-generator.js"];
         </div>
     </form>
     <hr>
-    <?php require "/opt/src/templates/encounter-generator/encounter.php"; ?>
+    <?php require "{$GLOBALS['src']}/templates/encounter-generator/encounter.php"; ?>
 
-    <?php require '/opt/src/templates/footer.php'; ?>
+    <?php require "{$GLOBALS['src']}/templates/footer.php"; ?>
 </body>
 </html>
