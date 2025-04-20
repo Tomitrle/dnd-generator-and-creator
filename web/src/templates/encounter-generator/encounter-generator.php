@@ -285,7 +285,7 @@ $SCRIPTS = ["js/encounter-generator.js"];
                     $available_monsters = array_merge($available_monsters, $custom_monsters);
                 }
                 foreach ($available_monsters as $monster) {
-                    echo '<li><input type="checkbox" name="added_monsters[]" id=' . $monster["name"] . ' value=' . $monster["name"] . '><label for=' . $monster["name"] . '>' . $monster["name"] . '</label></li>';
+                    echo '<li><input type="checkbox" name="added_monsters[]" id=' . $monster["name"] . ' value=' . $monster["id"] . '><label for=' . $monster["name"] . '>' . $monster["name"] . '</label></li>';
                 }
                 ?>
             </ul>
