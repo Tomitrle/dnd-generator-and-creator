@@ -109,6 +109,16 @@ class EncounterGeneratorController extends BaseController
                     break;
             }
         }
+        $added_monsters = [];
+        if (isset($_POST["added_monsters"])) {
+            foreach($_POST["added_monsters"] as $monster) {
+                $result = $this->database->query("select * from dnd_base_monsters where name = $1;", $monster);
+                if (empty($result)) {
+                    $result = $this->database->query("select * from dnd_monsters where name = $1;", $monster);
+                }
+                $added_monsters[] = $result[0];
+            }
+        }
         if ($min_cr > $max_cr) {
             $this->addMessage("danger","Error: the minimum CR cannot be greater than the maximum CR.");
         } else {
@@ -141,13 +151,13 @@ class EncounterGeneratorController extends BaseController
                     }
                     // if adding the current monster make it so the encounter goes over the selected difficulty, such as from easy to medium, do not add that monster
                     // n/a if difficulty is already deadly or custom
-                    // TODO: check to see if it is impossible to add any monster without going up over difficulty
                     if ($_POST["difficulty"] != "4" && $_POST["difficulty"] != "5") {
                         if ($xp_modifier * $encounter_xp > (int)$party_size * $this->difficulty_xp[$party_level][(int)$_POST["difficulty"]]) {
                             array_pop($encounter);
                         }
                     }
                 }
+                $encounter = array_merge($encounter, $added_monsters);
             }
         }
         include "/opt/src/templates/encounter-generator/encounter-generator.php";
