@@ -178,22 +178,22 @@ $SCRIPTS = ["js/encounter-generator.js"];
                 <label>Creature Types</label>
                 <!-- Source: https://stackoverflow.com/questions/42108219/display-checkboxes-in-two-columns-with-bootstrap -->
                 <ul style="column-count: 3; column-gap: 2rem; list-style: none;">
-                    <li><input type="checkbox" name="types[]" id='aberration' value='aberration'><label for='aberration'>Aberration</label></li>
-                    <li><input type="checkbox" name="types[]" id='beast' value='beast'><label for='beast'>Beast</label></li>
-                    <li><input type="checkbox" name="types[]" id='celestial' value='celestial'><label for="celestial">Celestial</label></li>
-                    <li><input type="checkbox" name="types[]" id='construct' value='construct'><label for="construct">Construct</label></li>
-                    <li><input type="checkbox" name="types[]" id='dragon' value='dragon'><label for="dragon">Dragon</label></li>
+                    <li><input type="checkbox" name="types[]" id='aberration' value='Aberration'><label for='aberration'>Aberration</label></li>
+                    <li><input type="checkbox" name="types[]" id='beast' value='Beast'><label for='beast'>Beast</label></li>
+                    <li><input type="checkbox" name="types[]" id='celestial' value='Celestial'><label for="celestial">Celestial</label></li>
+                    <li><input type="checkbox" name="types[]" id='construct' value='Construct'><label for="construct">Construct</label></li>
+                    <li><input type="checkbox" name="types[]" id='dragon' value='Dragon'><label for="dragon">Dragon</label></li>
 
-                    <li><input type="checkbox" name="types[]" id='elemental' value='elemental'><label for="elemental">Elemental</label></li>
-                    <li><input type="checkbox" name="types[]" id='fey' value='fey'><label for="fey">Fey</label></li>
-                    <li><input type="checkbox" name="types[]" id='fiend' value='fiend'><label for="fiend">Fiend</label></li>
-                    <li><input type="checkbox" name="types[]" id='giant' value='giant'><label for="giant">Giant</label></li>
-                    <li><input type="checkbox" name="types[]" id='humanoid' value='humanoid'><label for="humanoid">Humanoid</label></li>
+                    <li><input type="checkbox" name="types[]" id='elemental' value='Elemental'><label for="elemental">Elemental</label></li>
+                    <li><input type="checkbox" name="types[]" id='fey' value='Fey'><label for="fey">Fey</label></li>
+                    <li><input type="checkbox" name="types[]" id='fiend' value='Fiend'><label for="fiend">Fiend</label></li>
+                    <li><input type="checkbox" name="types[]" id='giant' value='Giant'><label for="giant">Giant</label></li>
+                    <li><input type="checkbox" name="types[]" id='humanoid' value='Humanoid'><label for="humanoid">Humanoid</label></li>
 
-                    <li><input type="checkbox" name="types[]" id='monstrosity' value='monstrosity'><label for="monstrosity">Monstrosity</label></li>
-                    <li><input type="checkbox" name="types[]" id='ooze' value='ooze'><label for="ooze">Ooze</label></li>
-                    <li><input type="checkbox" name="types[]" id='plant' value='plant'><label for="plant">Plant</label></li>
-                    <li><input type="checkbox" name="types[]" id='undead' value='undead'><label for="undead">Undead</label></li>
+                    <li><input type="checkbox" name="types[]" id='monstrosity' value='Monstrosity'><label for="monstrosity">Monstrosity</label></li>
+                    <li><input type="checkbox" name="types[]" id='ooze' value='Ooze'><label for="ooze">Ooze</label></li>
+                    <li><input type="checkbox" name="types[]" id='plant' value='Plant'><label for="plant">Plant</label></li>
+                    <li><input type="checkbox" name="types[]" id='undead' value='Undead'><label for="undead">Undead</label></li>
                 </ul>
             </div>
             <div class="col-sm-12 mb-2">
